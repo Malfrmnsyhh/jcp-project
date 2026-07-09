@@ -20,7 +20,6 @@ export default function Navbar({ user, cartCount = 0 }) {
 
     return (
         <header className="w-full flex flex-col relative z-50">
-            {/* Lapis 1 — Top utility bar (Hidden on mobile) */}
             <div className="hidden md:flex bg-primary-900 text-white text-xs py-2 px-6 justify-between items-center w-full font-medium">
                 <div>
                     <span>Konsultasi desain gratis sebelum order</span>
@@ -32,7 +31,6 @@ export default function Navbar({ user, cartCount = 0 }) {
                 </div>
             </div>
 
-            {/* Lapis 2 — Main bar (Sticky on scroll) */}
             <div className="sticky top-0 bg-white border-b border-neutral-100 shadow-sm w-full py-4 px-6 flex justify-between items-center z-50">
                 {/* Brand Logo */}
                 <div className="flex items-center gap-3">
@@ -45,7 +43,6 @@ export default function Navbar({ user, cartCount = 0 }) {
                     </Link>
                 </div>
 
-                {/* Search bar with Category dropdown (Hidden on mobile) */}
                 <div className="hidden md:flex flex-1 max-w-lg mx-8 border border-neutral-400 rounded-lg overflow-hidden bg-neutral-100 focus-within:border-primary-700 transition-colors">
                     <select className="bg-transparent text-xs text-neutral-700 px-3 border-r border-neutral-400 focus:outline-none cursor-pointer">
                         <option value="">Semua Kategori</option>
@@ -106,14 +103,14 @@ export default function Navbar({ user, cartCount = 0 }) {
             </div>
 
             {/* Lapis 3 — Category nav (Hidden on mobile) */}
-            <div className="hidden md:block bg-primary-700 text-white w-full">
-                <nav className="max-w-7xl mx-auto px-6 flex items-center">
+            <div className="hidden md:block bg-primary-700 text-white ">
+                <nav className="flex items-center justify-center gap-6">
                     {navItems.map((item, idx) => (
                         <Link
                             key={idx}
                             href={item.href}
-                            className={`px-5 py-3 text-xs font-semibold transition-colors hover:bg-primary-600 ${
-                                item.active ? 'bg-primary-600 border-b-2 border-white' : ''
+                            className={`px-5 py-3 text-xs font-semibold transition-colors hover:bg-primary-600 rounded-lg ${
+                                item.active ? 'bg-primary-600' : ''
                             }`}
                         >
                             {item.label}

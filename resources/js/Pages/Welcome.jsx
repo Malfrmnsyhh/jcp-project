@@ -4,8 +4,8 @@ import MainLayout from '@/Layouts/MainLayout';
 export default function Welcome({ auth }) {
     return (
         <MainLayout auth={auth}>
-            <Head title="JCP - Premium Company Profile" />
-            
+            <Head title="JCP - Jombang Creative Project" />
+
             {/* Hero Section */}
             <section className="relative z-10 max-w-7xl mx-auto px-6 pt-20 pb-24 text-center lg:pt-32">
                 <span className="px-3 py-1.5 rounded-full text-xs font-semibold bg-primary-100 text-primary-700 border border-primary-200 uppercase tracking-wider">
