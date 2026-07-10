@@ -1,41 +1,8 @@
-import { Head } from '@inertiajs/react';
 import MainLayout from '@/Layouts/MainLayout';
 
 export default function Welcome({ auth }) {
     return (
         <MainLayout auth={auth}>
-            <Head title="JCP - Jombang Creative Project" />
-
-            {/* Hero Section */}
-            <section className="relative z-10 max-w-7xl mx-auto px-6 pt-20 pb-24 text-center lg:pt-32">
-                <span className="px-3 py-1.5 rounded-full text-xs font-semibold bg-primary-100 text-primary-700 border border-primary-200 uppercase tracking-wider">
-                    Welcome to JCP Profile
-                </span>
-                <h1 className="mt-6 text-4xl sm:text-6xl font-extrabold tracking-tight text-neutral-900 max-w-4xl mx-auto leading-tight">
-                    We Build Premium{' '}
-                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-700 via-primary-600 to-primary-500">
-                        Digital Experiences
-                    </span>
-                </h1>
-                <p className="mt-6 text-base sm:text-lg text-neutral-700 max-w-2xl mx-auto leading-relaxed">
-                    Empowering businesses with cutting-edge web design, robust development, and intelligent digital solutions tailored to your unique vision.
-                </p>
-                <div className="mt-10 flex flex-wrap justify-center gap-4">
-                    <a
-                        href="#about"
-                        className="px-6 py-3 rounded-xl bg-gradient-to-r from-primary-700 to-primary-600 font-semibold text-white hover:opacity-90 transition-all shadow-lg shadow-primary-700/25"
-                    >
-                        Get Started
-                    </a>
-                    <a
-                        href="#services"
-                        className="px-6 py-3 rounded-xl bg-white font-semibold text-neutral-700 hover:bg-neutral-100 transition-colors border border-neutral-400"
-                    >
-                        Our Services
-                    </a>
-                </div>
-            </section>
-
             {/* Services Section */}
             <section id="services" className="relative z-10 max-w-7xl mx-auto px-6 py-20 border-t border-neutral-400/20">
                 <div className="text-center max-w-3xl mx-auto">

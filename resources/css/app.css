@@ -1,6 +1,10 @@
 @import "tailwindcss";
 
 @theme {
+    /* Font Family */
+    --font-sans: "Inter", sans-serif;
+    --font-header: "Plus Jakarta Sans", sans-serif;
+
     /* Brand blue scale */
     --color-primary-900: #03045e;
     --color-primary-800: #023e8a;

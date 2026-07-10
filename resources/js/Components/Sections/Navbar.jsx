@@ -26,9 +26,9 @@ export default function Navbar({ user }) {
                 <div className="flex items-center gap-3">
                     <Link href="/" className="flex items-center gap-2">
                         <ApplicationLogo className="w-10 h-10 text-primary-700" />
-                        <span className="text-xl font-bold bg-gradient-to-r from-primary-900 to-primary-700 bg-clip-text text-transparent leading-none flex flex-col">
-                            JCP
-                            <span className="text-[9px] font-bold text-primary-900 mt-1 tracking-wider">JOMBANG CREATIVE PROJECT</span>
+                        <span className="text-xl font-bold bg-gradient-to-r from-primary-700 to-primary-700 bg-clip-text text-transparent leading-none flex flex-col">
+                            <p className="font-header text-xl">JCP</p>
+                            <span className="text-[11px] font-bold text-primary-500 mt-1 tracking-wider font-header">JOMBANG CREATIVE PROJECT</span>
                         </span>
                     </Link>
                 </div>
