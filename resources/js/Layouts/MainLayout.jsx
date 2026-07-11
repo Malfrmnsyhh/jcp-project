@@ -19,7 +19,7 @@ export default function MainLayout({ auth = {}, children }) {
             </main>
 
             {/* Premium Footer */}
-            <footer className="relative z-10 border-t border-neutral-400/20 bg-primary-900 text-primary-100 py-12">
+            <footer id="kontak" className="relative z-10 border-t border-neutral-400/20 bg-primary-900 text-primary-100 py-12">
                 <div className="max-w-7xl mx-auto px-6 grid gap-8 md:grid-cols-3">
                     <div className="flex flex-col gap-3">
                         <div className="flex items-center gap-3">

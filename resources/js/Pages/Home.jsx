@@ -17,50 +17,97 @@ import Faq from '@/Components/Sections/Faq';
 export default function Home({ auth }) {
     // 1. Hero Data
     const heroData = {
-        title: "Jasa laser cutting presisi untuk akrilik, kayu & logam",
-        subtitle: "Wujudkan ide kreatif Anda menjadi produk nyata dengan teknologi laser cutting terbaik di kelasnya."
+        title: "Laser cutting presisi untuk akrilik, kayu & MDF/Triplek",
+        subtitle: "Dari ide di kepala sampai jadi produk di tangan — kami bantu wujudkan lewat potongan yang rapi dan detail."
     };
 
     // 2. USP Data
     const uspItems = [
-        { icon: <FiCheckCircle />, title: "Presisi Tinggi", description: "Hasil pemotongan rapi dan akurat hingga hitungan milimeter." },
-        { icon: <FiTrendingUp />, title: "Estimasi Cepat", description: "Dapatkan perhitungan harga transparan dalam waktu singkat." },
-        { icon: <FiLayers />, title: "Banyak Pilihan Bahan", description: "Akrilik, kayu, MDF, hingga logam tipis tersedia untuk Anda." },
-        { icon: <FiClock />, title: "Pengerjaan Cepat", description: "Proses produksi efisien tanpa mengorbankan kualitas." }
+        { icon: <FiCheckCircle />, title: "Presisi Tinggi", description: "Potongan rapi sampai ke detail terkecil, nggak asal jadi." },
+        { icon: <FiTrendingUp />, title: "Estimasi Cepat", description: "Kirim ukuran & bahan, harga langsung kelihatan — nggak perlu nunggu lama." },
+        { icon: <FiLayers />, title: "Banyak Pilihan Bahan", description: "Mau akrilik, kayu, MDF, atau logam tipis, semua bisa dikerjakan." },
+        { icon: <FiClock />, title: "Pengerjaan Cepat", description: "Cepat selesai, tapi kualitas tetap dijaga." }
     ];
 
     // 3. Services Data
     const serviceCategories = [
-        { icon: <FiImage />, title: "Signage & Branding", description: "Pembuatan logo timbul, neon box, dan huruf timbul untuk identitas bisnis.", href: "/katalog?kategori=signage" },
-        { icon: <FiAward />, title: "Vandel & Trophy", description: "Plakat penghargaan eksklusif dari akrilik maupun kombinasi kayu.", href: "/katalog?kategori=vandel" },
-        { icon: <FiGrid />, title: "Produk Akrilik/Kayu", description: "Gantungan kunci, kotak display, jam dinding custom, dan aksesoris lainnya.", href: "/katalog?kategori=produk" },
-        { icon: <FiScissors />, title: "Custom Cutting", description: "Jasa potong atau ukir material sesuai dengan desain file vector Anda.", href: "/custom-order" }
+        { icon: <FiImage />, title: "Signage & Branding", description: "Logo timbul, neon box, sampai huruf timbul untuk bikin usahamu lebih dikenali.", href: "/katalog?kategori=signage" },
+        { icon: <FiAward />, title: "Vandel & Trophy", description: "Plakat penghargaan yang beda dari yang lain, dari akrilik atau kombinasi kayu.", href: "/katalog?kategori=vandel" },
+        { icon: <FiGrid />, title: "Produk Akrilik/Kayu", description: "Gantungan kunci, kotak display, jam dinding, dan aksesoris custom lainnya.", href: "/katalog?kategori=produk" },
+        { icon: <FiScissors />, title: "Custom Cutting", description: "Punya file desain sendiri? Kirim, kami potong sesuai bentuknya.", href: "/custom-order" }
     ];
 
-    // 4. Portfolio Data
     const portfolioItems = [
-        { image: "", title: "Neon Box Kopi Senja", category: "Neon Box" },
-        { image: "", title: "Plakat Penghargaan Daerah", category: "Vandel" },
-        { image: "", title: "Gantungan Kunci Custom", category: "Akrilik" },
-        { image: "", title: "Papan Nama Meja", category: "Akrilik" },
-        { image: "", title: "Logo Timbul Kayu", category: "Semua" },
-        { image: "", title: "Trophy Juara 1 Esports", category: "Vandel" },
+        {
+            id: 1,
+            image: '/storage/images/portfolio/Rectangle 7.png',
+            title: 'Box Display Minimalis 30x20x10 Cm',
+            description: 'Kotak display akrilik bening dengan tutup sliding, cocok untuk pajangan produk.',
+            category: 'produk',
+            material: 'Akrilik 3mm',
+            status: 'ready-stock'
+        },
+        {
+            id: 2,
+            image: '/storage/images/portfolio/Rectangle 8.png',
+            title: 'Letter Timbul Acrylic (Font ARIAL 10 Cm)',
+            description: 'Huruf timbul akrilik warna putih, dipasang menggunakan braket di dinding.',
+            category: 'signage',
+            material: 'Akrilik 8mm',
+            status: 'ready-stock'
+        },
+        {
+            id: 3,
+            image: '/storage/images/portfolio/Rectangle 9.png',
+            title: 'Thank You Card Cutting (Ukuran A5)',
+            description: 'Kartu ucapan dengan teknik cutting pada permukaan kertas karton tebal.',
+            category: 'produk',
+            material: 'Kertas Jasmine 260gr',
+            status: 'custom-order'
+        },
+        {
+            id: 4,
+            image: '/storage/images/portfolio/Rectangle 10.png',
+            title: 'Vandel Akrilik 3D (Logo diukir 2 lapis)',
+            description: 'Plakat penghargaan premium dengan teknik ukir lapisan untuk kedalaman visual.',
+            category: 'vandel',
+            material: 'Akrilik 10mm',
+            status: 'ready-stock'
+        },
+        {
+            id: 5,
+            image: '/storage/images/portfolio/Rectangle 11.png',
+            title: 'Case Custom untuk Handphone',
+            description: 'Casing HP akrilik dengan pola grafir khusus sesuai keinginan customer.',
+            category: 'produk',
+            material: 'Akrilik 2mm',
+            status: 'custom-order'
+        },
+        {
+            id: 6,
+            image: '/storage/images/portfolio/Rectangle 12.png',
+            title: 'Name Tag Kantor (Ukuran 2x8 Cm)',
+            description: 'Label nama karyawan dengan bahan logam tipis, awet dan tidak mudah pudar.',
+            category: 'produk',
+            material: 'Plat Stainless 0.8mm',
+            status: 'ready-stock'
+        }
     ];
 
     // 5. How It Works Data
     const workSteps = [
-        { title: "Upload Desain", description: "Siapkan file vector Anda atau konsultasikan desain dengan tim kami." },
-        { title: "Pilih Bahan", description: "Tentukan material dan ketebalan yang sesuai dengan kebutuhan produk Anda." },
-        { title: "Dapat Estimasi", description: "Kami akan memberikan rincian biaya dan estimasi waktu pengerjaan." },
-        { title: "Bayar & Tunggu", description: "Lakukan pembayaran dan kami segera memproduksi pesanan Anda." }
+        { title: "Upload Desain", description: "Kirim file vector-mu, atau ceritakan idenya ke tim kami dulu." },
+        { title: "Pilih Bahan", description: "Tentukan material dan ketebalan yang paling pas buat kebutuhanmu." },
+        { title: "Dapat Estimasi", description: "Kami hitung biaya & perkiraan waktu pengerjaannya buatmu." },
+        { title: "Bayar & Tunggu", description: "Setelah bayar, produksi langsung kami mulai." }
     ];
 
     // 6. Materials Data
     const materials = [
-        { name: "Akrilik Bening & Warna", thickness_range: "1.5mm - 20mm", description: "Material transparan atau berwarna dengan hasil akhir elegan. Cocok untuk plakat dan signage." },
-        { name: "Kayu Solid & Triplek", thickness_range: "3mm - 12mm", description: "Bahan natural yang memberikan kesan hangat dan klasik. Ideal untuk dekorasi dan grafir." },
-        { name: "MDF (Medium Density Fibreboard)", thickness_range: "3mm - 18mm", description: "Papan kayu komposit yang sangat halus dan rata, sempurna untuk produk yang akan dicat." },
-        { name: "Logam Tipis (Plat)", thickness_range: "0.5mm - 2mm", description: "Material kuat dan tahan lama untuk kebutuhan identitas mesin atau name tag eksklusif." }
+        { name: "Akrilik Bening & Warna", thickness_range: "1.5mm - 20mm", description: "Transparan atau warna, hasil akhirnya elegan — favorit buat plakat & signage." },
+        { name: "Kayu Solid & Triplek", thickness_range: "3mm - 12mm", description: "Kesannya hangat dan natural, cocok untuk dekorasi dan produk grafir." },
+        { name: "MDF (Medium Density Fibreboard)", thickness_range: "3mm - 18mm", description: "Permukaannya halus dan rata, pas buat produk yang nantinya mau dicat." },
+        { name: "Logam Tipis (Plat)", thickness_range: "0.5mm - 2mm", description: "Kuat dan awet, sering dipakai untuk name tag atau identitas mesin." }
     ];
 
     // 7. Testimonials Data (Empty as requested until real data is available)
@@ -68,16 +115,16 @@ export default function Home({ auth }) {
 
     // 9. FAQ Data
     const faqs = [
-        { question: "Berapa minimal order untuk jasa laser cutting?", answer: "Kami tidak menerapkan minimal order. Anda bisa memesan mulai dari 1 pcs untuk pembuatan sampel maupun langsung dalam partai besar." },
-        { question: "Berapa lama proses produksi memakan waktu?", answer: "Lama produksi bergantung pada jumlah dan tingkat kerumitan pesanan. Rata-rata pengerjaan normal adalah 2-5 hari kerja setelah desain dan pembayaran dikonfirmasi." },
-        { question: "Metode pembayaran apa saja yang diterima?", answer: "Kami menerima pembayaran melalui transfer bank (BCA, Mandiri, BRI) serta berbagai e-wallet seperti GoPay, OVO, dan Dana." },
-        { question: "Apakah saya harus punya desain sendiri?", answer: "Tidak wajib. Jika Anda sudah punya file vector (CorelDRAW/Illustrator), proses akan lebih cepat. Namun jika belum, tim kami siap membantu mendesainkan konsep Anda." }
+        { question: "Berapa minimal order untuk jasa laser cutting?", answer: "Nggak ada minimal order. Mau pesan 1 pcs buat coba-coba atau langsung banyak, sama-sama kami layani." },
+        { question: "Berapa lama proses produksinya?", answer: "Tergantung jumlah dan tingkat kerumitan desain. Biasanya 2-5 hari kerja setelah desain & pembayaran dikonfirmasi." },
+        { question: "Metode pembayaran apa saja yang bisa dipakai?", answer: "Transfer bank (BCA, Mandiri, BRI) atau e-wallet seperti GoPay, OVO, dan Dana." },
+        { question: "Saya harus punya desain sendiri, nggak?", answer: "Nggak wajib. Kalau sudah punya file vector (CorelDRAW/Illustrator), prosesnya lebih cepat. Belum punya juga nggak apa-apa, tim kami bisa bantu buatkan konsepnya." }
     ];
 
     return (
         <MainLayout auth={auth}>
             <Head title="Beranda" />
-            
+
             <Hero title={heroData.title} subtitle={heroData.subtitle} />
             <Usp items={uspItems} />
             <Services categories={serviceCategories} />
@@ -87,7 +134,7 @@ export default function Home({ auth }) {
             <Testimonials testimonials={testimonials} />
             <About />
             <Faq faqs={faqs} />
-            
+
         </MainLayout>
     );
 }

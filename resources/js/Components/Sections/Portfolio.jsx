@@ -14,7 +14,7 @@ export default function Portfolio({ items = [] }) {
         : items.filter(item => item.category === filter);
 
     return (
-        <section id="portfolio" className="bg-neutral-100 py-20 sm:py-28 relative">
+        <section id="portofolio" className="bg-neutral-100 py-20 sm:py-28 relative">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="text-center max-w-2xl mx-auto mb-12">
                     <span className="px-3 py-1 mb-4 inline-block rounded-full text-xs font-bold bg-primary-100 text-primary-700 uppercase tracking-wider">
