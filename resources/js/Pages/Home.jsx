@@ -4,7 +4,7 @@ import MainLayout from '@/Layouts/MainLayout';
 import { FiCheckCircle, FiClock, FiLayers, FiTrendingUp, FiImage, FiAward, FiGrid, FiScissors } from 'react-icons/fi';
 
 // Import Sections
-import Hero from '@/Components/Sections/Hero';
+import Hero from '@/Components/Sections/Home';
 import Catalog from '@/Components/Sections/Catalog';
 import Portfolio from '@/Components/Sections/Portfolio';
 import HowItWorks from '@/Components/Sections/HowItWorks';

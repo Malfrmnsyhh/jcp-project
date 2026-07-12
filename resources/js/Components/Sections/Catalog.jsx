@@ -105,13 +105,10 @@ export default function Catalog() {
         : materials.filter(m => m.category === activeTab);
 
     return (
-        <section id="katalog" className="bg-neutral-100 py-20 sm:py-28 relative">
+        <section id="katalog" className="bg-neutral-50 py-20 sm:py-28 relative ">
             <div className="max-w-7xl mx-auto px-6">
 
                 <div className="text-center max-w-2xl mx-auto mb-16">
-                    <span className="px-3 py-1 mb-4 inline-block rounded-full text-xs font-bold bg-primary-200 text-primary-800 uppercase tracking-wider">
-                        Katalog Material
-                    </span>
                     <h2 className="text-3xl sm:text-4xl font-extrabold text-neutral-900 font-header">
                         Kenali Bahan Terbaik Anda
                     </h2>
@@ -127,8 +124,8 @@ export default function Catalog() {
                             key={idx}
                             onClick={() => setActiveTab(tab)}
                             className={`px-5 py-2 rounded-full text-sm font-semibold transition-all relative ${activeTab === tab
-                                    ? 'text-white'
-                                    : 'bg-white text-neutral-700 hover:bg-neutral-200 border border-neutral-400/20'
+                                ? 'text-white'
+                                : 'bg-white text-neutral-700 hover:bg-neutral-200 border border-neutral-400/20'
                                 }`}
                         >
                             {activeTab === tab && (

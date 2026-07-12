@@ -13,15 +13,15 @@ export default function Navbar({ user }) {
         { label: 'Katalog', href: '/#katalog' },
         { label: 'Portfolio', href: '/#portfolio' },
         { label: 'Order', href: '/#order' },
-        { label: 'Kontak', href: '/#kontak' },
         { label: 'Testimoni', href: '/#testimoni' },
         { label: 'Lokasi', href: '/#lokasi' },
+        { label: 'Kontak', href: '/#kontak' },
     ];
 
     return (
-        <header className="w-flex flex flex-col relative z-50">
-            {/* sticky main bar */}
-            <div className="sticky top-0 bg-primary-200/400 border-b border-neutral-100 shadow-sm w-full py-3.5 px-6 flex justify-between items-center z-50">
+        <header className="w-full flex flex-col fixed top-0 z-50">
+            {/* fixed main bar */}
+            <div className="bg-white/90 backdrop-blur-md border-b border-neutral-100 shadow-sm w-full py-3.5 px-6 flex justify-between items-center">
                 {/* logo & nama*/}
                 <div className="flex items-center gap-3">
                     <Link href="/" className="flex items-center gap-3">
@@ -59,14 +59,14 @@ export default function Navbar({ user }) {
 
             {/* mobile mode */}
             {isOpen && (
-                <div className="md:hiddne bg-white border-b border-neutral-100 shadow-md w-full py-4 px4 flex flex-col gap-4 absolute top-[62px] left-0 z-4 transition-all duration-200 ">
-                    <div className="flex flex-col gap-2">
+                <div className="md:hidden bg-white border-b border-neutral-100 shadow-md w-full py-4 px-4 flex flex-col gap-4 absolute top-[62px] left-0 z-40 transition-all duration-200">
+                    <div className="flex flex-col gap-1">
                         {navItems.map((item, idx) => (
                             <a
                                 key={idx}
                                 href={item.href}
                                 onClick={() => setIsOpen(false)}
-                                className="w-full block px-4 py-3 rounded-lg text-sm font-medium text-neutral-700 hover:text-primary-700/50 transition-colors"
+                                className="w-full block px-4 py-3 rounded-full text-sm font-medium text-neutral-700 hover:text-primary-700/50 transition-colors"
                             >
                                 {item.label}
                             </a>
