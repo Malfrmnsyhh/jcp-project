@@ -5,8 +5,7 @@ import { FiCheckCircle, FiClock, FiLayers, FiTrendingUp, FiImage, FiAward, FiGri
 
 // Import Sections
 import Hero from '@/Components/Sections/Hero';
-import Usp from '@/Components/Sections/Usp';
-import Services from '@/Components/Sections/Services';
+import Catalog from '@/Components/Sections/Catalog';
 import Portfolio from '@/Components/Sections/Portfolio';
 import HowItWorks from '@/Components/Sections/HowItWorks';
 import Materials from '@/Components/Sections/Materials';
@@ -20,14 +19,6 @@ export default function Home({ auth }) {
         title: "Laser cutting presisi untuk akrilik, kayu & MDF/Triplek",
         subtitle: "Dari ide di kepala sampai jadi produk di tangan — kami bantu wujudkan lewat potongan yang rapi dan detail."
     };
-
-    // 2. USP Data
-    const uspItems = [
-        { icon: <FiCheckCircle />, title: "Presisi Tinggi", description: "Potongan rapi sampai ke detail terkecil, nggak asal jadi." },
-        { icon: <FiTrendingUp />, title: "Estimasi Cepat", description: "Kirim ukuran & bahan, harga langsung kelihatan — nggak perlu nunggu lama." },
-        { icon: <FiLayers />, title: "Banyak Pilihan Bahan", description: "Mau akrilik, kayu, MDF, atau logam tipis, semua bisa dikerjakan." },
-        { icon: <FiClock />, title: "Pengerjaan Cepat", description: "Cepat selesai, tapi kualitas tetap dijaga." }
-    ];
 
     // 3. Services Data
     const serviceCategories = [
@@ -126,8 +117,7 @@ export default function Home({ auth }) {
             <Head title="Beranda" />
 
             <Hero title={heroData.title} subtitle={heroData.subtitle} />
-            <Usp items={uspItems} />
-            <Services categories={serviceCategories} />
+            <Catalog />
             <Portfolio items={portfolioItems} />
             <HowItWorks steps={workSteps} />
             <Materials materials={materials} />

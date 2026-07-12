@@ -1,149 +1,79 @@
-import { useState } from 'react';
-import { Link, usePage } from '@inertiajs/react';
-import ApplicationLogo from '@/Components/UI/ApplicationLogo';
-import ResponsiveNavLink from '@/Components/UI/ResponsiveNavLink';
+import { useState } from "react";
+import { Link, usePage } from "@inertiajs/react";
+import ApplicationLogo from '@/components/UI/ApplicationLogo';
+import ResponsiveNavLink from '@/components/UI/ResponsiveNavLink';
 import { FiSearch, FiMenu, FiX } from 'react-icons/fi';
 
 export default function Navbar({ user }) {
     const [isOpen, setIsOpen] = useState(false);
     const { url } = usePage();
 
-    // Menu items configuration
     const navItems = [
         { label: 'Beranda', href: '/' },
         { label: 'Katalog', href: '/#katalog' },
-        { label: 'Custom Order', href: '/#custom-order' },
-        { label: 'Portofolio', href: '/#portofolio' },
-        { label: 'Tentang Kami', href: '/#tentang-kami' },
+        { label: 'Portfolio', href: '/#portfolio' },
+        { label: 'Order', href: '/#order' },
         { label: 'Kontak', href: '/#kontak' },
+        { label: 'Testimoni', href: '/#testimoni' },
+        { label: 'Lokasi', href: '/#lokasi' },
     ];
 
     return (
         <header className="w-flex flex flex-col relative z-50">
-            {/* Sticky Main Bar */}
-            <div className="sticky top-0 bg-white border-b border-neutral-100 shadow-sm w-full py-3.5 px-6 flex justify-between items-center z-50">
-                {/* Left: Brand Logo */}
+            {/* sticky main bar */}
+            <div className="sticky top-0 bg-primary-200/400 border-b border-neutral-100 shadow-sm w-full py-3.5 px-6 flex justify-between items-center z-50">
+                {/* logo & nama*/}
                 <div className="flex items-center gap-3">
-                    <Link href="/" className="flex items-center gap-2">
-                        <ApplicationLogo className="w-12 h-10 text-primary-700" />
-                        <span className="text-xl font-bold bg-gradient-to-r from-primary-700 to-primary-700 bg-clip-text text-transparent leading-none flex flex-col">
-                            <p className="font-header text-xl">JCP</p>
-                            <span className="text-[11px] font-bold text-primary-500 mt-1 tracking-wider font-header">JOMBANG CREATIVE PROJECT</span>
+                    <Link href="/" className="flex items-center gap-3">
+                        <ApplicationLogo className="h-10 w-12" />
+                        <span className="text-xl font-bold flex flex-col leading-none">
+                            <p className="font-header text-2xl text-primary-900">JCP</p>
+                            <span className="text-[10px] font-bold text-primary-600 tracking-wider">Jombang Creative Project</span>
                         </span>
                     </Link>
                 </div>
 
-                {/* Middle: Navigation menu (Hidden on mobile) */}
+                {/* middle hidden on mobile */}
                 <nav className="hidden md:flex items-center gap-5">
                     {navItems.map((item, idx) => (
                         <a
                             key={idx}
                             href={item.href}
-                            className="px-2 py-1 text-xs font-semibold transition-colors hover:text-primary-700 text-neutral-700"
+                            className="px-2 py-1 text-xs font-semibold transition-colors hover:text-primary-500 text-neutral-700"
                         >
                             {item.label}
                         </a>
                     ))}
                 </nav>
 
-                {/* Right Area: Search & Account Button (Hidden on mobile) */}
-                <div className="hidden md:flex items-center gap-4">
-                    {/* Search bar */}
-                    <div className="flex border border-neutral-400 rounded-lg overflow-hidden bg-neutral-100 focus-within:border-primary-700 transition-colors w-56">
-                        <input
-                            type="text"
-                            placeholder="Cari..."
-                            className="flex-1 bg-transparent px-3 py-1.5 text-xs text-neutral-900 placeholder-neutral-400 focus:outline-none"
-                        />
-                        <button className="bg-primary-700 hover:bg-primary-600 text-white px-3.5 flex items-center justify-center transition-colors">
-                            <FiSearch className="w-3.5 h-3.5" />
-                        </button>
-                    </div>
-
-                    {/* Account Button */}
-                    {user ? (
-                        <Link
-                            href={route('dashboard')}
-                            className="px-4 py-1.5 bg-primary-700 hover:bg-primary-600 text-white rounded-lg font-semibold text-xs transition-colors shadow-sm"
-                        >
-                            Dashboard
-                        </Link>
-                    ) : (
-                        <Link
-                            href={route('login')}
-                            className="px-4 py-1.5 border border-primary-700 text-primary-700 hover:bg-primary-100/50 rounded-lg font-semibold text-xs transition-colors"
-                        >
-                            Masuk / Daftar
-                        </Link>
-                    )}
-                </div>
-
-                {/* Mobile hamburger menu trigger */}
+                {/* mobile hamburger menu */}
                 <div className="md:hidden flex items-center">
                     <button
                         onClick={() => setIsOpen(!isOpen)}
-                        className="p-2 hover:bg-neutral-100 rounded-full text-neutral-700 hover:text-primary-700 transition-colors focus:outline-none"
+                        className="p-2 hover:bg-neutral-100 rounded-3xl text-neutral-700 hover:text-primary-700 transition-colors focus:outline-none"
                     >
                         {isOpen ? <FiX className="w-6 h-6" /> : <FiMenu className="w-6 h-6" />}
                     </button>
                 </div>
             </div>
 
-            {/* Mobile Dropdown Drawer */}
+            {/* mobile mode */}
             {isOpen && (
-                <div className="md:hidden bg-white border-b border-neutral-100 shadow-md w-full py-4 px-4 flex flex-col gap-4 absolute top-[62px] left-0 z-40 transition-all">
-                    {/* Search bar inside mobile menu */}
-                    <div className="flex border border-neutral-400 rounded-lg overflow-hidden bg-neutral-100 focus-within:border-primary-700">
-                        <input
-                            type="text"
-                            placeholder="Cari..."
-                            className="flex-1 bg-transparent px-4 py-2 text-xs text-neutral-900 placeholder-neutral-400 focus:outline-none"
-                        />
-                        <button className="bg-primary-700 text-white px-4 flex items-center justify-center">
-                            <FiSearch className="w-4 h-4" />
-                        </button>
-                    </div>
-
-                    {/* Nav Links */}
-                    <div className="flex flex-col gap-1">
+                <div className="md:hiddne bg-white border-b border-neutral-100 shadow-md w-full py-4 px4 flex flex-col gap-4 absolute top-[62px] left-0 z-4 transition-all duration-200 ">
+                    <div className="flex flex-col gap-2">
                         {navItems.map((item, idx) => (
                             <a
                                 key={idx}
                                 href={item.href}
                                 onClick={() => setIsOpen(false)}
-                                className="w-full block px-4 py-3 rounded-lg text-sm font-medium text-neutral-700 hover:text-primary-700 hover:bg-primary-100/50 transition-colors"
+                                className="w-full block px-4 py-3 rounded-lg text-sm font-medium text-neutral-700 hover:text-primary-700/50 transition-colors"
                             >
                                 {item.label}
                             </a>
                         ))}
                     </div>
-
-                    {/* Account Button Mobile */}
-                    <div className="pt-4 border-t border-neutral-100 flex flex-col gap-2">
-                        {user ? (
-                            <>
-                                <div className="px-3 py-1 mb-2">
-                                    <p className="text-[10px] text-neutral-700">Masuk Sebagai</p>
-                                    <p className="text-sm font-semibold text-neutral-900">{user.name}</p>
-                                </div>
-                                <Link
-                                    href={route('dashboard')}
-                                    className="w-full text-center py-2 bg-primary-700 hover:bg-primary-600 text-white rounded-lg font-semibold text-xs transition-colors"
-                                >
-                                    Dashboard
-                                </Link>
-                            </>
-                        ) : (
-                            <Link
-                                href={route('login')}
-                                className="w-full text-center py-2 border border-primary-700 text-primary-700 hover:bg-primary-100/50 rounded-lg font-semibold text-xs transition-colors"
-                            >
-                                Masuk / Daftar
-                            </Link>
-                        )}
-                    </div>
                 </div>
             )}
         </header>
-    );
+    )
 }
