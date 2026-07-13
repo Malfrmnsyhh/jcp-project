@@ -10,7 +10,7 @@ export default function Navbar({ user }) {
 
     const navItems = [
         { label: 'Beranda', href: '/#about' },
-        { label: 'Katalog', href: '/#katalog' },
+        { label: 'Katalog', href: '/#catalog' },
         { label: 'Portfolio', href: '/#portfolio' },
         { label: 'Order', href: '/#order' },
         { label: 'Testimoni', href: '/#testimoni' },

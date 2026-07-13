@@ -8,6 +8,7 @@ import Hero from '@/Components/Sections/Home';
 import Catalog from '@/Components/Sections/Catalog';
 import Portfolio from '@/Components/Sections/Portfolio';
 import HowItWorks from '@/Components/Sections/Order';
+import OrderSimulator from '@/Components/UI/OrderSimulator';
 import Materials from '@/Components/Sections/Materials';
 import Testimonials from '@/Components/Sections/Testimonials';
 import About from '@/Components/Sections/About';
@@ -120,6 +121,7 @@ export default function Home({ auth }) {
             <Catalog />
             <Portfolio items={portfolioItems} />
             <HowItWorks steps={workSteps} />
+            <OrderSimulator />
             <Materials materials={materials} />
             <Testimonials testimonials={testimonials} />
             <About />
