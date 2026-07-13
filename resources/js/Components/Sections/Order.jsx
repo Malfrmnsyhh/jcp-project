@@ -4,7 +4,7 @@ export default function HowItWorks({ steps = [] }) {
     if (!steps || steps.length === 0) return null;
 
     return (
-        <section id="custom-order" className="bg-white py-20 sm:py-28 relative">
+        <section id="order" className="bg-white py-20 sm:py-28 relative">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="text-center max-w-2xl mx-auto mb-16">
                     <span className="px-3 py-1 mb-4 inline-block rounded-full text-xs font-bold bg-primary-100 text-primary-700 uppercase tracking-wider">
@@ -30,7 +30,7 @@ export default function HowItWorks({ steps = [] }) {
                                 {/* Small decorative dot */}
                                 <div className="absolute -top-1 -right-1 w-4 h-4 bg-primary-500 rounded-full border-2 border-white"></div>
                             </div>
-                            
+
                             <h3 className="text-lg font-bold text-neutral-900 mb-3 font-header">
                                 {step.title}
                             </h3>

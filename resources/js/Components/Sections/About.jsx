@@ -2,10 +2,10 @@ import React from 'react';
 
 export default function About() {
     return (
-        <section id="tentang-kami" className="bg-white py-20 sm:py-28 relative overflow-hidden">
+        <section id="/about" className="bg-white py-20 sm:py-28 relative overflow-hidden">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                    
+
                     {/* Left: Image Placeholder */}
                     <div className="relative group">
                         <div className="absolute -inset-4 bg-primary-100 rounded-3xl transform rotate-3 group-hover:rotate-6 transition-transform duration-500 z-0"></div>
@@ -23,11 +23,11 @@ export default function About() {
                         <span className="px-3 py-1 mb-6 self-start rounded-full text-xs font-bold bg-primary-100 text-primary-700 uppercase tracking-wider">
                             Tentang Kami
                         </span>
-                        
+
                         <h2 className="text-3xl sm:text-4xl font-extrabold text-neutral-900 font-header leading-tight mb-6">
                             Dedikasi untuk Presisi dan <span className="text-primary-700">Kreativitas</span>
                         </h2>
-                        
+
                         <p className="text-lg text-neutral-700 leading-relaxed mb-8">
                             Jombang Creative Project (JCP) bermula dari semangat untuk menghadirkan solusi pemotongan dan pengukiran material yang presisi di wilayah Jombang dan sekitarnya. Dengan dukungan mesin laser cutting berteknologi terkini dan tim desain yang berpengalaman, kami berkomitmen mengubah ide-ide kreatif Anda menjadi produk nyata yang berkualitas tinggi—mulai dari plakat akrilik eksklusif, neon box yang menarik perhatian, hingga elemen dekoratif interior kayu yang menawan.
                         </p>

@@ -9,7 +9,7 @@ export default function Navbar({ user }) {
     const { url } = usePage();
 
     const navItems = [
-        { label: 'Beranda', href: '/' },
+        { label: 'Beranda', href: '/#about' },
         { label: 'Katalog', href: '/#katalog' },
         { label: 'Portfolio', href: '/#portfolio' },
         { label: 'Order', href: '/#order' },

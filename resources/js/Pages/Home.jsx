@@ -7,7 +7,7 @@ import { FiCheckCircle, FiClock, FiLayers, FiTrendingUp, FiImage, FiAward, FiGri
 import Hero from '@/Components/Sections/Home';
 import Catalog from '@/Components/Sections/Catalog';
 import Portfolio from '@/Components/Sections/Portfolio';
-import HowItWorks from '@/Components/Sections/HowItWorks';
+import HowItWorks from '@/Components/Sections/Order';
 import Materials from '@/Components/Sections/Materials';
 import Testimonials from '@/Components/Sections/Testimonials';
 import About from '@/Components/Sections/About';
