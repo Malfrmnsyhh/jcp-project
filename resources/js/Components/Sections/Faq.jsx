@@ -4,7 +4,7 @@ export default function Faq({ faqs = [] }) {
     if (!faqs || faqs.length === 0) return null;
 
     return (
-        <section className="bg-neutral-100 py-20 sm:py-28 relative">
+        <section id="faq" className="bg-neutral-100 py-20 sm:py-28 relative">
             <div className="max-w-3xl mx-auto px-6">
                 <div className="text-center mb-16">
                     <span className="px-3 py-1 mb-4 inline-block rounded-full text-xs font-bold bg-primary-200 text-primary-800 uppercase tracking-wider">

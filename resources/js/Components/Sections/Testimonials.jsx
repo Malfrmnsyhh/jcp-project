@@ -5,7 +5,7 @@ export default function Testimonials({ testimonials = [] }) {
     if (!testimonials || testimonials.length === 0) return null;
 
     return (
-        <section className="bg-white py-20 sm:py-28 relative">
+        <section id="testimoni" className="bg-white py-20 sm:py-28 relative">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="text-center max-w-2xl mx-auto mb-16">
                     <span className="px-3 py-1 mb-4 inline-block rounded-full text-xs font-bold bg-primary-100 text-primary-700 uppercase tracking-wider">

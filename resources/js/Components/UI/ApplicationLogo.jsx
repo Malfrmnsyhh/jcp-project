@@ -1,10 +1,12 @@
-export default function ApplicationLogo(props) {
+export default function ApplicationLogo({ className = '', ...props }) {
     return (
-        <img
-            src="/storage/images/logo.jpeg"
-            alt="Application Logo"
-            {...props}
-            className={`object-contain ${props.className || ''}`}
-        />
+        <div className={`aspect-square overflow-hidden rounded-xl shrink-0 ${className}`}>
+            <img
+                src="/storage/images/logo.jpeg"
+                alt="JCP Logo"
+                className="w-full h-full object-contain"
+                {...props}
+            />
+        </div>
     );
 }
