@@ -79,7 +79,7 @@ export default function Navbar({ user }) {
                     <Link href="#hero" className="flex items-center gap-3 group">
                         <ApplicationLogo className="h-9 w-9" />
                         <span className="flex flex-col leading-none">
-                            <p className="font-header text-xl font-extrabold text-primary-900 group-hover:text-primary-700 transition-colors">
+                            <p className="font-header text-xl font-extrabold text-primary-700 group-hover:text-primary-700 transition-colors">
                                 JCP
                             </p>
                             <span className={`text-[9px] font-bold tracking-wider transition-colors ${scrolled ? 'text-primary-600' : 'text-primary-400'

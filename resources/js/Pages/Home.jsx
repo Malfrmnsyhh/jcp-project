@@ -17,8 +17,8 @@ import Faq from '@/Components/Sections/Faq';
 export default function Home({ auth }) {
     // 1. Hero Data
     const heroData = {
-        title: "Laser cutting presisi untuk akrilik, kayu & MDF/Triplek",
-        subtitle: "Dari ide di kepala sampai jadi produk di tangan — kami bantu wujudkan lewat potongan yang rapi dan detail."
+        title: "Jasa Cutting laser & Pusat Produk Kebutuhan Anda",
+        subtitle: "Spesialis potongan presisi untuk akrilik, Kayu, dan MDF. Dari layanan kustom hingga katalog produk UMKM unggulan, kami siap mewujudkan ide Anda."
     };
 
     // 3. Services Data
