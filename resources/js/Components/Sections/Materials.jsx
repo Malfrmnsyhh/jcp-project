@@ -1,44 +1,85 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import MaterialCard from '../UI/MaterialCard';
+import MaterialDetailModal from '../UI/MaterialDetailModal';
+import { materialsData } from '../../data/materials';
 
-export default function Materials({ materials = [] }) {
-    if (!materials || materials.length === 0) return null;
+export default function Catalog() {
+    const [activeTab, setActiveTab] = useState('Semua');
+    const [selectedMaterial, setSelectedMaterial] = useState(null);
+
+    const tabs = ['Semua', 'Akrilik', 'Kayu'];
+
+    const materials = materialsData;
+
+    const filteredMaterials = activeTab === 'Semua'
+        ? materials
+        : materials.filter(m => m.category === activeTab);
 
     return (
-        <section className="bg-neutral-100 py-16 sm:py-24 relative">
+        <section id="materials" className="bg-neutral-50 py-20 sm:py-28 relative scroll-mt-20">
             <div className="max-w-7xl mx-auto px-6">
-                <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-                    <div className="max-w-2xl">
-                        <span className="px-3 py-1 mb-4 inline-block rounded-full text-xs font-bold bg-primary-200 text-primary-800 uppercase tracking-wider">
-                            Spesifikasi Material
-                        </span>
-                        <h2 className="text-3xl font-extrabold text-neutral-900 font-header">
-                            Pilihan Bahan Terbaik
-                        </h2>
-                    </div>
-                    <p className="text-sm text-neutral-700 max-w-sm text-left md:text-right">
-                        Kami menyediakan berbagai pilihan bahan dengan standar kualitas industri untuk hasil pemotongan dan ukiran yang sempurna.
+
+                <div className="text-start max-w-full mx-auto mb-10">
+                    <h2 className="text-3xl sm:text-4xl font-extrabold text-neutral-900 font-header">
+                        Kami Menyediakan Berbagai Jenis Bahan
+                    </h2>
+                    <p className="mt-4 text-neutral-700">
+                        Anda juga dapat menanyakan jenis bahan yang Anda inginkan kepada tim kami jika tidak tersedia di sini.
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {materials.map((mat, index) => (
-                        <div 
-                            key={index} 
-                            className="bg-white p-6 rounded-2xl shadow-sm border border-neutral-400/20 hover:border-primary-500/50 hover:-translate-y-1 transition-all duration-300 group"
+                {/* Filter Tabs */}
+                <div className="flex flex-wrap justify-start gap-2 mb-12">
+                    {tabs.map((tab, idx) => (
+                        <button
+                            key={idx}
+                            onClick={() => setActiveTab(tab)}
+                            className={`px-5 py-2 rounded-full text-sm font-semibold transition-all relative ${activeTab === tab
+                                ? 'text-white'
+                                : 'bg-white text-neutral-700 hover:bg-neutral-200 border border-neutral-400/20'
+                                }`}
                         >
-                            <h3 className="text-lg font-bold text-neutral-900 mb-1 font-header group-hover:text-primary-700 transition-colors">
-                                {mat.name}
-                            </h3>
-                            <div className="text-xs text-neutral-500 mb-4 uppercase tracking-wider font-semibold">
-                                Ketebalan: <span className="text-primary-700">{mat.thickness_range}</span>
-                            </div>
-                            <p className="text-sm text-neutral-700 leading-relaxed">
-                                {mat.description}
-                            </p>
-                        </div>
+                            {activeTab === tab && (
+                                <motion.div
+                                    layoutId="activeTabIndicator"
+                                    className="absolute inset-0 bg-primary-700 rounded-full shadow-md z-0"
+                                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                                />
+                            )}
+                            <span className="relative z-10">{tab}</span>
+                        </button>
                     ))}
                 </div>
+
+                {/* Grid */}
+                <motion.div
+                    layout
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+                >
+                    <AnimatePresence>
+                        {filteredMaterials.map((material) => (
+                            <MaterialCard
+                                key={material.id}
+                                material={material}
+                                onClick={() => setSelectedMaterial(material)}
+                            />
+                        ))}
+                    </AnimatePresence>
+                </motion.div>
+
+                {filteredMaterials.length === 0 && (
+                    <div className="text-center py-12 text-neutral-500">
+                        Kategori ini belum memiliki data material.
+                    </div>
+                )}
             </div>
+
+            {/* Modal */}
+            <MaterialDetailModal
+                material={selectedMaterial}
+                onClose={() => setSelectedMaterial(null)}
+            />
         </section>
     );
 }

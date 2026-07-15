@@ -11,7 +11,7 @@ export default function Navbar({ user }) {
 
     const navItems = [
         { label: 'Beranda', href: '#hero', sectionId: 'hero' },
-        { label: 'Katalog', href: '#catalog', sectionId: 'catalog' },
+        { label: 'Bahan', href: '#materials', sectionId: 'materials' },
         { label: 'Portfolio', href: '#portfolio', sectionId: 'portfolio' },
         { label: 'Order', href: '#order', sectionId: 'order' },
         { label: 'Tentang', href: '#about', sectionId: 'about' },
@@ -47,7 +47,7 @@ export default function Navbar({ user }) {
         });
 
         window.addEventListener('scroll', handleScroll, { passive: true });
-        handleScroll(); // Initial check
+        handleScroll();
 
         return () => {
             observer.disconnect();

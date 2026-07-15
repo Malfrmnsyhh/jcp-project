@@ -5,7 +5,7 @@ import { FiCheckCircle, FiClock, FiLayers, FiTrendingUp, FiImage, FiAward, FiGri
 
 // Import Sections
 import Hero from '@/Components/Sections/Home';
-import Catalog from '@/Components/Sections/Catalog';
+import Catalog from '@/Components/Sections/Materials';
 import Portfolio from '@/Components/Sections/Portfolio';
 import HowItWorks from '@/Components/Sections/Order';
 import OrderSimulator from '@/Components/UI/OrderSimulator';

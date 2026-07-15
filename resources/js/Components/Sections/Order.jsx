@@ -4,17 +4,14 @@ export default function HowItWorks({ steps = [] }) {
     if (!steps || steps.length === 0) return null;
 
     return (
-        <section id="order" className="bg-white py-20 sm:py-28 relative">
+        <section id="order" className="bg-white py-20 sm:py-28 relative scroll-mt-20">
             <div className="max-w-7xl mx-auto px-6">
-                <div className="text-center max-w-2xl mx-auto mb-16">
-                    <span className="px-3 py-1 mb-4 inline-block rounded-full text-xs font-bold bg-primary-100 text-primary-700 uppercase tracking-wider">
-                        Alur Pemesanan
-                    </span>
+                <div className="text-start max-w-full mx-auto mb-16">
                     <h2 className="text-3xl sm:text-4xl font-extrabold text-neutral-900 font-header">
-                        Cara Mudah Pesan Custom
+                        Proses Pemesanan
                     </h2>
                     <p className="mt-4 text-neutral-700">
-                        Proses pemesanan yang transparan, cepat, dan mudah dipahami.
+                        Simak cara mudah order di sini.
                     </p>
                 </div>
 
