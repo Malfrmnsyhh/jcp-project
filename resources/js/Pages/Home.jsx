@@ -9,7 +9,6 @@ import Catalog from '@/Components/Sections/Materials';
 import Portfolio from '@/Components/Sections/Portfolio';
 import HowItWorks from '@/Components/Sections/Order';
 import OrderSimulator from '@/Components/UI/OrderSimulator';
-import Materials from '@/Components/Sections/Materials';
 import Testimonials from '@/Components/Sections/Testimonials';
 import About from '@/Components/Sections/About';
 import Faq from '@/Components/Sections/Faq';
@@ -110,7 +109,8 @@ export default function Home({ auth }) {
         { question: "Berapa minimal order untuk jasa laser cutting?", answer: "Nggak ada minimal order. Mau pesan 1 pcs buat coba-coba atau langsung banyak, sama-sama kami layani." },
         { question: "Berapa lama proses produksinya?", answer: "Tergantung jumlah dan tingkat kerumitan desain. Biasanya 2-5 hari kerja setelah desain & pembayaran dikonfirmasi." },
         { question: "Metode pembayaran apa saja yang bisa dipakai?", answer: "Transfer bank (BCA, Mandiri, BRI) atau e-wallet seperti GoPay, OVO, dan Dana." },
-        { question: "Saya harus punya desain sendiri, nggak?", answer: "Nggak wajib. Kalau sudah punya file vector (CorelDRAW/Illustrator), prosesnya lebih cepat. Belum punya juga nggak apa-apa, tim kami bisa bantu buatkan konsepnya." }
+        { question: "Saya harus punya desain sendiri, nggak?", answer: "Nggak wajib. Kalau sudah punya file vector (CorelDRAW/Illustrator), prosesnya lebih cepat. Belum punya juga nggak apa-apa, tim kami bisa bantu buatkan konsepnya." },
+        { question: "Apakah JCP juga menjual produk jadi?", answer: "Ya, selain jasa custom, kami juga menyediakan berbagai produk yang siap dipesan melalui katalog kami." }
     ];
 
     return (
@@ -120,7 +120,6 @@ export default function Home({ auth }) {
             <Catalog />
             <Portfolio items={portfolioItems} />
             <HowItWorks steps={workSteps} />
-            <OrderSimulator />
             <Testimonials testimonials={testimonials} />
             <About />
             <Faq faqs={faqs} />

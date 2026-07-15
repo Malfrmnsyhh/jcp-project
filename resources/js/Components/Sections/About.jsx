@@ -2,16 +2,16 @@ import React from 'react';
 
 export default function About() {
     return (
-        <section id="about" className="bg-white py-20 sm:py-28 relative overflow-hidden scroll-mt-20">
+        <section id="about" className="bg-neutral-50 py-20 sm:py-28 relative overflow-hidden mt-20">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
                     {/* Left: Image Placeholder */}
                     <div className="relative group">
-                        <div className="absolute -inset-4 bg-primary-100 rounded-3xl transform rotate-3 group-hover:rotate-6 transition-transform duration-500 z-0"></div>
-                        <div className="aspect-[4/3] w-full bg-neutral-200 rounded-2xl relative z-10 overflow-hidden shadow-lg flex flex-col items-center justify-center border border-neutral-400/20">
+                        <div className="absolute -inset-4 bg-primary-100 rounded-lg transform rotate-3 group-hover:rotate-6 transition-transform duration-500 z-0 border border-primary-200"></div>
+                        <div className="aspect-[4/3] w-full bg-white rounded-lg relative z-10 overflow-hidden shadow-none flex flex-col items-center justify-center border border-primary-300">
                             {/* Placeholder content for workshop photo */}
-                            <div className="w-16 h-16 bg-neutral-300 rounded-full flex items-center justify-center mb-4">
+                            <div className="w-16 h-16 bg-primary-50 rounded flex items-center justify-center mb-4 border border-primary-200">
                                 <span className="text-2xl">📸</span>
                             </div>
                             <p className="text-neutral-500 font-medium">Foto Workshop JCP (Menunggu aset asli)</p>
@@ -20,9 +20,6 @@ export default function About() {
 
                     {/* Right: Text Content */}
                     <div className="flex flex-col">
-                        <span className="px-3 py-1 mb-6 self-start rounded-full text-xs font-bold bg-primary-100 text-primary-700 uppercase tracking-wider">
-                            Tentang Kami
-                        </span>
 
                         <h2 className="text-3xl sm:text-4xl font-extrabold text-neutral-900 font-header leading-tight mb-6">
                             Dedikasi untuk Presisi dan <span className="text-primary-700">Kreativitas</span>
@@ -33,7 +30,7 @@ export default function About() {
                         </p>
 
                         {/* Quick stats or points */}
-                        <div className="grid grid-cols-2 gap-6 pt-6 border-t border-neutral-400/20">
+                        <div className="grid grid-cols-2 gap-6 pt-6 border-t border-primary-200">
                             <div>
                                 <h4 className="font-extrabold text-3xl text-primary-700 font-header mb-1">100+</h4>
                                 <p className="text-xs text-neutral-600 font-semibold uppercase tracking-wider">Proyek Selesai</p>

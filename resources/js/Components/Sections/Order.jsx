@@ -44,7 +44,7 @@ export default function HowItWorks({ steps = [] }) {
                 >
                     {/* Connecting line (desktop only) */}
                     <div className="hidden lg:block absolute top-14 left-[12%] right-[12%] h-[2px] z-0">
-                        <div className="w-full h-full bg-gradient-to-r from-primary-200 via-primary-400 to-primary-200 rounded-full" />
+                        <div className="w-full h-full bg-linear-to-r from-primary-200 via-primary-400 to-primary-200 rounded" />
                     </div>
 
                     {steps.map((step, index) => {
@@ -55,14 +55,14 @@ export default function HowItWorks({ steps = [] }) {
                                 key={index}
                                 variants={cardVariants}
                                 whileHover={{ y: -6 }}
-                                className="relative z-10 flex flex-col items-center text-center bg-white rounded-2xl p-8 border border-neutral-200 shadow-sm hover:shadow-lg hover:border-primary-300 transition-shadow duration-300 group"
+                                className="relative z-10 flex flex-col items-center text-center bg-white rounded-lg p-8 border border-primary-300 shadow-none hover:shadow-md hover:border-primary-500 transition-all duration-300 group"
                             >
                                 {/* Number badge + Icon */}
                                 <div className="relative mb-6">
-                                    <div className="w-16 h-16 rounded-2xl bg-primary-50 text-primary-600 flex items-center justify-center group-hover:bg-primary-100 transition-colors duration-300">
+                                    <div className="w-16 h-16 rounded-lg bg-primary-50 border border-primary-100 text-primary-600 flex items-center justify-center group-hover:bg-primary-100 transition-colors duration-300">
                                         <Icon className="w-7 h-7" />
                                     </div>
-                                    <span className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-primary-600 text-white text-xs font-bold flex items-center justify-center shadow-md border-2 border-white">
+                                    <span className="absolute -top-2 -right-2 w-7 h-7 rounded bg-primary-600 text-white text-xs font-bold flex items-center justify-center shadow-md border-2 border-white">
                                         {index + 1}
                                     </span>
                                 </div>

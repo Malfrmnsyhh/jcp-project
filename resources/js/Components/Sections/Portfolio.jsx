@@ -32,15 +32,15 @@ export default function Portfolio({ items = [] }) {
                         <button
                             key={index}
                             onClick={() => setFilter(cat)}
-                            className={`px-5 py-2 rounded-full text-sm font-semibold transition-all relative ${filter === cat
+                            className={`px-5 py-2 rounded text-sm font-semibold transition-all relative ${filter === cat
                                 ? 'text-white'
-                                : 'bg-white text-neutral-700 hover:bg-neutral-200 border border-neutral-400/20'
+                                : 'bg-white text-neutral-700 hover:bg-primary-50 border border-primary-300'
                                 }`}
                         >
                             {filter === cat && (
                                 <motion.div
                                     layoutId="portfolioActiveTab"
-                                    className="absolute inset-0 bg-primary-700 rounded-full shadow-md z-0"
+                                    className="absolute inset-0 bg-primary-700 rounded shadow-sm z-0"
                                     transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                                 />
                             )}
@@ -64,9 +64,9 @@ export default function Portfolio({ items = [] }) {
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 transition={{ duration: 0.3 }}
                                 whileHover={{ y: -5 }}
-                                className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 border border-neutral-400/20 flex flex-col cursor-pointer"
+                                className="group bg-white rounded-lg overflow-hidden border border-primary-300 shadow-none hover:shadow-md hover:border-primary-500 transition-all duration-300 flex flex-col cursor-pointer"
                             >
-                                <div className="aspect-[4/3] w-full overflow-hidden bg-neutral-200 relative">
+                                <div className="aspect-[4/3] w-full overflow-hidden bg-primary-50 relative">
                                     {item.image ? (
                                         <img
                                             src={item.image}
@@ -79,7 +79,7 @@ export default function Portfolio({ items = [] }) {
                                         </div>
                                     )}
 
-                                    <div className="absolute top-4 right-4 px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-[10px] font-bold text-primary-700 uppercase tracking-wider shadow-sm">
+                                    <div className="absolute top-4 right-4 px-3 py-1 bg-white/90 backdrop-blur-sm rounded text-[10px] font-bold text-primary-700 uppercase tracking-wider border border-primary-200">
                                         {item.category}
                                     </div>
                                 </div>

@@ -8,7 +8,7 @@ export default function Testimonials({ testimonials = [] }) {
         <section id="testimoni" className="bg-white py-20 sm:py-28 relative scroll-mt-20">
             <div className="max-w-7xl mx-auto px-6">
                 <div className="text-center max-w-2xl mx-auto mb-16">
-                    <span className="px-3 py-1 mb-4 inline-block rounded-full text-xs font-bold bg-primary-100 text-primary-700 uppercase tracking-wider">
+                    <span className="px-3 py-1 mb-4 inline-block rounded text-xs font-bold bg-primary-100 text-primary-700 uppercase tracking-wider border border-primary-200">
                         Testimoni Klien
                     </span>
                     <h2 className="text-3xl sm:text-4xl font-extrabold text-neutral-900 font-header">
@@ -23,7 +23,7 @@ export default function Testimonials({ testimonials = [] }) {
                     {testimonials.map((testi, index) => (
                         <div 
                             key={index} 
-                            className="bg-neutral-100 p-8 rounded-2xl relative border border-neutral-400/20"
+                            className="bg-primary-50 p-8 rounded-lg relative border border-primary-300 shadow-none"
                         >
                             {/* Quote mark icon */}
                             <div className="absolute top-6 left-6 text-primary-300 opacity-50 text-6xl font-serif leading-none">

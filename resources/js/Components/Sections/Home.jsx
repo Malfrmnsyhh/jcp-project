@@ -70,7 +70,7 @@ export default function Hero({ title, subtitle }) {
                     <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
                         <Link
                             href="#catalog"
-                            className="inline-block px-8 py-3.5 rounded-full bg-white text-neutral-900 font-bold hover:bg-neutral-100 transition-all text-center text-sm shadow-lg hover:shadow-xl"
+                            className="inline-block px-8 py-3.5 rounded bg-white text-primary-700 font-bold hover:bg-neutral-100 transition-all text-center text-sm border border-white hover:shadow-md"
                         >
                             Lihat Katalog
                         </Link>
@@ -78,7 +78,7 @@ export default function Hero({ title, subtitle }) {
                     <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
                         <Link
                             href="#order"
-                            className="inline-block px-8 py-3.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/30 text-white font-bold hover:bg-white/20 hover:border-white/50 transition-all text-center text-sm"
+                            className="inline-block px-8 py-3.5 rounded bg-transparent border border-white text-white font-bold hover:bg-white/10 transition-all text-center text-sm"
                         >
                             Minta Penawaran
                         </Link>
