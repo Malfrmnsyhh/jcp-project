@@ -88,10 +88,10 @@ export default function Home({ auth }) {
 
     // 5. How It Works Data
     const workSteps = [
-        { title: "Upload Desain", description: "Kirim file vector-mu, atau ceritakan idenya ke tim kami dulu." },
-        { title: "Pilih Bahan", description: "Tentukan material dan ketebalan yang paling pas buat kebutuhanmu." },
-        { title: "Dapat Estimasi", description: "Kami hitung biaya & perkiraan waktu pengerjaannya buatmu." },
-        { title: "Bayar & Tunggu", description: "Setelah bayar, produksi langsung kami mulai." }
+        { title: "Pilih Produk di halaman Produk", description: "Klik pada gambar produk yang kamu inginkan" },
+        { title: "Konfirmasi Produk Lewat Whatshap", description: "Admin akan menghubungi kamu untuk konfirmasi produk" },
+        { title: "Pembayaran dan Estimasi Waktu lewat Whatshap", description: "Admin akan menghitung biaya & perkiraan waktu pengerjaannya buatmu." },
+        { title: "Setelah jadi admin akan konfirmasi", description: "Admin akan menginformasikan bahwa produk kamu sudah selesai dan siap dikirim" }
     ];
 
     // 6. Materials Data
@@ -115,14 +115,12 @@ export default function Home({ auth }) {
 
     return (
         <MainLayout auth={auth}>
-            <Head title="Beranda" />
-
+            <Head title='Profile' />
             <Hero title={heroData.title} subtitle={heroData.subtitle} />
             <Catalog />
             <Portfolio items={portfolioItems} />
             <HowItWorks steps={workSteps} />
             <OrderSimulator />
-            <Materials materials={materials} />
             <Testimonials testimonials={testimonials} />
             <About />
             <Faq faqs={faqs} />
