@@ -16,7 +16,6 @@ export default function Navbar({ user }) {
         { label: 'Order', href: '#order', sectionId: 'order' },
         { label: 'Tentang', href: '#about', sectionId: 'about' },
         { label: 'FAQ', href: '#faq', sectionId: 'faq' },
-        { label: 'Kontak', href: '#kontak', sectionId: 'kontak' },
     ];
 
     // Scroll spy: detect which section is visible
@@ -77,7 +76,7 @@ export default function Navbar({ user }) {
                 <div className="max-w-7xl mx-auto px-4 md:px-8 py-3 flex justify-between items-center">
                     {/* Logo & Company Name */}
                     <Link href="#hero" className="flex items-center gap-3 group">
-                        <ApplicationLogo className="h-9 w-9" />
+                        <ApplicationLogo className="h-9 w-10" />
                         <span className="flex flex-col leading-none">
                             <p className="font-header text-xl font-extrabold text-primary-700 group-hover:text-primary-700 transition-colors">
                                 JCP
