@@ -1,7 +1,7 @@
 import React from 'react';
 import ApplicationLogo from '../UI/ApplicationLogo';
-import { FaMapMarkerAlt, FaMailBulk, FaPhoneAlt } from 'react-icons/fa';
-import { FaHome, } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaPhoneAlt } from 'react-icons/fa';
+import { IoIosMail } from "react-icons/io";
 
 export default function Footer() {
     return (
@@ -14,6 +14,9 @@ export default function Footer() {
                     </div>
                     <p className="text-xs text-primary-100 leading-relaxed max-w-xs">
                         Jombang Creative Project (JCP) menyediakan jasa laser cutting presisi & profesional untuk kebutuhan media akrilik, kayu, MDF, trophy, neon box, dan dekorasi kustom Anda.
+                    </p>
+                    <p className='text-xs text-primary-100 leading-relaxed max-w-xs'>
+                        Dan menyediakan produk-produk jadi seperti nomor meja, nama dada, plakat. dll
                     </p>
                 </div>
 
@@ -35,7 +38,7 @@ export default function Footer() {
                         <FaMapMarkerAlt className='w-8 h-8' />
                         Dsn Menganto RT 07 Rw 02 nomor 54, Menganto, Kec. Mojowarno, Kabupaten Jombang, Jawa Timur 61475</p>
                     <p className='flex items-start gap-4'>
-                        <FaMailBulk className='w-4 h-4' /> info@jombangcreativeproject.com
+                        <IoIosMail className='w-4 h-4' /> info@jombangcreativeproject.com
                     </p>
                     <p className="flex items-center gap-4">
                         <FaPhoneAlt className="w-4 h-4" />

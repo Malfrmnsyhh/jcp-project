@@ -17,16 +17,8 @@ export default function Home({ auth }) {
     // 1. Hero Data
     const heroData = {
         title: "Jasa Cutting laser & Pusat Produk Kebutuhan Anda",
-        subtitle: "Spesialis potongan presisi untuk akrilik, Kayu, dan MDF. Dari layanan kustom hingga katalog produk UMKM unggulan, kami siap mewujudkan ide Anda."
+        subtitle: "Spesialis potongan presisi untuk akrilik, Kayu, dan MDF. Dari layanan kustom hingga katalog produk unggulan, kami siap mewujudkan kebutuhan Anda."
     };
-
-    // 3. Services Data
-    const serviceCategories = [
-        { icon: <FiImage />, title: "Signage & Branding", description: "Logo timbul, neon box, sampai huruf timbul untuk bikin usahamu lebih dikenali.", href: "/katalog?kategori=signage" },
-        { icon: <FiAward />, title: "Vandel & Trophy", description: "Plakat penghargaan yang beda dari yang lain, dari akrilik atau kombinasi kayu.", href: "/katalog?kategori=vandel" },
-        { icon: <FiGrid />, title: "Produk Akrilik/Kayu", description: "Gantungan kunci, kotak display, jam dinding, dan aksesoris custom lainnya.", href: "/katalog?kategori=produk" },
-        { icon: <FiScissors />, title: "Custom Cutting", description: "Punya file desain sendiri? Kirim, kami potong sesuai bentuknya.", href: "/custom-order" }
-    ];
 
     const portfolioItems = [
         {
@@ -123,7 +115,6 @@ export default function Home({ auth }) {
         <MainLayout auth={auth}>
             <Head title='Profile' />
             <Hero title={heroData.title} subtitle={heroData.subtitle} />
-            <Catalog />
             <Portfolio items={portfolioItems} />
             <HowItWorks steps={workSteps} />
             <Testimonials testimonials={testimonials} />

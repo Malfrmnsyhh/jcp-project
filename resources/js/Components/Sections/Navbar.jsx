@@ -14,6 +14,7 @@ export default function Navbar({ user }) {
         { label: 'Bahan', href: '#materials', sectionId: 'materials' },
         { label: 'Portfolio', href: '#portfolio', sectionId: 'portfolio' },
         { label: 'Order', href: '#order', sectionId: 'order' },
+        { label: 'Testimoni', href: "#testimoni", sectionId: "testimoni" },
         { label: 'Tentang', href: '#about', sectionId: 'about' },
         { label: 'FAQ', href: '#faq', sectionId: 'faq' },
     ];
