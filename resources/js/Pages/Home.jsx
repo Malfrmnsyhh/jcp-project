@@ -3,12 +3,10 @@ import { Head } from '@inertiajs/react';
 import MainLayout from '@/Layouts/MainLayout';
 import { FiCheckCircle, FiClock, FiLayers, FiTrendingUp, FiImage, FiAward, FiGrid, FiScissors } from 'react-icons/fi';
 
-// Import Sections
 import Hero from '@/Components/Sections/Home';
 import Catalog from '@/Components/Sections/Materials';
 import Portfolio from '@/Components/Sections/Portfolio';
 import HowItWorks from '@/Components/Sections/Order';
-import OrderSimulator from '@/Components/UI/OrderSimulator';
 import Testimonials from '@/Components/Sections/Testimonials';
 import About from '@/Components/Sections/About';
 import Faq from '@/Components/Sections/Faq';
@@ -115,6 +113,7 @@ export default function Home({ auth }) {
         <MainLayout auth={auth}>
             <Head title='Profile' />
             <Hero title={heroData.title} subtitle={heroData.subtitle} />
+            <Catalog materials={materials} />
             <Portfolio items={portfolioItems} />
             <HowItWorks steps={workSteps} />
             <Testimonials testimonials={testimonials} />
