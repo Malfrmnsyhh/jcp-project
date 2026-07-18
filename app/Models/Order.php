@@ -15,4 +15,14 @@ class Order extends Model
         'confirmed_by',
         'confirmed_at',
     ];
+
+    public function items()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
+
+    public function confirmer()
+    {
+        return $this->belongsTo(User::class, 'confirmed_by');
+    }
 }

@@ -14,4 +14,9 @@ class StockItem extends Model
         'notes',
         'updated_by',
     ];
+
+    public function updater()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+    }
 }
