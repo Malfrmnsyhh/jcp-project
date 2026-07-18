@@ -95,7 +95,7 @@ export default function Dashboard({ stats, latestOrders }) {
                     <div className="px-6 py-5 border-b border-neutral-200 flex items-center justify-between">
                         <h4 className="font-header font-bold text-neutral-800">5 Transaksi/Order Terbaru</h4>
                         <Link
-                            href="#"
+                            href={route('orders.index')}
                             className="text-xs font-bold text-primary-600 hover:text-primary-800 flex items-center gap-1.5 transition-colors"
                         >
                             <span>Lihat Semua Order</span>
@@ -135,7 +135,7 @@ export default function Dashboard({ stats, latestOrders }) {
                                             <td className="px-6 py-4 text-neutral-500">{formatDate(order.created_at)}</td>
                                             <td className="px-6 py-4 text-right">
                                                 <Link
-                                                    href="#"
+                                                    href={route('orders.show', order.id)}
                                                     className="inline-flex items-center gap-1 text-[11px] font-bold text-primary-600 hover:text-primary-800 transition-colors"
                                                     onClick={(e) => e.stopPropagation()}
                                                 >
