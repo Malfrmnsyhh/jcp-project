@@ -2,63 +2,67 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Material;
+use App\Models\MaterialCategory;
 use Illuminate\Http\Request;
 
 class MaterialController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $materials = Material::with('category')->orderBy('created_at', 'desc')->paginate(10);
+        return inertia('Admin/Materials/Index', [
+            'materials' => $materials
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return inertia('Admin/Materials/Create', [
+            'categories' => MaterialCategory::orderBy('name')->get()
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'material_category_id' => 'required|exists:material_categories,id',
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+        ]);
+        Material::create($data);
+        return redirect()->route('admin.materials.index')->with('success', 'Material berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show(Material $material)
     {
-        //
+        return inertia('Admin/Materials/Show', [
+            'material' => $material->load(['category', 'thicknesses', 'finishes'])
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function edit(Material $material)
     {
-        //
+        return inertia('Admin/Materials/Edit', [
+            'material' => $material,
+            'categories' => MaterialCategory::orderBy('name')->get()
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Material $material)
     {
-        //
+        $data = $request->validate([
+            'material_category_id' => 'required|exists:material_categories,id',
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+        ]);
+        $material->update($data);
+        return redirect()->route('admin.materials.index')->with('success', 'Material berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(Material $material)
     {
-        //
+        $material->delete();
+        return redirect()->route('admin.materials.index')->with('success', 'Material berhasil dihapus.');
     }
 }
