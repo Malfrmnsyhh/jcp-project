@@ -4,62 +4,69 @@ namespace App\Http\Controllers;
 
 use App\Models\MaterialCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class MaterialCategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $categories = MaterialCategory::orderBy('created_at', 'desc')->paginate(10);
+        return inertia('Admin/MaterialCategories/Index', [
+            'categories' => $categories
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return inertia('Admin/MaterialCategories/Create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string|max:255|unique:material_categories,name',
+        ]);
+
+        $data['slug'] = Str::slug($data['name']);
+        MaterialCategory::create($data);
+        return redirect()->route('admin.material-categories.index')->with('success', 'Kategori bahan berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(MaterialCategory $materialCategory)
     {
-        //
+        return inertia('Admin/MaterialCategories/Show', [
+            'category' => $materialCategory->load('materials')
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(MaterialCategory $materialCategory)
     {
-        //
+        return inertia('Admin/MaterialCategories/Edit',[
+            'category' => $materialCategory
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, MaterialCategory $materialCategory)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string|max:255|unique:material_categories,name,' . $materialCategory->id,
+        ]);
+
+        $data['slug'] = Str::slug($data['name']);
+        $materialCategory->update($data);
+        return redirect()->route('admin.material-categories.index')
+            ->with('success', 'Kategori bahan berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(MaterialCategory $materialCategory)
     {
-        //
+        if($materialCategory->materials()->count() > 0) {
+            return redirect()->route('admin.material-categories.index')
+                ->with('error', 'Kategori bahan tidak dapat dihapus karena masih memiliki bahan terkait.');
+        }
+
+        $materialCategory->delete();
+        return redirect()->route('admin.material-categories.index')
+            ->with('success', 'Kategori bahan berhasil dihapus.');
     }
 }
