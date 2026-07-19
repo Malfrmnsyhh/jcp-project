@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with('productCategory')->orderBy('created_at', 'desc')->paginate(10);
+        $products = Product::with('category')->orderBy('created_at', 'desc')->paginate(10);
         return inertia('Admin/Products/Index',['products'=>$products] );
     }
 
@@ -27,7 +28,8 @@ class ProductController extends Controller
             'description' => 'nullable|string',
             'product_category_id' => 'required|exists:product_categories,id',
         ]);
-
+        
+        $data['slug'] = Str::slug($data['name']). '-'.Str::random(4);
         Product::create($data);
         return redirect()->route('admin.products.index')->with('success', 'Product berhasil ditambahkan.');
     }
@@ -39,7 +41,7 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        return inertia('Admin/Products/Edit', ['product' => $product->load('productCategory')]);
+        return inertia('Admin/Products/Edit', ['product' => $product->load('category')]);
     }
 
     public function update(UpdateProductRequest $request, Product $product)
