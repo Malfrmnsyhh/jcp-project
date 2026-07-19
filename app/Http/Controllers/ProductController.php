@@ -8,59 +8,56 @@ use App\Http\Requests\UpdateProductRequest;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $products = Product::with('productCategory')->orderBy('created_at', 'desc')->paginate(10);
+        return inertia('Admin/Products/Index',['products'=>$products] );
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return inertia('Admin/Products/Create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreProductRequest $request)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'description' => 'nullable|string',
+            'product_category_id' => 'required|exists:product_categories,id',
+        ]);
+
+        Product::create($data);
+        return redirect()->route('admin.products.index')->with('success', 'Product berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Product $product)
     {
-        //
+        return inertia('Admin/Products/Show', ['product' => $product]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Product $product)
     {
-        //
+        return inertia('Admin/Products/Edit', ['product' => $product->load('productCategory')]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'nullable|numeric',
+            'description' => 'nullable|string',
+            'product_category_id' => 'required|exists:product_categories,id',
+        ]);
+
+        $product->update($data);
+        return redirect()->route('admin.products.index')->with('success', 'Product berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return redirect()->route('admin.products.index')->with('success', 'Product berhasil dihapus.');
     }
 }
