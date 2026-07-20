@@ -7,8 +7,10 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MachineController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\MaterialCategoryController;
+use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\StockItemController;
 use App\Http\Controllers\PortfolioController;
+use App\Http\Controllers\ProductCategoryController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
