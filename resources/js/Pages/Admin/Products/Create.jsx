@@ -47,7 +47,7 @@ export default function Create({ categories }) {
     return (
         <AuthenticatedLayout
             header={
-                <div className="flex items-center gap-4">
+                <div className="w-full max-w-4xl  flex items-center gap-4 sticky top-0">
                     <Link
                         href={route('admin.products.index')}
                         className="text-neutral-500 hover:text-neutral-700 transition-colors"
@@ -62,7 +62,7 @@ export default function Create({ categories }) {
         >
             <Head title="Tambah Produk" />
 
-            <div className="max-w-4xl bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden">
+            <div className="max-w-full bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden">
                 <form onSubmit={submit} className="p-6 sm:p-8">
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
