@@ -7,59 +7,57 @@ use Illuminate\Http\Request;
 
 class StockItemController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $stocks = StockItem::with('updater')->orderBy('created_at', 'desc')->paginate(10);
+        return inertia('Admin/Stocks/Index', [
+            'stocks' => $stocks
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return inertia('Admin/Stocks/Create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'category' => 'required|string|max:255',
+            'unit' => 'required|string|max:50',
+            'quantity' => 'required|integer|min:0',
+            'notes' => 'nullable|string',
+        ]);
+        $data['updated_by'] = $request->user()->id;
+        StockItem::create($data);
+        return redirect()->route('admin.stocks.index')->with('success', 'Stock item berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(StockItem $stockItem)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(StockItem $stockItem)
     {
-        //
+        return inertia('Admin/Stocks/Edit', [
+            'stockItem' => $stockItem
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, StockItem $stockItem)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'category' => 'required|string|max:255',
+            'unit' => 'required|string|max:50',
+            'quantity' => 'required|integer|min:0',
+            'notes' => 'nullable|string',
+        ]);
+        $data['updated_by'] = $request->user()->id;
+        $stockItem->update($data);
+        return redirect()->route('admin.stocks.index')->with('success', 'Stock item berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(StockItem $stockItem)
     {
-        //
+        $stockItem->delete();
+        return redirect()->route('admin.stocks.index')->with('success', 'Stock item berhasil dihapus.');
     }
 }

@@ -7,59 +7,53 @@ use Illuminate\Http\Request;
 
 class TestimonialController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $testimonials = Testimonial::orderBy('created_at', 'desc')->paginate(10);
+        return inertia('Admin/Testimonials/Index', [
+            'testimonials' => $testimonials
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return inertia('Admin/Testimonials/Create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'customer_name' => 'required|string|max:255',
+            'customer_role' => 'required|string|max:255',
+            'content' => 'required|string',
+            'is_published' => 'required|boolean',
+        ]);
+        Testimonial::create($data);
+        return redirect()->route('admin.testimonials.index')->with('success', 'Testimonial berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Testimonial $testimonial)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Testimonial $testimonial)
     {
-        //
+        return inertia('Admin/Testimonials/Edit', [
+            'testimonial' => $testimonial
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Testimonial $testimonial)
     {
-        //
+        $data = $request->validate([
+            'customer_name' => 'required|string|max:255',
+            'customer_role' => 'required|string|max:255',
+            'content' => 'required|string',
+            'is_published' => 'required|boolean',
+        ]);
+        $testimonial->update($data);
+        return redirect()->route('admin.testimonials.index')->with('success', 'Testimonial berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Testimonial $testimonial)
     {
-        //
+        $testimonial->delete();
+        return redirect()->route('admin.testimonials.index')->with('success', 'Testimonial berhasil dihapus.');
     }
 }
