@@ -22,23 +22,25 @@ export default function AuthenticatedLayout({ header, children }) {
         {
             title: 'KONTEN WEBSITE',
             items: [
-                { label: 'Portofolio', href: '#', icon: FaClipboardList, active: false },
-                { label: 'Mesin', href: '#', icon: FaCogs, active: false },
-                { label: 'Testimoni', href: '#', icon: FaUsers, active: false },
-                { label: 'Katalog Bahan', href: '#', icon: FaBookOpen, active: false }
+                { label: 'Portofolio', href: route('admin.portfolio.index'), icon: FaClipboardList, active: route().current('admin.portfolio.*') },
+                { label: 'Mesin', href: route('admin.machines.index'), icon: FaCogs, active: route().current('admin.machines.*') },
+                { label: 'Testimoni', href: route('admin.testimonials.index'), icon: FaUsers, active: route().current('admin.testimonials.*') },
+                { label: 'Kategori Bahan', href: route('admin.material-categories.index'), icon: FaBookOpen, active: route().current('admin.material-categories.*') },
+                { label: 'Katalog Bahan', href: route('admin.materials.index'), icon: FaBookOpen, active: route().current('admin.materials.*') }
             ]
         },
         {
             title: 'PENJUALAN',
             items: [
-                { label: 'Produk', href: '#', icon: FaBoxOpen, active: false },
-                { label: 'Order', href: '#', icon: FaClipboardList, active: false }
+                { label: 'Kategori Produk', href: route('admin.product-categories.index'), icon: FaBoxOpen, active: route().current('admin.product-categories.*') },
+                { label: 'Produk', href: route('admin.products.index'), icon: FaBoxOpen, active: route().current('admin.products.*') },
+                { label: 'Order', href: route('admin.orders.index'), icon: FaClipboardList, active: route().current('admin.orders.*') }
             ]
         },
         {
             title: 'OPERASIONAL',
             items: [
-                { label: 'Stok Bahan', href: '#', icon: FaCubes, active: false }
+                { label: 'Stok Bahan', href: route('admin.stocks.index'), icon: FaCubes, active: route().current('admin.stocks.*') }
             ]
         },
         {
