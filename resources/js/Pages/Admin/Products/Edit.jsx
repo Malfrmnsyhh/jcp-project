@@ -69,12 +69,12 @@ export default function Edit({ product, categories }) {
         >
             <Head title={`Edit Produk - ${product.name}`} />
 
-            <div className="max-w-4xl bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden">
+            <div className="max-w-7xl bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden">
                 <form onSubmit={submit} className="p-6 sm:p-8">
                     
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
                         {/* Kolom Kiri */}
-                        <div className="space-y-6">
+                        <div className="lg:col-span-7 space-y-6">
                             <h3 className="text-sm font-bold text-neutral-800 uppercase tracking-wider border-b pb-2">
                                 Informasi Dasar
                             </h3>
@@ -84,7 +84,7 @@ export default function Edit({ product, categories }) {
                                     Kategori <span className="text-rose-500">*</span>
                                 </label>
                                 <select
-                                    className="w-full rounded-lg border-neutral-300 px-4 py-2.5 text-sm focus:ring-primary-500"
+                                    className="w-full rounded-xl px-4 py-2.5 text-sm transition-all bg-neutral-200 hover:bg-neutral-300 focus:ring-primary-500"
                                     value={data.product_category_id}
                                     onChange={(e) => setData('product_category_id', e.target.value)}
                                 >
@@ -102,7 +102,7 @@ export default function Edit({ product, categories }) {
                                 </label>
                                 <input
                                     type="text"
-                                    className="w-full rounded-lg border-neutral-300 px-4 py-2.5 text-sm focus:ring-primary-500"
+                                    className="w-full rounded-xl px-4 py-2.5 text-sm transition-all bg-neutral-200 hover:bg-neutral-300 focus:ring-primary-500"
                                     value={data.name}
                                     onChange={(e) => setData('name', e.target.value)}
                                 />
@@ -116,7 +116,7 @@ export default function Edit({ product, categories }) {
                                 <input
                                     type="number"
                                     min="0"
-                                    className="w-full rounded-lg border-neutral-300 px-4 py-2.5 text-sm focus:ring-primary-500"
+                                    className="w-full rounded-xl px-4 py-2.5 text-sm transition-all bg-neutral-200 hover:bg-neutral-300 focus:ring-primary-500"
                                     value={data.price}
                                     onChange={(e) => setData('price', e.target.value)}
                                 />
@@ -137,7 +137,7 @@ export default function Edit({ product, categories }) {
                         </div>
 
                         {/* Kolom Kanan */}
-                        <div className="space-y-6">
+                        <div className="lg:col-span-5 space-y-6">
                             <h3 className="text-sm font-bold text-neutral-800 uppercase tracking-wider border-b pb-2">
                                 Detail & Gambar
                             </h3>

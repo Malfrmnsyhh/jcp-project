@@ -14,18 +14,71 @@ use App\Http\Controllers\ProductCategoryController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-use App\Models\Portfolio;
+use App\Models\PortfolioItem;
 use App\Models\Testimonial;
+use App\Models\Machine;
 
 Route::get('/', function () {
-    $portfolios = Portfolio::orderBy('created_at', 'desc')->take(6)->get();
+    $portfolios = PortfolioItem::orderBy('created_at', 'desc')->take(6)->get();
+    $testimonials = Testimonial::where('is_published', true)
+        ->orderBy('created_at', 'desc')
+        ->take(6)
+        ->get()
+        ->map(function ($testimonial) {
+            return [
+                'customer_name' => $testimonial->customer_name,
+                'customer_role' => $testimonial->customer_role,
+                'content' => $testimonial->content,
+                'product_image' => $testimonial->product_image,
+            ];
+        });
+
+    $machines = \App\Models\Machine::where('is_active', true)
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+    $materials = \App\Models\Material::with([
+            'category', 
+            'thicknesses' => function($q) { $q->orderBy('sort_order'); }, 
+            'finishes'
+        ])
+        ->get()
+        ->map(function ($m) {
+            return [
+                'id' => $m->id,
+                'category' => $m->category ? $m->category->name : 'Lainnya',
+                'name' => $m->name,
+                'short_description' => \Illuminate\Support\Str::limit($m->description, 60),
+                'description' => $m->description,
+                'thickness_options' => $m->thicknesses->pluck('label')->toArray(),
+                'finishes' => $m->finishes->map(function ($f) {
+                    return [
+                        'name' => $f->name,
+                        'swatch' => $f->swatch_hex ?? '#cccccc'
+                    ];
+                })->toArray()
+            ];
+        });
+
     return Inertia::render('Home', [
-        'portfolios' => $portfolios
+        'portfolios' => $portfolios,
+        'testimonials' => $testimonials,
+        'machines' => $machines,
+        'materials' => $materials,
     ]);
 });
 
 Route::get('/katalog-produk', function () {
-    return Inertia::render('Catalog');
+    $categories = \App\Models\ProductCategory::all();
+    $products = \App\Models\Product::with(['category', 'images' => function($q) { $q->orderBy('sort_order'); }])
+        ->where('is_active', true)
+        ->orderBy('created_at', 'desc')
+        ->get();
+
+    return Inertia::render('Catalog', [
+        'categories' => $categories,
+        'products' => $products
+    ]);
 })->name('catalog');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])

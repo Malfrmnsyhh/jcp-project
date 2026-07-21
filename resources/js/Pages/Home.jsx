@@ -5,13 +5,14 @@ import { FiCheckCircle, FiClock, FiLayers, FiTrendingUp, FiImage, FiAward, FiGri
 
 import Hero from '@/Components/Sections/Home';
 import Catalog from '@/Components/Sections/Materials';
+import Machines from '@/Components/Sections/Machines';
 import Portfolio from '@/Components/Sections/Portfolio';
 import HowItWorks from '@/Components/Sections/Order';
 import Testimonials from '@/Components/Sections/Testimonials';
 import About from '@/Components/Sections/About';
 import Faq from '@/Components/Sections/Faq';
 
-export default function Home({ auth, portfolios }) {
+export default function Home({ auth, portfolios, testimonials = [], machines = [], materials = [] }) {
     // 1. Hero Data
     const heroData = {
         title: "Jasa Cutting laser & Pusat Produk Kebutuhan Anda",
@@ -26,16 +27,13 @@ export default function Home({ auth, portfolios }) {
         { title: "Setelah jadi admin akan konfirmasi", description: "Admin akan menginformasikan bahwa produk kamu sudah selesai dan siap dikirim" }
     ];
 
-    // 6. Materials Data
-    const materials = [
-        { name: "Akrilik Bening & Warna", thickness_range: "1.5mm - 20mm", description: "Transparan atau warna, hasil akhirnya elegan — favorit buat plakat & signage." },
-        { name: "Kayu Solid & Triplek", thickness_range: "3mm - 12mm", description: "Kesannya hangat dan natural, cocok untuk dekorasi dan produk grafir." },
-        { name: "MDF (Medium Density Fibreboard)", thickness_range: "3mm - 18mm", description: "Permukaannya halus dan rata, pas buat produk yang nantinya mau dicat." },
-        { name: "Logam Tipis (Plat)", thickness_range: "0.5mm - 2mm", description: "Kuat dan awet, sering dipakai untuk name tag atau identitas mesin." }
-    ];
-
-    // 7. Testimonials Data (Empty as requested until real data is available)
-    const testimonials = [];
+    // 7. Testimonials Data
+    const testimonialsData = testimonials.map((item) => ({
+        name: item.customer_name,
+        role: item.customer_role || 'Pelanggan',
+        quote: item.content,
+        image: item.product_image || null,
+    }));
 
     // 9. FAQ Data
     const faqs = [
@@ -51,12 +49,12 @@ export default function Home({ auth, portfolios }) {
             <Head title='Profile' />
             <Hero title={heroData.title} subtitle={heroData.subtitle} />
             <Catalog materials={materials} />
+            <Machines machines={machines} />
             <Portfolio items={portfolios} />
             <HowItWorks steps={workSteps} />
-            <Testimonials testimonials={testimonials} />
+            <Testimonials testimonials={testimonialsData} />
             <About />
             <Faq faqs={faqs} />
-
         </MainLayout>
     );
 }

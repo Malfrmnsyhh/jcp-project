@@ -31,23 +31,35 @@ class ProductController extends Controller
             'product_category_id' => 'required|exists:product_categories,id',
             'stock_status' => 'required|in:tersedia,habis,pre_order',
             'is_active' => 'required|boolean',
+            'images' => 'nullable|array',
+            'images.*' => 'image|mimes:jpeg,png,jpg,webp|max:4096'
         ]);
         
         $data['slug'] = Str::slug($data['name']) . '-' . Str::random(4);
-        Product::create($data);
+        $product = Product::create($data);
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $index => $file) {
+                $path = $file->store('products', 'public');
+                $product->images()->create([
+                    'image_path' => '/storage/' . $path,
+                    'sort_order' => $index
+                ]);
+            }
+        }
 
         return redirect()->route('admin.products.index')->with('success', 'Produk berhasil ditambahkan.');
     }
 
     public function show(Product $product)
     {
-        return inertia('Admin/Products/Show', ['product' => $product->load('category')]);
+        return inertia('Admin/Products/Show', ['product' => $product->load(['category', 'images'])]);
     }
 
     public function edit(Product $product)
     {
         return inertia('Admin/Products/Edit', [
-            'product' => $product->load('category'),
+            'product' => $product->load(['category', 'images']),
             'categories' => ProductCategory::orderBy('name')->get()
         ]);
     }
@@ -61,15 +73,37 @@ class ProductController extends Controller
             'product_category_id' => 'required|exists:product_categories,id',
             'stock_status' => 'required|in:tersedia,habis,pre_order',
             'is_active' => 'required|boolean',
+            'images' => 'nullable|array',
+            'images.*' => 'image|mimes:jpeg,png,jpg,webp|max:4096'
         ]);
 
         $product->update($data);
+
+        // Note: For a robust edit, we'd handle deleting old images if requested.
+        // For now we just append new ones.
+        if ($request->hasFile('images')) {
+            $lastOrder = $product->images()->max('sort_order') ?? -1;
+            foreach ($request->file('images') as $file) {
+                $lastOrder++;
+                $path = $file->store('products', 'public');
+                $product->images()->create([
+                    'image_path' => '/storage/' . $path,
+                    'sort_order' => $lastOrder
+                ]);
+            }
+        }
 
         return redirect()->route('admin.products.index')->with('success', 'Produk berhasil diperbarui.');
     }
 
     public function destroy(Product $product)
     {
+        // Delete images from storage
+        foreach($product->images as $image) {
+            $path = str_replace('/storage/', '', $image->image_path);
+            \Illuminate\Support\Facades\Storage::disk('public')->delete($path);
+        }
+        
         $product->delete();
         return redirect()->route('admin.products.index')->with('success', 'Product berhasil dihapus.');
     }

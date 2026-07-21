@@ -4,13 +4,13 @@ import MaterialCard from '../UI/MaterialCard';
 import MaterialDetailModal from '../UI/MaterialDetailModal';
 import { materialsData } from '../../data/materials';
 
-export default function Catalog() {
+export default function Catalog({ materials = [] }) {
     const [activeTab, setActiveTab] = useState('Semua');
     const [selectedMaterial, setSelectedMaterial] = useState(null);
 
-    const tabs = ['Semua', 'Akrilik', 'Kayu'];
-
-    const materials = materialsData;
+    // Get unique categories from materials
+    const uniqueCategories = [...new Set(materials.map(m => m.category))];
+    const tabs = ['Semua', ...uniqueCategories];
 
     const filteredMaterials = activeTab === 'Semua'
         ? materials

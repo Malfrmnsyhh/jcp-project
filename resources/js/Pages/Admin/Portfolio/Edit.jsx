@@ -51,7 +51,7 @@ export default function Edit({ portfolio }) {
         >
             <Head title="Edit Portofolio" />
 
-            <div className="max-w-2xl bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden">
+            <div className="max-w-7xl bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden">
                 <form onSubmit={submit} className="p-6 sm:p-8">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
                         <div className="lg:col-span-7 space-y-6">

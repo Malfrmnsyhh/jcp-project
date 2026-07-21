@@ -3,38 +3,38 @@ import Dropdown from '@/Components/UI/Dropdown';
 import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import {
-    FaChartBar, FaBookOpen, FaBoxOpen, FaClipboardList,
-    FaUsers, FaCogs, FaCubes, FaCoins, FaSignOutAlt, FaBars, FaTimes
+    FaBookOpen, FaBoxOpen, FaClipboardList, FaHome, FaBookmark , FaUsers,
+    FaCogs, FaCubes, FaCoins, FaSignOutAlt, FaBars, FaTimes, FaBox, FaBoxes,
+    FaCartPlus
 } from 'react-icons/fa';
 
 export default function AuthenticatedLayout({ header, children }) {
     const user = usePage().props.auth.user;
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
-    // Daftar Menu & Pengelompokan
     const menuGroups = [
         {
             title: 'RINGKASAN',
             items: [
-                { label: 'Dashboard', href: route('dashboard'), icon: FaChartBar, active: route().current('dashboard') }
+                { label: 'Dashboard', href: route('dashboard'), icon: FaHome, active: route().current('dashboard') }
             ]
         },
         {
             title: 'KONTEN WEBSITE',
             items: [
-                { label: 'Portofolio', href: route('admin.portfolio.index'), icon: FaClipboardList, active: route().current('admin.portfolio.*') },
-                { label: 'Mesin', href: route('admin.machines.index'), icon: FaCogs, active: route().current('admin.machines.*') },
-                { label: 'Testimoni', href: route('admin.testimonials.index'), icon: FaUsers, active: route().current('admin.testimonials.*') },
-                { label: 'Kategori Bahan', href: route('admin.material-categories.index'), icon: FaBookOpen, active: route().current('admin.material-categories.*') },
+                { label: 'Portofolio Produk', href: route('admin.portfolio.index'), icon: FaBookmark, active: route().current('admin.portfolio.*') },
+                { label: 'Mesin Aktif', href: route('admin.machines.index'), icon: FaCogs, active: route().current('admin.machines.*') },
+                { label: 'Testimoni Client', href: route('admin.testimonials.index'), icon: FaUsers, active: route().current('admin.testimonials.*') },
+                { label: 'Kategori Bahan', href: route('admin.material-categories.index'), icon: FaBox, active: route().current('admin.material-categories.*') },
                 { label: 'Katalog Bahan', href: route('admin.materials.index'), icon: FaBookOpen, active: route().current('admin.materials.*') }
             ]
         },
         {
             title: 'PENJUALAN',
             items: [
-                { label: 'Kategori Produk', href: route('admin.product-categories.index'), icon: FaBoxOpen, active: route().current('admin.product-categories.*') },
+                { label: 'Kategori Produk', href: route('admin.product-categories.index'), icon: FaBoxes, active: route().current('admin.product-categories.*') },
                 { label: 'Produk', href: route('admin.products.index'), icon: FaBoxOpen, active: route().current('admin.products.*') },
-                { label: 'Order', href: route('admin.orders.index'), icon: FaClipboardList, active: route().current('admin.orders.*') }
+                { label: 'Order', href: route('admin.orders.index'), icon: FaCartPlus, active: route().current('admin.orders.*') }
             ]
         },
         {

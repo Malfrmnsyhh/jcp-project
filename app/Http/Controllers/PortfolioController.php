@@ -12,7 +12,7 @@ class PortfolioController extends Controller
     {
         $portfolioItems = PortfolioItem::orderBy('sort_order')->orderBy('created_at', 'desc')->paginate(10);
         return inertia('Admin/Portfolio/Index', [
-            'portfolioItems' => $portfolioItems
+            'portfolios' => $portfolioItems
         ]);
     }
 
@@ -26,6 +26,8 @@ class PortfolioController extends Controller
         $data = $request->validate([
             'title' => 'required|string|max:255',
             'category' => 'required|string|max:255',
+            'client_name' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
             'sort_order' => 'nullable|integer',
         ]);
@@ -33,6 +35,10 @@ class PortfolioController extends Controller
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('portfolio', 'public');
             $data['image_path'] = '/storage/' . $path;
+        }
+
+        if (is_null($data['sort_order']) || $data['sort_order'] === '') {
+            unset($data['sort_order']);
         }
 
         PortfolioItem::create($data);
@@ -51,6 +57,8 @@ class PortfolioController extends Controller
         $data = $request->validate([
             'title' => 'required|string|max:255',
             'category' => 'required|string|max:255',
+            'client_name' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'sort_order' => 'nullable|integer',
         ]);

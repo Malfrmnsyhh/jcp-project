@@ -62,7 +62,7 @@ export default function Create() {
                                 </label>
                                 <input
                                     type="text"
-                                    className="w-full rounded-lg border-neutral-300 px-4 py-2.5 text-sm focus:ring-primary-500"
+                                    className="w-full rounded-xl px-4 py-2.5 text-sm bg-neutral-200 hover:bg-neutral-300"
                                     value={data.title}
                                     onChange={(e) => setData('title', e.target.value)}
                                     placeholder="Contoh: Plakat Akrilik Kementerian"
@@ -78,7 +78,7 @@ export default function Create() {
                                     </label>
                                     <input
                                         type="text"
-                                        className="w-full rounded-lg border-neutral-300 px-4 py-2.5 text-sm focus:ring-primary-500"
+                                        className="w-full rounded-xl px-4 py-2.5 text-sm bg-neutral-200 hover:bg-neutral-300"
                                         value={data.category}
                                         onChange={(e) => setData('category', e.target.value)}
                                         placeholder="Contoh: Produk Akrilik"
@@ -93,7 +93,7 @@ export default function Create() {
                                     </label>
                                     <input
                                         type="text"
-                                        className="w-full rounded-lg border-neutral-300 px-4 py-2.5 text-sm focus:ring-primary-500"
+                                        className="w-full rounded-xl px-4 py-2.5 text-sm bg-neutral-200 hover:bg-neutral-300"
                                         value={data.client_name}
                                         onChange={(e) => setData('client_name', e.target.value)}
                                         placeholder="Contoh: Kemenkes RI"
@@ -109,7 +109,7 @@ export default function Create() {
                                 </label>
                                 <textarea
                                     rows="4"
-                                    className="w-full rounded-lg border-neutral-300 px-4 py-2.5 text-sm focus:ring-primary-500"
+                                    className="w-full rounded-xl px-4 py-2.5 text-sm bg-neutral-200 hover:bg-neutral-300"
                                     value={data.description}
                                     onChange={(e) => setData('description', e.target.value)}
                                 ></textarea>
@@ -123,7 +123,7 @@ export default function Create() {
                                 </label>
                                 <input
                                     type="number"
-                                    className="w-full rounded-lg border-neutral-300 px-4 py-2.5 text-sm focus:ring-primary-500"
+                                    className="w-full rounded-xl px-4 py-2.5 text-sm bg-neutral-200 hover:bg-neutral-300"
                                     value={data.sort_order ?? ''}
                                     onChange={(e) => setData('sort_order', e.target.value === '' ? null : Number(e.target.value))}
                                     placeholder="Contoh: 1"

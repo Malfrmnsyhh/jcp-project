@@ -1,6 +1,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { FaPlus, FaEdit, FaTrash, FaImage } from 'react-icons/fa';
+import { FaPlus, FaEdit, FaImage } from 'react-icons/fa';
+import { FaTrashAlt } from "react-icons/fa";
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -90,7 +91,7 @@ export default function Index({ portfolios }) {
                                                 className="inline-flex text-rose-600 hover:text-rose-800 transition-colors"
                                                 title="Hapus"
                                             >
-                                                <FaTrash className="w-4 h-4" />
+                                                <FaTrashAlt className="w-4 h-4" />
                                             </button>
                                         </td>
                                     </tr>
@@ -131,7 +132,7 @@ export default function Index({ portfolios }) {
                         >
                             <div className="p-6 text-center">
                                 <div className="w-14 h-14 rounded-full bg-rose-100 flex items-center justify-center mb-4 mx-auto ring-4 ring-rose-50">
-                                    <FaTrash className="w-6 h-6 text-rose-600" />
+                                    <FaTrashAlt className="w-6 h-6 text-rose-600" />
                                 </div>
                                 <h3 className="text-xl font-bold text-neutral-900 mb-2">Hapus Projek?</h3>
                                 <p className="text-sm text-neutral-600 mb-6 leading-relaxed">
