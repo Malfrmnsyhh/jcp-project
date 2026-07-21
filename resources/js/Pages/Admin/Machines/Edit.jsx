@@ -52,128 +52,135 @@ export default function Edit({ machine }) {
         >
             <Head title="Edit Mesin" />
 
-            <div className="max-w-2xl bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden">
+            <div className="max-w-7xl bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden">
                 <form onSubmit={submit} className="p-6 sm:p-8">
-                    <div className="space-y-6">
-                        
-                        <div>
-                            <label className="block text-sm font-bold text-neutral-700 mb-2">
-                                Nama Mesin <span className="text-rose-500">*</span>
-                            </label>
-                            <input
-                                type="text"
-                                className="w-full rounded-lg border-neutral-300 px-4 py-2.5 text-sm focus:ring-primary-500"
-                                value={data.name}
-                                onChange={(e) => setData('name', e.target.value)}
-                            />
-                            {errors.name && <p className="mt-1 text-xs text-rose-500">{errors.name}</p>}
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
+                        <div className="lg:col-span-7 space-y-6">
                             <div>
                                 <label className="block text-sm font-bold text-neutral-700 mb-2">
-                                    Tipe / Merek <span className="text-rose-500">*</span>
+                                    Nama Mesin <span className="text-rose-500">*</span>
                                 </label>
                                 <input
                                     type="text"
-                                    className="w-full rounded-lg border-neutral-300 px-4 py-2.5 text-sm focus:ring-primary-500"
-                                    value={data.type}
-                                    onChange={(e) => setData('type', e.target.value)}
+                                    className="w-full rounded-xl px-4 py-2.5 text-sm bg-neutral-200 hover:bg-neutral-300"
+                                    value={data.name}
+                                    onChange={(e) => setData('name', e.target.value)}
                                 />
-                                {errors.type && <p className="mt-1 text-xs text-rose-500">{errors.type}</p>}
+                                {errors.name && <p className="mt-1 text-xs text-rose-500">{errors.name}</p>}
                             </div>
-                            <div>
-                                <label className="block text-sm font-bold text-neutral-700 mb-2">
-                                    Area Kerja <span className="text-rose-500">*</span>
-                                </label>
-                                <input
-                                    type="text"
-                                    className="w-full rounded-lg border-neutral-300 px-4 py-2.5 text-sm focus:ring-primary-500"
-                                    value={data.work_area}
-                                    onChange={(e) => setData('work_area', e.target.value)}
-                                />
-                                {errors.work_area && <p className="mt-1 text-xs text-rose-500">{errors.work_area}</p>}
-                            </div>
-                        </div>
 
-                        <div>
-                            <label className="block text-sm font-bold text-neutral-700 mb-2">
-                                Deskripsi Mesin
-                            </label>
-                            <textarea
-                                rows="3"
-                                className="w-full rounded-lg border-neutral-300 px-4 py-2.5 text-sm focus:ring-primary-500"
-                                value={data.description}
-                                onChange={(e) => setData('description', e.target.value)}
-                            ></textarea>
-                            {errors.description && <p className="mt-1 text-xs text-rose-500">{errors.description}</p>}
-                        </div>
-
-                        <div>
-                            <label className="block text-sm font-bold text-neutral-700 mb-2">
-                                Foto Mesin
-                            </label>
-                            
-                            {!preview && !machine.image_path && (
-                                <div className="border-2 border-dashed border-neutral-300 rounded-lg p-6 flex flex-col items-center justify-center text-center hover:bg-neutral-50 transition-colors relative cursor-pointer">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <div>
+                                    <label className="block text-sm font-bold text-neutral-700 mb-2">
+                                        Tipe / Merek <span className="text-rose-500">*</span>
+                                    </label>
                                     <input
-                                        type="file"
-                                        accept="image/*"
-                                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                        onChange={handleImageChange}
+                                        type="text"
+                                        className="w-full rounded-xl px-4 py-2.5 text-sm bg-neutral-200 hover:bg-neutral-300"
+                                        value={data.type}
+                                        onChange={(e) => setData('type', e.target.value)}
                                     />
-                                    <div className="bg-primary-100 text-primary-600 p-3 rounded-full mb-3">
-                                        <FaUpload className="w-6 h-6" />
-                                    </div>
-                                    <p className="text-sm font-bold text-neutral-700 mb-1">Pilih Gambar Pengganti</p>
+                                    {errors.type && <p className="mt-1 text-xs text-rose-500">{errors.type}</p>}
                                 </div>
-                            )}
-
-                            {(preview || machine.image_path) && (
-                                <div className="relative rounded-lg overflow-hidden border border-neutral-200 aspect-video group">
-                                    <img 
-                                        src={preview || machine.image_path} 
-                                        alt="Preview" 
-                                        className="w-full h-full object-cover" 
+                                <div>
+                                    <label className="block text-sm font-bold text-neutral-700 mb-2">
+                                        Area Kerja <span className="text-rose-500">*</span>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className="w-full rounded-xl px-4 py-2.5 text-sm bg-neutral-200 hover:bg-neutral-300"
+                                        value={data.work_area}
+                                        onChange={(e) => setData('work_area', e.target.value)}
                                     />
-                                    {preview ? (
-                                        <button
-                                            type="button"
-                                            onClick={removeImage}
-                                            className="absolute top-2 right-2 bg-red-500 text-white p-2 rounded opacity-0 group-hover:opacity-100 transition-opacity shadow"
-                                        >
-                                            <FaTimes className="w-4 h-4" />
-                                        </button>
-                                    ) : (
-                                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                            <div className="bg-white px-4 py-2 rounded-lg font-bold text-sm text-neutral-700 relative overflow-hidden cursor-pointer">
-                                                <input
-                                                    type="file"
-                                                    accept="image/*"
-                                                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                                    onChange={handleImageChange}
-                                                />
-                                                Ganti Gambar
-                                            </div>
+                                    {errors.work_area && <p className="mt-1 text-xs text-rose-500">{errors.work_area}</p>}
+                                </div>
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-bold text-neutral-700 mb-2">
+                                    Deskripsi Mesin
+                                </label>
+                                <textarea
+                                    rows="4"
+                                    className="w-full rounded-xl px-4 py-2.5 text-sm bg-neutral-200 hover:bg-neutral-300"
+                                    value={data.description}
+                                    onChange={(e) => setData('description', e.target.value)}
+                                ></textarea>
+                                {errors.description && <p className="mt-1 text-xs text-rose-500">{errors.description}</p>}
+                            </div>
+
+                            <div>
+                                <label className="flex items-center gap-2 cursor-pointer">
+                                    <input
+                                        type="checkbox"
+                                        className="rounded border-neutral-300 text-primary-600 focus:ring-primary-500 w-4 h-4 cursor-pointer"
+                                        checked={data.is_active}
+                                        onChange={(e) => setData('is_active', e.target.checked)}
+                                    />
+                                    <span className="text-sm font-bold text-neutral-700">Mesin Aktif / Tersedia</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div className="lg:col-span-5">
+                            <div>
+                                <label className="block text-sm font-bold text-neutral-700 mb-2">
+                                    Foto Mesin
+                                </label>
+
+                                {!preview && !machine.image_path && (
+                                    <div className="border-2 border-dashed border-neutral-300 rounded-lg p-10 flex flex-col items-center justify-center text-center hover:bg-neutral-50 transition-colors relative cursor-pointer min-h-[300px]">
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                            onChange={handleImageChange}
+                                        />
+                                        <div className="bg-primary-100 text-primary-600 p-4 rounded-full mb-4">
+                                            <FaUpload className="w-8 h-8" />
                                         </div>
-                                    )}
-                                </div>
-                            )}
-                            {errors.image && <p className="mt-1 text-xs text-rose-500">{errors.image}</p>}
-                        </div>
+                                        <p className="text-sm font-bold text-neutral-700 mb-1">Pilih Gambar Pengganti</p>
+                                        <p className="text-xs text-neutral-500">Maksimal 2MB (JPG, PNG)</p>
+                                    </div>
+                                )}
 
-                        <div>
-                            <label className="flex items-center gap-2 cursor-pointer">
-                                <input
-                                    type="checkbox"
-                                    className="rounded border-neutral-300 text-primary-600 focus:ring-primary-500 w-4 h-4 cursor-pointer"
-                                    checked={data.is_active}
-                                    onChange={(e) => setData('is_active', e.target.checked)}
-                                />
-                                <span className="text-sm font-bold text-neutral-700">Mesin Aktif / Tersedia</span>
-                            </label>
+                                {(preview || machine.image_path) && (
+                                    <div className="relative rounded-lg overflow-hidden border border-neutral-200 aspect-[4/3] group shadow-sm">
+                                        <img 
+                                            src={preview || machine.image_path} 
+                                            alt="Preview" 
+                                            className="w-full h-full object-cover" 
+                                        />
+                                        {preview ? (
+                                            <button
+                                                type="button"
+                                                onClick={removeImage}
+                                                className="absolute top-3 right-3 bg-red-500 text-white p-2.5 rounded opacity-0 group-hover:opacity-100 transition-opacity shadow"
+                                                title="Batal ubah gambar"
+                                            >
+                                                <FaTimes className="w-5 h-5" />
+                                            </button>
+                                        ) : (
+                                            <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                                <div className="bg-white px-4 py-2 rounded-lg font-bold text-sm text-neutral-700 relative overflow-hidden cursor-pointer shadow-sm">
+                                                    <input
+                                                        type="file"
+                                                        accept="image/*"
+                                                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                                        onChange={handleImageChange}
+                                                    />
+                                                    Ganti Gambar
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
+                                {errors.image && <p className="mt-2 text-xs text-rose-500">{errors.image}</p>}
+                                {!preview && machine.image_path && (
+                                    <p className="mt-3 text-xs text-neutral-500 italic">Gambar saat ini. Arahkan kursor ke gambar untuk mengganti.</p>
+                                )}
+                            </div>
                         </div>
-
                     </div>
 
                     <div className="mt-8 pt-6 border-t border-neutral-200 flex items-center justify-end gap-3">

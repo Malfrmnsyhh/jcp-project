@@ -1,6 +1,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { FaArrowLeft, FaSave } from 'react-icons/fa';
+import { FaArrowLeft, FaSave, FaUpload, FaTimes } from 'react-icons/fa';
+import { useState } from 'react';
 
 export default function Create() {
     const { data, setData, post, processing, errors } = useForm({
@@ -8,11 +9,29 @@ export default function Create() {
         customer_role: '',
         content: '',
         is_published: true,
+        product_image: null,
     });
+
+    const [preview, setPreview] = useState(null);
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setData('product_image', file);
+            setPreview(URL.createObjectURL(file));
+        }
+    };
+
+    const removeImage = () => {
+        setData('product_image', null);
+        setPreview(null);
+    };
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('admin.testimonials.store'));
+        post(route('admin.testimonials.store'), {
+            preserveScroll: true,
+        });
     };
 
     return (
@@ -33,61 +52,98 @@ export default function Create() {
         >
             <Head title="Tambah Testimoni" />
 
-            <div className="max-w-2xl bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden">
+            <div className="max-w-7xl bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden">
                 <form onSubmit={submit} className="p-6 sm:p-8">
-                    <div className="space-y-6">
-                        
-                        <div>
-                            <label className="block text-sm font-bold text-neutral-700 mb-2">
-                                Nama Pelanggan <span className="text-rose-500">*</span>
-                            </label>
-                            <input
-                                type="text"
-                                className="w-full rounded-lg border-neutral-300 px-4 py-2.5 text-sm focus:ring-primary-500"
-                                value={data.customer_name}
-                                onChange={(e) => setData('customer_name', e.target.value)}
-                            />
-                            {errors.customer_name && <p className="mt-1 text-xs text-rose-500">{errors.customer_name}</p>}
-                        </div>
-
-                        <div>
-                            <label className="block text-sm font-bold text-neutral-700 mb-2">
-                                Perusahaan / Profesi (Opsional)
-                            </label>
-                            <input
-                                type="text"
-                                className="w-full rounded-lg border-neutral-300 px-4 py-2.5 text-sm focus:ring-primary-500"
-                                value={data.customer_role}
-                                onChange={(e) => setData('customer_role', e.target.value)}
-                            />
-                            {errors.customer_role && <p className="mt-1 text-xs text-rose-500">{errors.customer_role}</p>}
-                        </div>
-
-                        <div>
-                            <label className="block text-sm font-bold text-neutral-700 mb-2">
-                                Isi Testimoni <span className="text-rose-500">*</span>
-                            </label>
-                            <textarea
-                                rows="5"
-                                className="w-full rounded-lg border-neutral-300 px-4 py-2.5 text-sm focus:ring-primary-500"
-                                value={data.content}
-                                onChange={(e) => setData('content', e.target.value)}
-                            ></textarea>
-                            {errors.content && <p className="mt-1 text-xs text-rose-500">{errors.content}</p>}
-                        </div>
-
-                        <div>
-                            <label className="flex items-center gap-2 cursor-pointer">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
+                        <div className="lg:col-span-7 space-y-6">
+                            <div>
+                                <label className="block text-sm font-bold text-neutral-700 mb-2">
+                                    Nama Pelanggan <span className="text-rose-500">*</span>
+                                </label>
                                 <input
-                                    type="checkbox"
-                                    className="rounded border-neutral-300 text-primary-600 focus:ring-primary-500 w-4 h-4 cursor-pointer"
-                                    checked={data.is_published}
-                                    onChange={(e) => setData('is_published', e.target.checked)}
+                                    type="text"
+                                    className="w-full rounded-xl px-4 py-2.5 text-sm bg-neutral-200 hover:bg-neutral-300"
+                                    value={data.customer_name}
+                                    onChange={(e) => setData('customer_name', e.target.value)}
                                 />
-                                <span className="text-sm font-bold text-neutral-700">Tampilkan Testimoni di Website</span>
-                            </label>
+                                {errors.customer_name && <p className="mt-1 text-xs text-rose-500">{errors.customer_name}</p>}
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-bold text-neutral-700 mb-2">
+                                    Perusahaan / Profesi (Opsional)
+                                </label>
+                                <input
+                                    type="text"
+                                    className="w-full rounded-xl px-4 py-2.5 text-sm bg-neutral-200 hover:bg-neutral-300"
+                                    value={data.customer_role}
+                                    onChange={(e) => setData('customer_role', e.target.value)}
+                                />
+                                {errors.customer_role && <p className="mt-1 text-xs text-rose-500">{errors.customer_role}</p>}
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-bold text-neutral-700 mb-2">
+                                    Isi Testimoni <span className="text-rose-500">*</span>
+                                </label>
+                                <textarea
+                                    rows="5"
+                                    className="w-full rounded-xl px-4 py-2.5 text-sm bg-neutral-200 hover:bg-neutral-300"
+                                    value={data.content}
+                                    onChange={(e) => setData('content', e.target.value)}
+                                ></textarea>
+                                {errors.content && <p className="mt-1 text-xs text-rose-500">{errors.content}</p>}
+                            </div>
+
+                            <div>
+                                <label className="flex items-center gap-2 cursor-pointer">
+                                    <input
+                                        type="checkbox"
+                                        className="rounded border-neutral-300 text-primary-600 focus:ring-primary-500 w-4 h-4 cursor-pointer"
+                                        checked={data.is_published}
+                                        onChange={(e) => setData('is_published', e.target.checked)}
+                                    />
+                                    <span className="text-sm font-bold text-neutral-700">Tampilkan Testimoni di Website</span>
+                                </label>
+                            </div>
                         </div>
 
+                        <div className="lg:col-span-5">
+                            <div>
+                                <label className="block text-sm font-bold text-neutral-700 mb-2">
+                                    Gambar Produk (Opsional)
+                                </label>
+
+                                {!preview ? (
+                                    <div className="border-2 border-dashed border-neutral-300 rounded-lg p-10 flex flex-col items-center justify-center text-center hover:bg-neutral-50 transition-colors relative cursor-pointer min-h-[300px]">
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                            onChange={handleImageChange}
+                                        />
+                                        <div className="bg-primary-100 text-primary-600 p-4 rounded-full mb-4">
+                                            <FaUpload className="w-8 h-8" />
+                                        </div>
+                                        <p className="text-sm font-bold text-neutral-700 mb-1">Klik untuk Memilih Gambar</p>
+                                        <p className="text-xs text-neutral-500">Maksimal 2MB (JPG, PNG)</p>
+                                    </div>
+                                ) : (
+                                    <div className="relative rounded-lg overflow-hidden border border-neutral-200 aspect-[4/3] group shadow-sm">
+                                        <img src={preview} alt="Preview" className="w-full h-full object-cover" />
+                                        <button
+                                            type="button"
+                                            onClick={removeImage}
+                                            className="absolute top-3 right-3 bg-red-500 text-white p-2.5 rounded opacity-0 group-hover:opacity-100 transition-opacity shadow"
+                                            title="Hapus"
+                                        >
+                                            <FaTimes className="w-5 h-5" />
+                                        </button>
+                                    </div>
+                                )}
+                                {errors.product_image && <p className="mt-2 text-xs text-rose-500">{errors.product_image}</p>}
+                            </div>
+                        </div>
                     </div>
 
                     <div className="mt-8 pt-6 border-t border-neutral-200 flex items-center justify-end gap-3">
