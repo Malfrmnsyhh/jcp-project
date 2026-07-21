@@ -4,11 +4,12 @@ import { FaArrowLeft, FaSave, FaUpload, FaTimes } from 'react-icons/fa';
 import { useState } from 'react';
 
 export default function Edit({ portfolio }) {
-    const { data, setData, post, processing, errors } = useForm({
-        _method: 'PUT',
+    const { data, setData, put, processing, errors } = useForm({
         title: portfolio.title || '',
+        category: portfolio.category || '',
         client_name: portfolio.client_name || '',
         description: portfolio.description || '',
+        sort_order: portfolio.sort_order ?? '',
         image: null,
     });
 
@@ -29,7 +30,7 @@ export default function Edit({ portfolio }) {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('admin.portfolio.update', portfolio.id));
+        put(route('admin.portfolio.update', portfolio.id));
     };
 
     return (
@@ -52,105 +53,140 @@ export default function Edit({ portfolio }) {
 
             <div className="max-w-2xl bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden">
                 <form onSubmit={submit} className="p-6 sm:p-8">
-                    <div className="space-y-6">
-                        {/* Title */}
-                        <div>
-                            <label className="block text-sm font-bold text-neutral-700 mb-2">
-                                Judul Projek <span className="text-rose-500">*</span>
-                            </label>
-                            <input
-                                type="text"
-                                className="w-full rounded-lg border-neutral-300 px-4 py-2.5 text-sm focus:ring-primary-500"
-                                value={data.title}
-                                onChange={(e) => setData('title', e.target.value)}
-                            />
-                            {errors.title && <p className="mt-1 text-xs text-rose-500">{errors.title}</p>}
-                        </div>
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
+                        <div className="lg:col-span-7 space-y-6">
+                            {/* Title */}
+                            <div>
+                                <label className="block text-sm font-bold text-neutral-700 mb-2">
+                                    Judul Projek <span className="text-rose-500">*</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    className="w-full rounded-xl px-4 py-2.5 text-sm bg-neutral-200 hover:bg-neutral-300"
+                                    value={data.title}
+                                    onChange={(e) => setData('title', e.target.value)}
+                                />
+                                {errors.title && <p className="mt-1 text-xs text-rose-500">{errors.title}</p>}
+                            </div>
 
-                        {/* Client Name */}
-                        <div>
-                            <label className="block text-sm font-bold text-neutral-700 mb-2">
-                                Nama Klien (Opsional)
-                            </label>
-                            <input
-                                type="text"
-                                className="w-full rounded-lg border-neutral-300 px-4 py-2.5 text-sm focus:ring-primary-500"
-                                value={data.client_name}
-                                onChange={(e) => setData('client_name', e.target.value)}
-                            />
-                            {errors.client_name && <p className="mt-1 text-xs text-rose-500">{errors.client_name}</p>}
-                        </div>
-
-                        {/* Description */}
-                        <div>
-                            <label className="block text-sm font-bold text-neutral-700 mb-2">
-                                Deskripsi Projek
-                            </label>
-                            <textarea
-                                rows="4"
-                                className="w-full rounded-lg border-neutral-300 px-4 py-2.5 text-sm focus:ring-primary-500"
-                                value={data.description}
-                                onChange={(e) => setData('description', e.target.value)}
-                            ></textarea>
-                            {errors.description && <p className="mt-1 text-xs text-rose-500">{errors.description}</p>}
-                        </div>
-
-                        {/* Single Image Upload */}
-                        <div>
-                            <label className="block text-sm font-bold text-neutral-700 mb-2">
-                                Gambar Portofolio
-                            </label>
-                            
-                            {!preview && !portfolio.image_path && (
-                                <div className="border-2 border-dashed border-neutral-300 rounded-lg p-6 flex flex-col items-center justify-center text-center hover:bg-neutral-50 transition-colors relative cursor-pointer">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                {/* Category */}
+                                <div>
+                                    <label className="block text-sm font-bold text-neutral-700 mb-2">
+                                        Kategori Projek <span className="text-rose-500">*</span>
+                                    </label>
                                     <input
-                                        type="file"
-                                        accept="image/*"
-                                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                        onChange={handleImageChange}
+                                        type="text"
+                                        className="w-full rounded-xl px-4 py-2.5 text-sm bg-neutral-200 hover:bg-neutral-300"
+                                        value={data.category}
+                                        onChange={(e) => setData('category', e.target.value)}
                                     />
-                                    <div className="bg-primary-100 text-primary-600 p-3 rounded-full mb-3">
-                                        <FaUpload className="w-6 h-6" />
-                                    </div>
-                                    <p className="text-sm font-bold text-neutral-700 mb-1">Pilih Gambar Pengganti</p>
+                                    {errors.category && <p className="mt-1 text-xs text-rose-500">{errors.category}</p>}
                                 </div>
-                            )}
 
-                            {(preview || portfolio.image_path) && (
-                                <div className="relative rounded-lg overflow-hidden border border-neutral-200 aspect-video group">
-                                    <img 
-                                        src={preview || portfolio.image_path} 
-                                        alt="Preview" 
-                                        className="w-full h-full object-cover" 
+                                {/* Client Name */}
+                                <div>
+                                    <label className="block text-sm font-bold text-neutral-700 mb-2">
+                                        Nama Klien (Opsional)
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className="w-full rounded-xl px-4 py-2.5 text-sm bg-neutral-200 hover:bg-neutral-300"
+                                        value={data.client_name}
+                                        onChange={(e) => setData('client_name', e.target.value)}
                                     />
-                                    {preview ? (
-                                        <button
-                                            type="button"
-                                            onClick={removeImage}
-                                            className="absolute top-2 right-2 bg-red-500 text-white p-2 rounded opacity-0 group-hover:opacity-100 transition-opacity shadow"
-                                            title="Batal ubah gambar"
-                                        >
-                                            <FaTimes className="w-4 h-4" />
-                                        </button>
-                                    ) : (
-                                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                            <div className="bg-white px-4 py-2 rounded-lg font-bold text-sm text-neutral-700 relative overflow-hidden cursor-pointer">
-                                                <input
-                                                    type="file"
-                                                    accept="image/*"
-                                                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                                    onChange={handleImageChange}
-                                                />
-                                                Ganti Gambar
-                                            </div>
-                                        </div>
-                                    )}
+                                    {errors.client_name && <p className="mt-1 text-xs text-rose-500">{errors.client_name}</p>}
                                 </div>
-                            )}
-                            {errors.image && <p className="mt-1 text-xs text-rose-500">{errors.image}</p>}
-                            {!preview && portfolio.image_path && (
-                                <p className="mt-2 text-xs text-neutral-500 italic">Gambar saat ini. Arahkan kursor ke gambar untuk mengganti.</p>
-                            )}
+                            </div>
+
+                            {/* Description */}
+                            <div>
+                                <label className="block text-sm font-bold text-neutral-700 mb-2">
+                                    Deskripsi Projek
+                                </label>
+                                <textarea
+                                    rows="4"
+                                    className="w-full rounded-xl px-4 py-2.5 text-sm bg-neutral-200 hover:bg-neutral-300"
+                                    value={data.description}
+                                    onChange={(e) => setData('description', e.target.value)}
+                                ></textarea>
+                                {errors.description && <p className="mt-1 text-xs text-rose-500">{errors.description}</p>}
+                            </div>
+
+                            {/* Sort Order */}
+                            <div>
+                                <label className="block text-sm font-bold text-neutral-700 mb-2">
+                                    Urutan Tampil (Opsional)
+                                </label>
+                                <input
+                                    type="number"
+                                    className="w-full rounded-xl px-4 py-2.5 text-sm bg-neutral-200 hover:bg-neutral-300"
+                                    value={data.sort_order ?? ''}
+                                    onChange={(e) => setData('sort_order', e.target.value === '' ? null : Number(e.target.value))}
+                                />
+                                {errors.sort_order && <p className="mt-1 text-xs text-rose-500">{errors.sort_order}</p>}
+                            </div>
+                        </div>
+
+                        <div className="lg:col-span-5">
+                            {/* Single Image Upload */}
+                            <div>
+                                <label className="block text-sm font-bold text-neutral-700 mb-2">
+                                    Gambar Portofolio
+                                </label>
+                                
+                                {!preview && !portfolio.image_path && (
+                                    <div className="border-2 border-dashed border-neutral-300 rounded-lg p-10 flex flex-col items-center justify-center text-center hover:bg-neutral-50 transition-colors relative cursor-pointer min-h-[300px]">
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                            onChange={handleImageChange}
+                                        />
+                                        <div className="bg-primary-100 text-primary-600 p-4 rounded-full mb-4">
+                                            <FaUpload className="w-8 h-8" />
+                                        </div>
+                                        <p className="text-sm font-bold text-neutral-700 mb-1">Pilih Gambar Pengganti</p>
+                                        <p className="text-xs text-neutral-500">Maksimal 2MB (JPG, PNG)</p>
+                                    </div>
+                                )}
+
+                                {(preview || portfolio.image_path) && (
+                                    <div className="relative rounded-lg overflow-hidden border border-neutral-200 aspect-[4/3] group shadow-sm">
+                                        <img 
+                                            src={preview || portfolio.image_path} 
+                                            alt="Preview" 
+                                            className="w-full h-full object-cover" 
+                                        />
+                                        {preview ? (
+                                            <button
+                                                type="button"
+                                                onClick={removeImage}
+                                                className="absolute top-3 right-3 bg-red-500 text-white p-2.5 rounded opacity-0 group-hover:opacity-100 transition-opacity shadow"
+                                                title="Batal ubah gambar"
+                                            >
+                                                <FaTimes className="w-5 h-5" />
+                                            </button>
+                                        ) : (
+                                            <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                                <div className="bg-white px-4 py-2 rounded-lg font-bold text-sm text-neutral-700 relative overflow-hidden cursor-pointer shadow-sm">
+                                                    <input
+                                                        type="file"
+                                                        accept="image/*"
+                                                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                                        onChange={handleImageChange}
+                                                    />
+                                                    Ganti Gambar
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
+                                {errors.image && <p className="mt-2 text-xs text-rose-500">{errors.image}</p>}
+                                {!preview && portfolio.image_path && (
+                                    <p className="mt-3 text-xs text-neutral-500 italic">Gambar saat ini. Arahkan kursor ke gambar untuk mengganti.</p>
+                                )}
+                            </div>
                         </div>
                     </div>
 
