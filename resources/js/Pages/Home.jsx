@@ -11,75 +11,12 @@ import Testimonials from '@/Components/Sections/Testimonials';
 import About from '@/Components/Sections/About';
 import Faq from '@/Components/Sections/Faq';
 
-export default function Home({ auth }) {
+export default function Home({ auth, portfolios }) {
     // 1. Hero Data
     const heroData = {
         title: "Jasa Cutting laser & Pusat Produk Kebutuhan Anda",
         subtitle: "Spesialis potongan presisi untuk akrilik, Kayu, dan MDF. Dari layanan kustom hingga katalog produk unggulan, kami siap mewujudkan kebutuhan Anda."
     };
-
-    const portfolioItems = [
-        {
-            id: 1,
-            name: 'Box Display Akrilik Minimalis 30×20×10 cm',
-            description: 'Kotak display akrilik bening dengan tutup sliding, cocok untuk pajangan produk dan koleksi.',
-            image: '/storage/images/portfolio/Rectangle 7.png',
-            category: 'Produk Akrilik',
-            price: 85000,
-            stock_status: 'tersedia',
-            isBestSeller: true,
-        },
-        {
-            id: 2,
-            name: 'Letter Timbul Acrylic — Font ARIAL 10 cm',
-            description: 'Huruf timbul akrilik warna putih, dipasang menggunakan braket di dinding untuk signage.',
-            image: '/storage/images/portfolio/Rectangle 8.png',
-            category: 'Signage',
-            price: 15000,
-            stock_status: 'tersedia',
-            isBestSeller: true,
-        },
-        {
-            id: 3,
-            name: 'Thank You Card Cutting — Ukuran A5',
-            description: 'Kartu ucapan dengan teknik cutting pada permukaan kertas karton tebal, cocok untuk souvenir.',
-            image: '/storage/images/portfolio/Rectangle 9.png',
-            category: 'Produk Akrilik',
-            price: 5000,
-            stock_status: 'tersedia',
-            isBestSeller: false,
-        },
-        {
-            id: 4,
-            name: 'Vandel Akrilik 3D — Logo Diukir 2 Lapis',
-            description: 'Plakat penghargaan premium dengan teknik ukir lapisan untuk kedalaman visual yang elegan.',
-            image: '/storage/images/portfolio/Rectangle 10.png',
-            category: 'Vandel & Trophy',
-            price: 120000,
-            stock_status: 'tersedia',
-            isBestSeller: true,
-        },
-        {
-            id: 5,
-            name: 'Case Custom Handphone Akrilik',
-            description: 'Casing HP akrilik dengan pola grafir khusus sesuai keinginan customer.',
-            image: '/storage/images/portfolio/Rectangle 11.png',
-            category: 'Produk Akrilik',
-            price: 35000,
-            stock_status: 'pre_order',
-            isBestSeller: false,
-        },
-        {
-            id: 6,
-            name: 'Name Tag Kantor Stainless — 2×8 cm',
-            description: 'Label nama karyawan bahan logam tipis, awet dan tidak mudah pudar.',
-            image: '/storage/images/portfolio/Rectangle 12.png',
-            category: 'Signage',
-            price: 25000,
-            stock_status: 'tersedia',
-            isBestSeller: false,
-        }
-    ];
 
     // 5. How It Works Data
     const workSteps = [
@@ -114,7 +51,7 @@ export default function Home({ auth }) {
             <Head title='Profile' />
             <Hero title={heroData.title} subtitle={heroData.subtitle} />
             <Catalog materials={materials} />
-            <Portfolio items={portfolioItems} />
+            <Portfolio items={portfolios} />
             <HowItWorks steps={workSteps} />
             <Testimonials testimonials={testimonials} />
             <About />

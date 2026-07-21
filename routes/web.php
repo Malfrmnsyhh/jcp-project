@@ -14,8 +14,14 @@ use App\Http\Controllers\ProductCategoryController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+use App\Models\Portfolio;
+use App\Models\Testimonial;
+
 Route::get('/', function () {
-    return Inertia::render('Home');
+    $portfolios = Portfolio::orderBy('created_at', 'desc')->take(6)->get();
+    return Inertia::render('Home', [
+        'portfolios' => $portfolios
+    ]);
 });
 
 Route::get('/katalog-produk', function () {
