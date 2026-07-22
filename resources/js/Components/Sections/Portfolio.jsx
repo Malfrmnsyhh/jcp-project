@@ -75,7 +75,7 @@ export default function Portfolio({ items = [] }) {
                                     {/* Client Badge */}
                                     {item.client_name && (
                                         <div className="absolute top-4 left-4 px-3 py-1 bg-white/90 backdrop-blur-sm rounded text-[10px] font-bold text-primary-700 uppercase tracking-wider border border-primary-200">
-                                            Klien: {item.client_name}
+                                            {item.client_name}
                                         </div>
                                     )}
                                 </div>

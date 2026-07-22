@@ -9,8 +9,9 @@ export default function Create({ categories }) {
         name: '',
         description: '',
         price: '',
+        stock_status: 'tersedia',
         is_active: true,
-        images: [] // array of file objects
+        images: []
     });
 
     const [imagePreviews, setImagePreviews] = useState([]);
@@ -41,7 +42,9 @@ export default function Create({ categories }) {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('admin.products.store'));
+        post(route('admin.products.store'), {
+            forceFormData: true,
+        });
     };
 
     return (
@@ -125,7 +128,26 @@ export default function Create({ categories }) {
                                 {errors.price && <p className="mt-1.5 text-xs text-rose-500">{errors.price}</p>}
                             </div>
 
-                            {/* Field: Status */}
+                            {/* Field: Stock Status */}
+                            <div>
+                                <label className="block text-sm font-bold text-neutral-700 mb-2">
+                                    Status Stok <span className="text-rose-500">*</span>
+                                </label>
+                                <select
+                                    className={`w-full rounded-xl px-4 py-2.5 text-sm transition-all ${
+                                        errors.stock_status ? 'bg-rose-50' : 'bg-neutral-200 hover:bg-neutral-300'
+                                    }`}
+                                    value={data.stock_status}
+                                    onChange={(e) => setData('stock_status', e.target.value)}
+                                >
+                                    <option value="tersedia">Tersedia (Ready Stock)</option>
+                                    <option value="pre_order">Pre-Order</option>
+                                    <option value="habis">Habis</option>
+                                </select>
+                                {errors.stock_status && <p className="mt-1.5 text-xs text-rose-500">{errors.stock_status}</p>}
+                            </div>
+
+                            {/* Field: Aktif */}
                             <div>
                                 <label className="flex items-center gap-2 cursor-pointer">
                                     <input
@@ -153,8 +175,8 @@ export default function Create({ categories }) {
                                 </label>
                                 <textarea
                                     rows="5"
-                                    className={`w-full rounded-lg border px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:border-transparent transition-all ${
-                                        errors.description ? 'border-rose-300 focus:ring-rose-500 bg-rose-50' : 'border-neutral-300 focus:ring-primary-500 bg-white'
+                                    className={`w-full rounded-xl px-4 py-2.5 text-sm transition-all ${
+                                        errors.description ? 'bg-rose-50' : 'bg-neutral-200 hover:bg-neutral-300'
                                     }`}
                                     value={data.description}
                                     onChange={(e) => setData('description', e.target.value)}

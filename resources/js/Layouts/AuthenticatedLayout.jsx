@@ -3,7 +3,7 @@ import Dropdown from '@/Components/UI/Dropdown';
 import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import {
-    FaBookOpen, FaBoxOpen, FaClipboardList, FaHome, FaBookmark , FaUsers,
+    FaBookOpen, FaBoxOpen, FaCube, FaHome, FaBookmark , FaUsers,
     FaCogs, FaCubes, FaCoins, FaSignOutAlt, FaBars, FaTimes, FaBox, FaBoxes,
     FaCartPlus
 } from 'react-icons/fa';
@@ -26,7 +26,7 @@ export default function AuthenticatedLayout({ header, children }) {
                 { label: 'Mesin Aktif', href: route('admin.machines.index'), icon: FaCogs, active: route().current('admin.machines.*') },
                 { label: 'Testimoni Client', href: route('admin.testimonials.index'), icon: FaUsers, active: route().current('admin.testimonials.*') },
                 { label: 'Kategori Bahan', href: route('admin.material-categories.index'), icon: FaBox, active: route().current('admin.material-categories.*') },
-                { label: 'Katalog Bahan', href: route('admin.materials.index'), icon: FaBookOpen, active: route().current('admin.materials.*') }
+                { label: 'Katalog Bahan', href: route('admin.materials.index'), icon: FaCube, active: route().current('admin.materials.*') }
             ]
         },
         {

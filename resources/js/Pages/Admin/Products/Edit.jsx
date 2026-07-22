@@ -5,13 +5,14 @@ import { useState } from 'react';
 
 export default function Edit({ product, categories }) {
     const { data, setData, post, processing, errors } = useForm({
-        _method: 'PUT', // Untuk mendukung file upload dengan method PUT di Laravel
+        _method: 'PUT',
         product_category_id: product.product_category_id || '',
         name: product.name || '',
         description: product.description || '',
         price: product.price || '',
+        stock_status: product.stock_status || 'tersedia',
         is_active: product.is_active,
-        new_images: [], // File objek gambar baru
+        new_images: [],
     });
 
     const [newImagePreviews, setNewImagePreviews] = useState([]);
@@ -48,7 +49,9 @@ export default function Edit({ product, categories }) {
 
     const submit = (e) => {
         e.preventDefault();
-        post(route('admin.products.update', product.id));
+        post(route('admin.products.update', product.id), {
+            forceFormData: true,
+        });
     };
 
     return (
@@ -121,6 +124,23 @@ export default function Edit({ product, categories }) {
                                     onChange={(e) => setData('price', e.target.value)}
                                 />
                                 {errors.price && <p className="mt-1 text-xs text-rose-500">{errors.price}</p>}
+                            </div>
+
+                            {/* Field: Stock Status */}
+                            <div>
+                                <label className="block text-sm font-bold text-neutral-700 mb-2">
+                                    Status Stok <span className="text-rose-500">*</span>
+                                </label>
+                                <select
+                                    className="w-full rounded-xl px-4 py-2.5 text-sm transition-all bg-neutral-200 hover:bg-neutral-300"
+                                    value={data.stock_status}
+                                    onChange={(e) => setData('stock_status', e.target.value)}
+                                >
+                                    <option value="tersedia">Tersedia (Ready Stock)</option>
+                                    <option value="pre_order">Pre-Order</option>
+                                    <option value="habis">Habis</option>
+                                </select>
+                                {errors.stock_status && <p className="mt-1 text-xs text-rose-500">{errors.stock_status}</p>}
                             </div>
 
                             <div>

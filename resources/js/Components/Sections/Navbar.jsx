@@ -112,6 +112,17 @@ export default function Navbar({ user }) {
                                 </a>
                             );
                         })}
+
+                        {/* Katalog Produk CTA Button */}
+                        <Link
+                            href="/katalog-produk"
+                            className="ml-3 relative inline-flex items-center gap-1.5 px-5 py-2.5 text-xs font-bold text-white rounded-xl bg-primary-600 hover:bg-primary-700 shadow-lg shadow-primary-600/30 hover:shadow-primary-600/50 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 overflow-hidden group"
+                        >
+                            {/* Glow effect */}
+                            <span className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl" />
+                            <span className="relative">🛒</span>
+                            <span className="relative">Katalog Produk</span>
+                        </Link>
                     </nav>
 
                     {/* Mobile Hamburger */}
@@ -149,6 +160,16 @@ export default function Navbar({ user }) {
                                 </a>
                             );
                         })}
+
+                        {/* Katalog Produk CTA - Mobile */}
+                        <Link
+                            href="/katalog-produk"
+                            onClick={() => setIsOpen(false)}
+                            className="w-full flex items-center justify-center gap-2 mt-2 px-4 py-3 rounded-xl text-sm font-bold text-white bg-primary-600 hover:bg-primary-700 transition-colors shadow-md"
+                        >
+                            <span>🛒</span>
+                            <span>Katalog Produk</span>
+                        </Link>
                     </div>
                 </div>
             )}
