@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import MainLayout from '@/Layouts/MainLayout';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiSearch, FiFilter } from 'react-icons/fi';
+import { FiSearch, FiFilter, FiArrowLeft } from 'react-icons/fi';
 
 export default function Catalog({ auth, categories = [], products = [] }) {
     const [activeCategory, setActiveCategory] = useState('Semua');
@@ -26,7 +26,7 @@ export default function Catalog({ auth, categories = [], products = [] }) {
         <MainLayout auth={auth}>
             <Head title='Katalog Produk' />
             
-            <div className="bg-white pt-24 pb-12 sm:pt-32 sm:pb-16 relative">
+            <div className="bg-white pt-24 pb-12 sm:pt-28 sm:pb-16 relative">
                 <div className="absolute inset-0 bg-neutral-50" style={{ clipPath: 'polygon(0 0, 100% 0, 100% 80%, 0% 100%)' }}></div>
                 <div className="max-w-7xl mx-auto px-6 relative z-10">
                     <div className="text-center max-w-3xl mx-auto mb-10">
@@ -45,7 +45,7 @@ export default function Catalog({ auth, categories = [], products = [] }) {
                             <input
                                 type="text"
                                 placeholder="Cari produk..."
-                                className="w-full pl-12 pr-4 py-3 bg-neutral-100 border-transparent rounded-xl focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all text-sm font-medium"
+                                className="w-full pl-12 pr-4 py-3 bg-neutral-100 border-transparent rounded-xl focus:bg-neutral-200 focus:border-primary-500 focus:ring-primary-200 transition-all text-sm font-medium"
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                             />

@@ -33,8 +33,21 @@ export default function MaterialDetailModal({ material, onClose }) {
                     {/* Header */}
                     <div className="flex justify-between items-center p-6 border-b border-neutral-400/20 bg-primary-700/10">
                         <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 rounded-xl bg-primary-100 text-primary-700 flex items-center justify-center text-2xl">
-                                {material.icon}
+                            <div
+                                className="w-12 h-12 rounded-xl relative overflow-hidden shadow-inner flex items-center justify-center border border-black/10 shrink-0"
+                                style={{
+                                    backgroundColor: material.color_hex !== 'transparent' && material.color_hex !== 'bening' ? (material.color_hex || '#0ea5e9') : '#ffffff',
+                                    backgroundImage: (material.color_hex === 'transparent' || material.color_hex === 'bening')
+                                        ? 'linear-gradient(135deg, rgba(224, 242, 254, 0.8) 0%, rgba(255, 255, 255, 0.95) 50%, rgba(186, 230, 253, 0.7) 100%)'
+                                        : undefined
+                                }}
+                            >
+                                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/35 to-transparent pointer-events-none" />
+                                {(material.color_hex === 'transparent' || material.color_hex === 'bening') && (
+                                    <span className="text-[10px] font-extrabold uppercase text-sky-800 tracking-tighter opacity-80 z-10">
+                                        Bening
+                                    </span>
+                                )}
                             </div>
                             <h2 className="text-2xl font-bold text-neutral-900 font-header">
                                 {material.name}

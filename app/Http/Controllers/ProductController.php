@@ -11,7 +11,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with('category')->orderBy('created_at', 'desc')->paginate(10);
+        $products = Product::with(['category', 'images'])->orderBy('created_at', 'desc')->paginate(10);
         return inertia('Admin/Products/Index', ['products' => $products]);
     }
 

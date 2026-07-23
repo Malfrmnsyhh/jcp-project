@@ -48,6 +48,7 @@ Route::get('/', function () {
                 'id' => $m->id,
                 'category' => $m->category ? $m->category->name : 'Lainnya',
                 'name' => $m->name,
+                'color_hex' => $m->color_hex ?? '#0ea5e9',
                 'short_description' => \Illuminate\Support\Str::limit($m->description, 60),
                 'description' => $m->description,
                 'thickness_options' => $m->thicknesses->pluck('label')->toArray(),

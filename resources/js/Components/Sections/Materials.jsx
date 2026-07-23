@@ -22,7 +22,7 @@ export default function Catalog({ materials = [] }) {
 
                 <div className="text-start max-w-full mx-auto mb-10">
                     <h2 className="text-3xl sm:text-4xl font-extrabold text-neutral-900 font-header">
-                        Kami Menyediakan Beberapa Jenis Bahan
+                        Berbagai Jenis Bahan
                     </h2>
                     <p className="mt-4 text-neutral-700">
                         Anda juga dapat menanyakan jenis bahan yang Anda inginkan kepada tim kami jika tidak tersedia di sini.

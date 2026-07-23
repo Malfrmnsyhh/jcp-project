@@ -10,7 +10,7 @@ class MaterialCategoryController extends Controller
 {
     public function index()
     {
-        $categories = MaterialCategory::orderBy('created_at', 'desc')->paginate(10);
+        $categories = MaterialCategory::withCount('materials')->orderBy('created_at', 'desc')->paginate(10);
         return inertia('Admin/MaterialCategories/Index', [
             'categories' => $categories
         ]);

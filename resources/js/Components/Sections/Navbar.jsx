@@ -2,12 +2,15 @@ import { useState, useEffect } from "react";
 import { Link, usePage } from "@inertiajs/react";
 import ApplicationLogo from '@/Components/UI/ApplicationLogo';
 import { FiMenu, FiX } from 'react-icons/fi';
+import { FaShoppingCart } from 'react-icons/fa';
 
 export default function Navbar({ user }) {
     const [isOpen, setIsOpen] = useState(false);
     const [activeSection, setActiveSection] = useState('');
     const [scrolled, setScrolled] = useState(false);
     const { url } = usePage();
+    const isHomePage = url === '/' || url === '' || url.startsWith('/#');
+    const showSolidNavbar = scrolled || !isHomePage;
 
     const navItems = [
         { label: 'Beranda', href: '#hero', sectionId: 'hero' },
@@ -21,6 +24,8 @@ export default function Navbar({ user }) {
 
     // Scroll spy: detect which section is visible
     useEffect(() => {
+        if (!isHomePage) return;
+
         const sectionIds = navItems.map(item => item.sectionId);
 
         const handleScroll = () => {
@@ -53,9 +58,10 @@ export default function Navbar({ user }) {
             observer.disconnect();
             window.removeEventListener('scroll', handleScroll);
         };
-    }, []);
+    }, [isHomePage]);
 
     const handleNavClick = (e, href) => {
+        if (!isHomePage) return;
         e.preventDefault();
         setIsOpen(false);
 
@@ -70,19 +76,23 @@ export default function Navbar({ user }) {
 
     return (
         <header className="w-full fixed top-0 z-50 transition-all duration-300">
-            <div className={`w-full transition-all duration-300 ${scrolled
+            <div className={`w-full transition-all duration-300 ${showSolidNavbar
                 ? 'bg-white/95 backdrop-blur-md shadow-md border-b border-neutral-200'
                 : 'bg-transparent'
                 }`}>
                 <div className="max-w-7xl mx-auto px-4 md:px-8 py-3 flex justify-between items-center">
                     {/* Logo & Company Name */}
-                    <Link href="#hero" className="flex items-center gap-3 group">
+                    <Link
+                        href={isHomePage ? "#hero" : "/"}
+                        onClick={(e) => isHomePage && handleNavClick(e, '#hero')}
+                        className="flex items-center gap-3 group"
+                    >
                         <ApplicationLogo className="h-9 w-10" />
                         <span className="flex flex-col leading-none">
                             <p className="font-header text-xl font-extrabold text-primary-700 group-hover:text-primary-700 transition-colors">
                                 JCP
                             </p>
-                            <span className={`text-[9px] font-bold tracking-wider transition-colors ${scrolled ? 'text-primary-600' : 'text-primary-400'
+                            <span className={`text-[9px] font-bold tracking-wider transition-colors ${showSolidNavbar ? 'text-primary-600' : 'text-primary-400'
                                 }`}>
                                 Jombang Creative Project
                             </span>
@@ -92,15 +102,16 @@ export default function Navbar({ user }) {
                     {/* Desktop Nav */}
                     <nav className="hidden md:flex items-center gap-1">
                         {navItems.map((item, idx) => {
-                            const isActive = activeSection === item.sectionId;
+                            const isActive = isHomePage && activeSection === item.sectionId;
+                            const itemHref = isHomePage ? item.href : `/${item.href}`;
                             return (
                                 <a
                                     key={idx}
-                                    href={item.href}
-                                    onClick={(e) => handleNavClick(e, item.href)}
+                                    href={itemHref}
+                                    onClick={(e) => isHomePage ? handleNavClick(e, item.href) : setIsOpen(false)}
                                     className={`relative px-3 py-2 text-xs font-semibold transition-all duration-200 rounded-lg ${isActive
                                         ? 'text-primary-700'
-                                        : scrolled
+                                        : showSolidNavbar
                                             ? 'text-neutral-600 hover:text-primary-600'
                                             : 'text-white/80 hover:text-white'
                                         }`}
@@ -119,9 +130,9 @@ export default function Navbar({ user }) {
                             className="ml-3 relative inline-flex items-center gap-1.5 px-5 py-2.5 text-xs font-bold text-white rounded-xl bg-primary-600 hover:bg-primary-700 shadow-lg shadow-primary-600/30 hover:shadow-primary-600/50 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 overflow-hidden group"
                         >
                             {/* Glow effect */}
-                            <span className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl" />
-                            <span className="relative">🛒</span>
-                            <span className="relative">Katalog Produk</span>
+                            <span className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl" />
+                            <FaShoppingCart className="w-3 h-3" />
+                            <span className="relative">Produk</span>
                         </Link>
                     </nav>
 
@@ -129,7 +140,7 @@ export default function Navbar({ user }) {
                     <div className="md:hidden flex items-center">
                         <button
                             onClick={() => setIsOpen(!isOpen)}
-                            className={`p-2 rounded-xl transition-colors focus:outline-none ${scrolled
+                            className={`p-2 rounded-xl transition-colors focus:outline-none ${showSolidNavbar
                                 ? 'text-neutral-700 hover:bg-neutral-100'
                                 : 'text-white hover:bg-white/10'
                                 }`}
@@ -145,12 +156,13 @@ export default function Navbar({ user }) {
                 <div className="md:hidden bg-white/95 backdrop-blur-md border-b border-neutral-200 shadow-lg w-full py-3 px-4 absolute left-0 z-40">
                     <div className="max-w-7xl mx-auto flex flex-col gap-1">
                         {navItems.map((item, idx) => {
-                            const isActive = activeSection === item.sectionId;
+                            const isActive = isHomePage && activeSection === item.sectionId;
+                            const itemHref = isHomePage ? item.href : `/${item.href}`;
                             return (
                                 <a
                                     key={idx}
-                                    href={item.href}
-                                    onClick={(e) => handleNavClick(e, item.href)}
+                                    href={itemHref}
+                                    onClick={(e) => isHomePage ? handleNavClick(e, item.href) : setIsOpen(false)}
                                     className={`w-full block px-4 py-3 rounded-xl text-sm font-semibold transition-all ${isActive
                                         ? 'text-primary-700 bg-primary-50'
                                         : 'text-neutral-700 hover:text-primary-700 hover:bg-neutral-50'
@@ -167,7 +179,6 @@ export default function Navbar({ user }) {
                             onClick={() => setIsOpen(false)}
                             className="w-full flex items-center justify-center gap-2 mt-2 px-4 py-3 rounded-xl text-sm font-bold text-white bg-primary-600 hover:bg-primary-700 transition-colors shadow-md"
                         >
-                            <span>🛒</span>
                             <span>Katalog Produk</span>
                         </Link>
                     </div>

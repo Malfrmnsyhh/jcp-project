@@ -69,18 +69,10 @@ export default function Hero({ title, subtitle }) {
                 <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
                     <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
                         <Link
-                            href="#portfolio"
+                            href="/katalog-produk"
                             className="inline-block px-8 py-3.5 rounded bg-white text-primary-700 font-bold hover:bg-neutral-100 transition-all text-center text-sm border border-white hover:shadow-md"
                         >
                             Lihat Katalog
-                        </Link>
-                    </motion.div>
-                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
-                        <Link
-                            href="#order"
-                            className="inline-block px-8 py-3.5 rounded bg-transparent border border-white text-white font-bold hover:bg-white/10 transition-all text-center text-sm"
-                        >
-                            Order Sekarang
                         </Link>
                     </motion.div>
                 </motion.div>

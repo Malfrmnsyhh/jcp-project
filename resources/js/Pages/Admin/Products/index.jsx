@@ -1,13 +1,18 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { FaPlus, FaEdit, FaTrash, FaImage } from 'react-icons/fa';
+import { FaPlus, FaEdit, FaTrashAlt, FaImage } from 'react-icons/fa';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Index({ products }) {
     const { delete: destroy } = useForm();
+    const [itemToDelete, setItemToDelete] = useState(null);
 
-    const handleDelete = (id) => {
-        if (confirm('Apakah Anda yakin ingin menghapus produk ini? Semua gambar dan relasi terkait juga akan terhapus.')) {
-            destroy(route('admin.products.destroy', id));
+    const confirmDelete = () => {
+        if (itemToDelete) {
+            destroy(route('admin.products.destroy', itemToDelete.id), {
+                onSuccess: () => setItemToDelete(null),
+            });
         }
     };
 
@@ -25,7 +30,7 @@ export default function Index({ products }) {
         >
             <Head title="Produk" />
 
-            <div className="bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden">
+            <div className="bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden relative">
                 <div className="px-6 py-4 border-b border-neutral-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <h3 className="font-bold text-neutral-800">Daftar Produk</h3>
                     <Link
@@ -58,7 +63,7 @@ export default function Index({ products }) {
                                 </tr>
                             ) : (
                                 products.data.map((product) => {
-                                    // Cari gambar utama (is_primary = 1) atau ambil gambar pertama
+                                    // Cari gambar utama (is_primary = 1) atau gambar pertama
                                     const primaryImage = product.images?.find(img => img.is_primary) || product.images?.[0];
                                     
                                     return (
@@ -102,11 +107,11 @@ export default function Index({ products }) {
                                                     <FaEdit className="w-4 h-4" />
                                                 </Link>
                                                 <button
-                                                    onClick={() => handleDelete(product.id)}
+                                                    onClick={() => setItemToDelete(product)}
                                                     className="inline-flex text-rose-600 hover:text-rose-800 transition-colors"
                                                     title="Hapus"
                                                 >
-                                                    <FaTrash className="w-4 h-4" />
+                                                    <FaTrashAlt className="w-4 h-4" />
                                                 </button>
                                             </td>
                                         </tr>
@@ -134,6 +139,45 @@ export default function Index({ products }) {
                     </div>
                 )}
             </div>
+
+            {/* Custom Modal Confirmation */}
+            <AnimatePresence>
+                {itemToDelete && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-900/40 backdrop-blur-sm">
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                            transition={{ type: "spring", bounce: 0.3, duration: 0.4 }}
+                            className="bg-white rounded-2xl shadow-xl max-w-sm w-full overflow-hidden border border-neutral-200 relative"
+                        >
+                            <div className="p-6 text-center">
+                                <div className="w-14 h-14 rounded-full bg-rose-100 flex items-center justify-center mb-4 mx-auto ring-4 ring-rose-50">
+                                    <FaTrashAlt className="w-6 h-6 text-rose-600" />
+                                </div>
+                                <h3 className="text-xl font-bold text-neutral-900 mb-2">Hapus Produk?</h3>
+                                <p className="text-sm text-neutral-600 mb-6 leading-relaxed">
+                                    Apakah Anda yakin ingin menghapus <span className="font-bold text-neutral-800">"{itemToDelete.name}"</span>? Semua gambar dan relasi terkait juga akan terhapus.
+                                </p>
+                                <div className="flex gap-3">
+                                    <button
+                                        onClick={() => setItemToDelete(null)}
+                                        className="flex-1 px-4 py-2.5 rounded-xl font-bold text-neutral-700 bg-neutral-100 hover:bg-neutral-200 transition-colors"
+                                    >
+                                        Batal
+                                    </button>
+                                    <button
+                                        onClick={confirmDelete}
+                                        className="flex-1 px-4 py-2.5 rounded-xl font-bold text-white bg-rose-600 hover:bg-rose-700 transition-colors shadow-sm shadow-rose-200"
+                                    >
+                                        Ya, Hapus
+                                    </button>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
         </AuthenticatedLayout>
     );
 }

@@ -6,6 +6,7 @@ export default function Edit({ material, categories }) {
     const { data, setData, put, processing, errors } = useForm({
         material_category_id: material.material_category_id || '',
         name: material.name || '',
+        color_hex: material.color_hex || '#0ea5e9',
         description: material.description || '',
     });
 
@@ -70,6 +71,29 @@ export default function Edit({ material, categories }) {
                                     onChange={(e) => setData('name', e.target.value)}
                                 />
                                 {errors.name && <p className="mt-1 text-xs text-rose-500">{errors.name}</p>}
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-bold text-neutral-700 mb-2">
+                                    Warna Sampel / Kode HEX <span className="text-rose-500">*</span>
+                                </label>
+                                <div className="flex items-center gap-3">
+                                    <input
+                                        type="color"
+                                        className="w-12 h-10 rounded-lg cursor-pointer border border-neutral-300 p-1 bg-white"
+                                        value={data.color_hex && data.color_hex.startsWith('#') ? data.color_hex : '#0ea5e9'}
+                                        onChange={(e) => setData('color_hex', e.target.value)}
+                                    />
+                                    <input
+                                        type="text"
+                                        placeholder="#0ea5e9 atau transparent"
+                                        className="flex-1 rounded-xl px-4 py-2.5 text-sm font-mono transition-all bg-neutral-200 hover:bg-neutral-300 focus:ring-primary-500"
+                                        value={data.color_hex}
+                                        onChange={(e) => setData('color_hex', e.target.value)}
+                                    />
+                                </div>
+                                <p className="mt-1 text-xs text-neutral-500">Pilih warna atau ketik kode HEX (Ketik 'transparent' untuk akrilik bening)</p>
+                                {errors.color_hex && <p className="mt-1 text-xs text-rose-500">{errors.color_hex}</p>}
                             </div>
                         </div>
 

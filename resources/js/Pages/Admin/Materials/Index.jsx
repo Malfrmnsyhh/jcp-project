@@ -37,6 +37,7 @@ export default function Index({ materials }) {
                     <table className="w-full text-left border-collapse text-sm">
                         <thead>
                             <tr className="bg-neutral-50 text-neutral-500 font-semibold uppercase border-b border-neutral-200">
+                                <th className="px-6 py-4">Warna</th>
                                 <th className="px-6 py-4">Nama Material</th>
                                 <th className="px-6 py-4">Kategori</th>
                                 <th className="px-6 py-4">Deskripsi</th>
@@ -46,13 +47,28 @@ export default function Index({ materials }) {
                         <tbody className="divide-y divide-neutral-200 text-neutral-700">
                             {materials.data.length === 0 ? (
                                 <tr>
-                                    <td colSpan="4" className="px-6 py-8 text-center text-neutral-500">
+                                    <td colSpan="5" className="px-6 py-8 text-center text-neutral-500">
                                         Belum ada data material.
                                     </td>
                                 </tr>
                             ) : (
                                 materials.data.map((material) => (
                                     <tr key={material.id} className="hover:bg-neutral-50 transition-colors">
+                                        <td className="px-6 py-4">
+                                            <div className="flex items-center gap-2">
+                                                <div
+                                                    className="w-7 h-7 rounded-lg border border-neutral-300 shadow-sm shrink-0"
+                                                    style={{
+                                                        backgroundColor: material.color_hex === 'transparent' ? '#ffffff' : (material.color_hex || '#0ea5e9'),
+                                                        backgroundImage: material.color_hex === 'transparent' ? 'linear-gradient(45deg, #e2e8f0 25%, transparent 25%), linear-gradient(-45deg, #e2e8f0 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #e2e8f0 75%), linear-gradient(-45deg, transparent 75%, #e2e8f0 75%)' : 'none',
+                                                        backgroundSize: '8px 8px',
+                                                        backgroundPosition: '0 0, 0 4px, 4px -4px, -4px 0px'
+                                                    }}
+                                                    title={material.color_hex || '#0ea5e9'}
+                                                />
+                                                <span className="text-xs font-mono text-neutral-600">{material.color_hex || '#0ea5e9'}</span>
+                                            </div>
+                                        </td>
                                         <td className="px-6 py-4">
                                             <div className="font-bold text-neutral-900">{material.name}</div>
                                         </td>

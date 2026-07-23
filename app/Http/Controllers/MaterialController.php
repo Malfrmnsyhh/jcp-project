@@ -28,6 +28,7 @@ class MaterialController extends Controller
         $data = $request->validate([
             'material_category_id' => 'required|exists:material_categories,id',
             'name' => 'required|string|max:255',
+            'color_hex' => 'nullable|string|max:20',
             'description' => 'nullable|string',
         ]);
         Material::create($data);
@@ -54,6 +55,7 @@ class MaterialController extends Controller
         $data = $request->validate([
             'material_category_id' => 'required|exists:material_categories,id',
             'name' => 'required|string|max:255',
+            'color_hex' => 'nullable|string|max:20',
             'description' => 'nullable|string',
         ]);
         $material->update($data);
