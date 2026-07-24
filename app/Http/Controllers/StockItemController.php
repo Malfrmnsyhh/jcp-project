@@ -7,17 +7,43 @@ use Illuminate\Http\Request;
 
 class StockItemController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $stocks = StockItem::with('updater')->orderBy('created_at', 'desc')->paginate(10);
+        $query = StockItem::with('updater');
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('category', 'like', "%{$search}%")
+                  ->orWhere('notes', 'like', "%{$search}%");
+            });
+        }
+
+        if ($request->filled('category')) {
+            $query->where('category', $request->category);
+        }
+
+        $stocks = $query->orderBy('created_at', 'desc')
+            ->paginate(10)
+            ->withQueryString();
+
+        $categories = StockItem::select('category')->distinct()->pluck('category');
+
         return inertia('Admin/Stocks/Index', [
-            'stocks' => $stocks
+            'stocks' => $stocks,
+            'categories' => $categories,
+            'filters' => $request->only(['search', 'category']),
         ]);
     }
 
     public function create()
     {
-        return inertia('Admin/Stocks/Create');
+        $categories = StockItem::select('category')->distinct()->pluck('category');
+
+        return inertia('Admin/Stocks/Create', [
+            'existingCategories' => $categories
+        ]);
     }
 
     public function store(Request $request)
@@ -26,18 +52,23 @@ class StockItemController extends Controller
             'name' => 'required|string|max:255',
             'category' => 'required|string|max:255',
             'unit' => 'required|string|max:50',
-            'quantity' => 'required|integer|min:0',
+            'quantity' => 'required|numeric|min:0',
             'notes' => 'nullable|string',
         ]);
+
         $data['updated_by'] = $request->user()->id;
         StockItem::create($data);
-        return redirect()->route('admin.stocks.index')->with('success', 'Stock item berhasil ditambahkan.');
+
+        return redirect()->route('admin.stocks.index')->with('success', 'Stok item berhasil ditambahkan.');
     }
 
     public function edit(StockItem $stockItem)
     {
+        $categories = StockItem::select('category')->distinct()->pluck('category');
+
         return inertia('Admin/Stocks/Edit', [
-            'stockItem' => $stockItem
+            'stockItem' => $stockItem,
+            'existingCategories' => $categories
         ]);
     }
 
@@ -47,17 +78,20 @@ class StockItemController extends Controller
             'name' => 'required|string|max:255',
             'category' => 'required|string|max:255',
             'unit' => 'required|string|max:50',
-            'quantity' => 'required|integer|min:0',
+            'quantity' => 'required|numeric|min:0',
             'notes' => 'nullable|string',
         ]);
+
         $data['updated_by'] = $request->user()->id;
         $stockItem->update($data);
-        return redirect()->route('admin.stocks.index')->with('success', 'Stock item berhasil diperbarui.');
+
+        return redirect()->route('admin.stocks.index')->with('success', 'Stok item berhasil diperbarui.');
     }
 
     public function destroy(StockItem $stockItem)
     {
         $stockItem->delete();
-        return redirect()->route('admin.stocks.index')->with('success', 'Stock item berhasil dihapus.');
+
+        return redirect()->route('admin.stocks.index')->with('success', 'Stok item berhasil dihapus.');
     }
 }

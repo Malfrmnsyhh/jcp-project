@@ -114,6 +114,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function() {
     Route::get('orders/{order}', [OrderController::class, 'show'])->name('orders.show');
     Route::post('orders/{order}/confirm', [OrderController::class, 'confirm'])->name('orders.confirm');
     Route::patch('orders/{order}/status', [OrderController::class, 'status'])->name('orders.status');
+    Route::delete('orders/{order}', [OrderController::class, 'destroy'])->name('orders.destroy');
 });
 
 require __DIR__.'/auth.php';

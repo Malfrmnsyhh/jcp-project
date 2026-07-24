@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import MaterialCard from '../UI/MaterialCard';
 import MaterialDetailModal from '../UI/MaterialDetailModal';
-import { materialsData } from '../../data/materials';
 
 export default function Catalog({ materials = [] }) {
     const [activeTab, setActiveTab] = useState('Semua');
