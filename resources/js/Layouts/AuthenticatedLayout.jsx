@@ -1,7 +1,7 @@
 import ApplicationLogo from '@/Components/UI/ApplicationLogo';
 import Dropdown from '@/Components/UI/Dropdown';
-import { Link, usePage } from '@inertiajs/react';
-import { useState } from 'react';
+import { Link, router, usePage } from '@inertiajs/react';
+import { useState, useEffect } from 'react';
 import {
     FaBookOpen, FaBoxOpen, FaCube, FaHome, FaBookmark , FaUsers,
     FaCogs, FaCubes, FaCoins, FaSignOutAlt, FaBars, FaTimes, FaBox, FaBoxes,
@@ -9,8 +9,17 @@ import {
 } from 'react-icons/fa';
 
 export default function AuthenticatedLayout({ header, children }) {
-    const user = usePage().props.auth.user;
+    const { auth, orderBaruCount = 0 } = usePage().props;
+    const user = auth.user;
     const [sidebarOpen, setSidebarOpen] = useState(false);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            router.reload({ only: ['orderBaruCount'] });
+        }, 30000);
+
+        return () => clearInterval(interval);
+    }, []);
 
     const menuGroups = [
         {
@@ -118,14 +127,21 @@ export default function AuthenticatedLayout({ header, children }) {
                                             key={itemIdx}
                                             href={item.href}
                                             className={`
-                                                flex items-center gap-3 px-3 py-2 text-xs font-medium rounded-lg transition-colors
+                                                flex items-center justify-between px-3 py-2 text-xs font-medium rounded-lg transition-colors
                                                 ${item.active
                                                     ? 'bg-primary-750 text-white font-bold border-l-4 border-accent-default'
                                                     : 'text-primary-200 hover:bg-primary-800 hover:text-white'}
                                             `}
                                         >
-                                            <Icon className="w-4 h-4" />
-                                            <span>{item.label}</span>
+                                            <div className="flex items-center gap-3">
+                                                <Icon className="w-4 h-4" />
+                                                <span>{item.label}</span>
+                                            </div>
+                                            {item.label === 'Order' && orderBaruCount > 0 && (
+                                                <span className="bg-amber-500 text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full shadow-sm">
+                                                    {orderBaruCount}
+                                                </span>
+                                            )}
                                         </Link>
                                     );
                                 })}

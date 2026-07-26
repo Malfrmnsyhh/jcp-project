@@ -34,6 +34,7 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
             ],
+            'orderBaruCount' => fn () => $request->user() ? \App\Models\Order::where('status', 'baru')->count() : 0,
         ];
     }
 }

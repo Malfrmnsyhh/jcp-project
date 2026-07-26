@@ -11,6 +11,7 @@ use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\StockItemController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\ProductCategoryController;
+use App\Http\Controllers\OrderPublicController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -81,6 +82,15 @@ Route::get('/katalog-produk', function () {
         'products' => $products
     ]);
 })->name('catalog');
+
+Route::get('/produk/{product}', function (\App\Models\Product $product) {
+    $product->load(['category', 'images' => function($q) { $q->orderBy('sort_order'); }]);
+    return Inertia::render('Product/Show', [
+        'product' => $product
+    ]);
+})->name('product.show');
+
+Route::post('/order', [OrderPublicController::class, 'store'])->middleware('throttle:5,1');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])

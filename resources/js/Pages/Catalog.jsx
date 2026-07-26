@@ -126,9 +126,12 @@ export default function Catalog({ auth, categories = [], products = [] }) {
                                         <p className="text-primary-700 font-extrabold text-xl mb-4">
                                             {formatRupiah(product.price)}
                                         </p>
-                                        <button className="w-full bg-neutral-900 hover:bg-primary-600 text-white font-bold py-3 rounded-xl transition-colors text-sm">
+                                        <Link
+                                            href={route('product.show', product.id)}
+                                            className="block w-full text-center bg-neutral-900 hover:bg-primary-600 text-white font-bold py-3 rounded-xl transition-colors text-sm"
+                                        >
                                             Pesan Sekarang
-                                        </button>
+                                        </Link>
                                     </div>
                                 </motion.div>
                             ))}
