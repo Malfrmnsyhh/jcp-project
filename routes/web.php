@@ -117,7 +117,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function() {
     Route::resource('testimonials', TestimonialController::class);
 
     // 4. Operasional (Stok)
-    Route::resource('stocks', StockItemController::class);
+    Route::resource('stocks', StockItemController::class)->parameters(['stocks' => 'stockItem']);
 
     // 5. Penjualan (Order)
     Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
