@@ -1,5 +1,6 @@
 import ApplicationLogo from '@/Components/UI/ApplicationLogo';
 import Dropdown from '@/Components/UI/Dropdown';
+import AdminHeader from '@/Components/UI/AdminHeader';
 import { Link, router, usePage } from '@inertiajs/react';
 import { useState, useEffect } from 'react';
 import {
@@ -60,22 +61,12 @@ export default function AuthenticatedLayout({ header, children }) {
         }
     ];
 
+    // Find active menu item label for breadcrumb
+    const activeMenuItem = menuGroups.flatMap(g => g.items).find(i => i.active);
+    const pageTitle = activeMenuItem ? activeMenuItem.label : 'Dashboard';
+
     return (
         <div className="min-h-screen bg-neutral-100 flex flex-col md:flex-row relative">
-
-            {/* Mobile Header */}
-            <div className="flex items-center justify-between md:hidden bg-primary-900 text-white px-4 py-3 shadow-md">
-                <div className="flex items-center gap-3">
-                    <ApplicationLogo className="h-8 w-auto fill-current text-white" />
-                    <span className="font-header font-bold text-sm">JCP Admin</span>
-                </div>
-                <button
-                    onClick={() => setSidebarOpen(!sidebarOpen)}
-                    className="p-2 rounded-lg text-primary-200 hover:bg-primary-800 focus:outline-none"
-                >
-                    {sidebarOpen ? <FaTimes className="w-5 h-5" /> : <FaBars className="w-5 h-5" />}
-                </button>
-            </div>
 
             {/* Sidebar (Desktop & Mobile) */}
             <aside className={`
@@ -178,13 +169,20 @@ export default function AuthenticatedLayout({ header, children }) {
 
             {/* Main Content Area */}
             <div className="flex-1 flex flex-col min-w-0">
-                {/* Header (Top Bar) */}
+                {/* TailAdmin Style Top Header */}
+                <AdminHeader
+                    sidebarOpen={sidebarOpen}
+                    setSidebarOpen={setSidebarOpen}
+                    title={pageTitle}
+                />
+
+                {/* Optional Page Specific Sub-Header / Action Banner */}
                 {header && (
-                    <header className="bg-white border-b border-neutral-200 py-4 px-6 sm:px-8">
+                    <div className="bg-white border-b border-neutral-200 py-4 px-6 sm:px-8">
                         <div className="flex items-center justify-between">
                             {header}
                         </div>
-                    </header>
+                    </div>
                 )}
 
                 {/* Page Content */}
