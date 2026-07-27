@@ -10,7 +10,7 @@ import {
     FaShoppingBag
 } from 'react-icons/fa';
 
-export default function AdminHeader({ sidebarOpen, setSidebarOpen, title }) {
+export default function AdminHeader({ sidebarOpen, setSidebarOpen, isCollapsed, setIsCollapsed, title }) {
     const { auth, orderBaruCount = 0 } = usePage().props;
     const user = auth.user;
 
@@ -47,7 +47,7 @@ export default function AdminHeader({ sidebarOpen, setSidebarOpen, title }) {
     return (
         <header className="bg-white border-b border-neutral-200/80 px-4 sm:px-6 py-3 sticky top-0 z-40 shadow-xs flex items-center justify-between gap-4">
             
-            {/* Kiri: Hamburger + Breadcrumb */}
+            {/* Kiri: Hamburger + Collapse Toggle + Breadcrumb */}
             <div className="flex items-center gap-3 min-w-0">
                 <button
                     onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -56,6 +56,29 @@ export default function AdminHeader({ sidebarOpen, setSidebarOpen, title }) {
                 >
                     <FaBars className="w-5 h-5" />
                 </button>
+
+                {setIsCollapsed && (
+                    <button
+                        onClick={() => setIsCollapsed(!isCollapsed)}
+                        className="hidden md:flex p-2 text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 rounded-lg transition-colors"
+                        title={isCollapsed ? "Perluas Sidebar" : "Ciutkan Sidebar"}
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            strokeLinejoin="round"
+                            strokeLinecap="round"
+                            strokeWidth="2"
+                            fill="none"
+                            stroke="currentColor"
+                            className={`w-4 h-4 transition-transform duration-300 ${isCollapsed ? 'rotate-180' : ''}`}
+                        >
+                            <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
+                            <path d="M9 4v16" />
+                            <path d="M14 10l2 2l-2 2" />
+                        </svg>
+                    </button>
+                )}
 
                 <div className="hidden sm:flex items-center gap-2 text-xs font-semibold text-neutral-500 truncate">
                     <Link href={route('dashboard')} className="hover:text-primary-700 transition-colors">
