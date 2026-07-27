@@ -1,13 +1,9 @@
 import ApplicationLogo from '@/Components/UI/ApplicationLogo';
-import Dropdown from '@/Components/UI/Dropdown';
 import AdminHeader from '@/Components/UI/AdminHeader';
 import { Link, router, usePage } from '@inertiajs/react';
 import { useState, useEffect } from 'react';
-import {
-    FaBookOpen, FaBoxOpen, FaCube, FaHome, FaBookmark, FaUsers,
-    FaCogs, FaCubes, FaCoins, FaSignOutAlt, FaTimes, FaBox, FaBoxes,
-    FaCartPlus
-} from 'react-icons/fa';
+import { FaSignOutAlt, FaTimes } from 'react-icons/fa';
+import { getMenuGroups } from '@/data/MenuNav';
 
 export default function AuthenticatedLayout({ header, children }) {
     const { auth, orderBaruCount = 0 } = usePage().props;
@@ -25,44 +21,8 @@ export default function AuthenticatedLayout({ header, children }) {
         return () => clearInterval(interval);
     }, []);
 
-    const menuGroups = [
-        {
-            title: 'RINGKASAN',
-            items: [
-                { label: 'Dashboard', href: route('dashboard'), icon: FaHome, active: route().current('dashboard') }
-            ]
-        },
-        {
-            title: 'KONTEN WEBSITE',
-            items: [
-                { label: 'Portofolio Produk', href: route('admin.portfolio.index'), icon: FaBookmark, active: route().current('admin.portfolio.*') },
-                { label: 'Mesin Aktif', href: route('admin.machines.index'), icon: FaCogs, active: route().current('admin.machines.*') },
-                { label: 'Testimoni Client', href: route('admin.testimonials.index'), icon: FaUsers, active: route().current('admin.testimonials.*') },
-                { label: 'Kategori Bahan', href: route('admin.material-categories.index'), icon: FaBox, active: route().current('admin.material-categories.*') },
-                { label: 'Katalog Bahan', href: route('admin.materials.index'), icon: FaCube, active: route().current('admin.materials.*') }
-            ]
-        },
-        {
-            title: 'PENJUALAN',
-            items: [
-                { label: 'Kategori Produk', href: route('admin.product-categories.index'), icon: FaBoxes, active: route().current('admin.product-categories.*') },
-                { label: 'Produk', href: route('admin.products.index'), icon: FaBoxOpen, active: route().current('admin.products.*') },
-                { label: 'Order', href: route('admin.orders.index'), icon: FaCartPlus, active: route().current('admin.orders.*') }
-            ]
-        },
-        {
-            title: 'OPERASIONAL',
-            items: [
-                { label: 'Stok Bahan', href: route('admin.stocks.index'), icon: FaCubes, active: route().current('admin.stocks.*') }
-            ]
-        },
-        {
-            title: 'KEUANGAN',
-            items: [
-                { label: 'Keuangan', href: null, icon: FaCoins, active: false, disabled: true, badge: 'Segera Hadir' }
-            ]
-        }
-    ];
+    // Ambil susunan menu dari file data/MenuNav.jsx
+    const menuGroups = getMenuGroups();
 
     // Find active menu item label for breadcrumb
     const activeMenuItem = menuGroups.flatMap(g => g.items).find(i => i.active);
@@ -148,16 +108,27 @@ export default function AuthenticatedLayout({ header, children }) {
                                             href={item.href}
                                             title={isCollapsed ? item.label : undefined}
                                             className={`
-                                                flex items-center text-xs font-medium rounded-xl transition-all relative group
-                                                ${isCollapsed ? 'md:justify-center p-2.5' : 'justify-between px-3 py-2.5'}
+                                                flex items-center text-xs font-semibold rounded-xl transition-all duration-300 ease-out relative group overflow-hidden
+                                                ${isCollapsed ? 'md:justify-center p-2.5' : 'justify-between px-3.5 py-2.5'}
                                                 ${item.active
-                                                    ? 'bg-primary-750 text-white font-bold border-l-4 border-accent-default shadow-xs'
-                                                    : 'text-primary-200 hover:bg-primary-800 hover:text-white'}
+                                                    ? 'bg-linear-to-r from-primary-600 via-primary-700 to-primary-800 text-white font-extrabold shadow-md shadow-primary-950/40 ring-1 ring-white/15'
+                                                    : 'text-primary-200 hover:bg-primary-800/70 hover:text-white hover:translate-x-1.5 hover:shadow-xs'}
                                             `}
                                         >
+                                            {/* Active Glow Pill Indicator */}
+                                            {item.active && (
+                                                <span className="absolute left-0 top-2 bottom-2 w-1 bg-primary-300 rounded-r-full shadow-[0_0_8px_rgba(72,202,228,0.8)]" />
+                                            )}
+
                                             <div className="flex items-center gap-3">
-                                                <Icon className="w-4 h-4 shrink-0" />
-                                                <span className={`${isCollapsed ? 'md:hidden' : 'block'} truncate`}>
+                                                <Icon
+                                                    className={`w-4 h-4 shrink-0 transition-all duration-300 ${
+                                                        item.active
+                                                            ? 'text-primary-300 scale-110 drop-shadow-[0_0_6px_rgba(72,202,228,0.6)]'
+                                                            : 'group-hover:text-primary-300 group-hover:scale-110'
+                                                    }`}
+                                                />
+                                                <span className={`${isCollapsed ? 'md:hidden' : 'block'} truncate tracking-wide`}>
                                                     {item.label}
                                                 </span>
                                             </div>

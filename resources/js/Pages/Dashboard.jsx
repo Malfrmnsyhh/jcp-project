@@ -31,13 +31,7 @@ export default function Dashboard({ stats, latestOrders }) {
     };
 
     return (
-        <AuthenticatedLayout
-            header={
-                <h2 className="text-xl font-bold leading-tight text-neutral-800 font-header">
-                    Ringkasan Dashboard
-                </h2>
-            }
-        >
+        <AuthenticatedLayout >
             <Head title="Dashboard" />
 
             <div className="space-y-8">

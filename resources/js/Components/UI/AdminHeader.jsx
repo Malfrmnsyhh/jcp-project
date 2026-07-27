@@ -20,7 +20,6 @@ export default function AdminHeader({ sidebarOpen, setSidebarOpen, isCollapsed, 
     const notifRef = useRef(null);
     const profileRef = useRef(null);
 
-    // Close dropdowns on click outside
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (notifRef.current && !notifRef.current.contains(event.target)) {
@@ -47,7 +46,6 @@ export default function AdminHeader({ sidebarOpen, setSidebarOpen, isCollapsed, 
     return (
         <header className="bg-white border-b border-neutral-200/80 px-4 sm:px-6 py-3 sticky top-0 z-40 shadow-xs flex items-center justify-between gap-4">
             
-            {/* Kiri: Hamburger + Collapse Toggle + Breadcrumb */}
             <div className="flex items-center gap-3 min-w-0">
                 <button
                     onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -71,7 +69,7 @@ export default function AdminHeader({ sidebarOpen, setSidebarOpen, isCollapsed, 
                             strokeWidth="2"
                             fill="none"
                             stroke="currentColor"
-                            className={`w-4 h-4 transition-transform duration-300 ${isCollapsed ? 'rotate-180' : ''}`}
+                            className={`w-4 h-4 transition-transform duration-300 ${!isCollapsed ? 'rotate-180' : ''}`}
                         >
                             <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
                             <path d="M9 4v16" />
@@ -91,7 +89,7 @@ export default function AdminHeader({ sidebarOpen, setSidebarOpen, isCollapsed, 
                 </div>
             </div>
 
-            {/* Tengah: Search Bar (UI Only) */}
+            {/* search bar */}
             <div className="flex-1 max-w-md hidden md:block">
                 <div className="relative">
                     <FaSearch className="absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400 w-3.5 h-3.5" />
