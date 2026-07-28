@@ -8,7 +8,7 @@ import { getMenuGroups } from '@/data/MenuNav';
 export default function AuthenticatedLayout({ header, children }) {
     const { auth, orderBaruCount = 0 } = usePage().props;
     const user = auth.user;
-    
+
     // Sidebar state: mobile drawer open & desktop collapsed (persisted in localStorage)
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [isCollapsed, setIsCollapsed] = useState(() => {
@@ -95,9 +95,8 @@ export default function AuthenticatedLayout({ header, children }) {
                                         return (
                                             <div
                                                 key={itemIdx}
-                                                className={`flex items-center text-xs font-medium text-primary-500/70 rounded-xl cursor-not-allowed ${
-                                                    isCollapsed ? 'md:justify-center p-2.5' : 'justify-between px-3 py-2.5'
-                                                }`}
+                                                className={`flex items-center text-xs font-medium text-primary-500/70 rounded-xl cursor-not-allowed ${isCollapsed ? 'md:justify-center p-2.5' : 'justify-between px-3 py-2.5'
+                                                    }`}
                                                 title={`${item.label} (${item.badge})`}
                                             >
                                                 <div className="flex items-center gap-3">
@@ -130,9 +129,8 @@ export default function AuthenticatedLayout({ header, children }) {
                                         >
                                             <div className="flex items-center gap-3">
                                                 <Icon
-                                                    className={`w-4 h-4 shrink-0 transition-transform duration-200 ${
-                                                        item.active ? 'text-primary-300' : 'group-hover:text-primary-300'
-                                                    }`}
+                                                    className={`w-4 h-4 shrink-0 transition-transform duration-200 ${item.active ? 'text-primary-300' : 'group-hover:text-primary-300'
+                                                        }`}
                                                 />
                                                 <span className={`${isCollapsed ? 'md:hidden' : 'block'} truncate tracking-wide`}>
                                                     {item.label}
@@ -166,8 +164,10 @@ export default function AuthenticatedLayout({ header, children }) {
                     {!isCollapsed ? (
                         <>
                             <div className="min-w-0 pr-2">
-                                <p className="font-semibold text-white truncate max-w-[140px]">{user.name}</p>
-                                <p className="text-[10px] text-primary-400 truncate max-w-[140px]">{user.email}</p>
+                                <Link href={route('profile.edit')}>
+                                    <p className="font-semibold text-white truncate max-w-[140px]">{user.name}</p>
+                                    <p className="text-[10px] text-primary-400 truncate max-w-[140px]">{user.email}</p>
+                                </Link>
                             </div>
                             <Link
                                 href={route('logout')}
