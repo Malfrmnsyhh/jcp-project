@@ -12,13 +12,7 @@ export default function Index({ machines }) {
     };
 
     return (
-        <AuthenticatedLayout
-            header={
-                <h2 className="text-xl font-bold leading-tight text-neutral-800">
-                    Mesin & Fasilitas
-                </h2>
-            }
-        >
+        <AuthenticatedLayout>
             <Head title="Mesin & Fasilitas" />
 
             <div className="bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden">

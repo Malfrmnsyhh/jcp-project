@@ -120,10 +120,10 @@ export default function AuthenticatedLayout({ header, children }) {
                                             href={item.href}
                                             title={isCollapsed ? item.label : undefined}
                                             className={`
-                                                flex items-center text-xs font-semibold rounded-xl transition-all duration-200 ease-out relative group
+                                                flex items-center text-xs font-semibold rounded-xl transition-all duration-200 ease-out relative group text-white
                                                 ${isCollapsed ? 'md:justify-center p-2.5' : 'justify-between px-3.5 py-2.5'}
                                                 ${item.active
-                                                    ? 'text-white font-bold bg-primary-500/70 '
+                                                    ? 'text-white font-extrabold bg-primary-500/30'
                                                     : 'text-primary-100 hover:bg-primary-800/60 hover:text-white hover:translate-x-1'}
                                             `}
                                         >

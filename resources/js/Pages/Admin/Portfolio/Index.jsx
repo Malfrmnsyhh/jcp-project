@@ -18,13 +18,7 @@ export default function Index({ portfolios }) {
     };
 
     return (
-        <AuthenticatedLayout
-            header={
-                <h2 className="text-xl font-bold leading-tight text-neutral-800">
-                    Portofolio
-                </h2>
-            }
-        >
+        <AuthenticatedLayout>
             <Head title="Portofolio" />
 
             <div className="bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden relative">

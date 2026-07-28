@@ -34,28 +34,20 @@ export default function Create() {
     };
 
     return (
-        <AuthenticatedLayout
-            header={
-                <div className="flex items-center gap-4">
-                    <Link
-                        href={route('admin.portfolio.index')}
-                        className="text-neutral-500 hover:text-neutral-700 transition-colors"
-                    >
-                        <FaArrowLeft className="w-5 h-5" />
-                    </Link>
-                    <h2 className="text-xl font-bold leading-tight text-neutral-800">
-                        Tambah Portofolio
-                    </h2>
-                </div>
-            }
-        >
+        <AuthenticatedLayout>
             <Head title="Tambah Portofolio" />
-
             <div className="max-w-7xl bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden">
                 <form onSubmit={submit} className="p-6 sm:p-8">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
+                        <div className='col-span-full flex items-center gap-4 mb-4'>
+                            <Link
+                                href={route('admin.portfolio.index')}
+                                className="text-neutral-600 hover:text-primary-600 hover:-translate-x-1 transition-all duration-300">
+                                <FaArrowLeft className='w-4 h-4' />
+                            </Link>
+                            <h2 className='text-base font-bold text-neutral-800'>Tambah Portofolio</h2>   
+                        </div>
                         <div className="lg:col-span-7 space-y-6">
-                            {/* Title */}
                             <div>
                                 <label className="block text-sm font-bold text-neutral-700 mb-2">
                                     Judul Projek <span className="text-rose-500">*</span>

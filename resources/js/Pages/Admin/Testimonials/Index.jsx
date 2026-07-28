@@ -12,13 +12,7 @@ export default function Index({ testimonials }) {
     };
 
     return (
-        <AuthenticatedLayout
-            header={
-                <h2 className="text-xl font-bold leading-tight text-neutral-800">
-                    Testimoni Pelanggan
-                </h2>
-            }
-        >
+        <AuthenticatedLayout>
             <Head title="Testimoni" />
 
             <div className="bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden">

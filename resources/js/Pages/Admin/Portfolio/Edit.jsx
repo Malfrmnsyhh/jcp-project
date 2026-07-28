@@ -34,28 +34,21 @@ export default function Edit({ portfolio }) {
     };
 
     return (
-        <AuthenticatedLayout
-            header={
-                <div className="flex items-center gap-4">
-                    <Link
-                        href={route('admin.portfolio.index')}
-                        className="text-neutral-500 hover:text-neutral-700 transition-colors"
-                    >
-                        <FaArrowLeft className="w-5 h-5" />
-                    </Link>
-                    <h2 className="text-xl font-bold leading-tight text-neutral-800">
-                        Edit Portofolio: {portfolio.title}
-                    </h2>
-                </div>
-            }
-        >
+        <AuthenticatedLayout>
             <Head title="Edit Portofolio" />
 
             <div className="max-w-7xl bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden">
                 <form onSubmit={submit} className="p-6 sm:p-8">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
+                        <div className='col-span-full flex items-center gap-4 mb-4'>
+                            <Link
+                                href={route('admin.portfolio.index')}
+                                className="text-neutral-600 hover:text-primary-600 hover:-translate-x-1 transition-all duration-300">
+                                <FaArrowLeft className='w-4 h-4' />
+                            </Link>
+                            <h2 className='text-base font-bold text-neutral-800'>Edit Portofolio</h2>   
+                        </div>
                         <div className="lg:col-span-7 space-y-6">
-                            {/* Title */}
                             <div>
                                 <label className="block text-sm font-bold text-neutral-700 mb-2">
                                     Judul Projek <span className="text-rose-500">*</span>
@@ -134,7 +127,7 @@ export default function Edit({ portfolio }) {
                                 <label className="block text-sm font-bold text-neutral-700 mb-2">
                                     Gambar Portofolio
                                 </label>
-                                
+
                                 {!preview && !portfolio.image_path && (
                                     <div className="border-2 border-dashed border-neutral-300 rounded-lg p-10 flex flex-col items-center justify-center text-center hover:bg-neutral-50 transition-colors relative cursor-pointer min-h-[300px]">
                                         <input
@@ -153,10 +146,10 @@ export default function Edit({ portfolio }) {
 
                                 {(preview || portfolio.image_path) && (
                                     <div className="relative rounded-lg overflow-hidden border border-neutral-200 aspect-[4/3] group shadow-sm">
-                                        <img 
-                                            src={preview || portfolio.image_path} 
-                                            alt="Preview" 
-                                            className="w-full h-full object-cover" 
+                                        <img
+                                            src={preview || portfolio.image_path}
+                                            alt="Preview"
+                                            className="w-full h-full object-cover"
                                         />
                                         {preview ? (
                                             <button
