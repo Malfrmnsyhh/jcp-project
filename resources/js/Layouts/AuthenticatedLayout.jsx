@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { FaSignOutAlt, FaTimes } from 'react-icons/fa';
 import { getMenuGroups } from '@/data/MenuNav';
 
-export default function AuthenticatedLayout({ header, children }) {
+export default function AuthenticatedLayout({ header, title, path, children }) {
     const { auth, orderBaruCount = 0 } = usePage().props;
     const user = auth.user;
 
@@ -41,7 +41,7 @@ export default function AuthenticatedLayout({ header, children }) {
 
     // Find active menu item label for breadcrumb
     const activeMenuItem = menuGroups.flatMap(g => g.items).find(i => i.active);
-    const pageTitle = activeMenuItem ? activeMenuItem.label : 'Dashboard';
+    const pageTitle = title || (activeMenuItem ? activeMenuItem.label : 'Dashboard');
 
     // Helper initials
     const getInitials = (name) => {
@@ -217,6 +217,7 @@ export default function AuthenticatedLayout({ header, children }) {
                     isCollapsed={isCollapsed}
                     setIsCollapsed={toggleCollapse}
                     title={pageTitle}
+                    path={path}
                 />
 
                 {/* Optional Page Specific Sub-Header / Action Banner */}

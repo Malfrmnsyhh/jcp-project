@@ -10,9 +10,10 @@ import {
     FaShoppingBag
 } from 'react-icons/fa';
 
-export default function AdminHeader({ sidebarOpen, setSidebarOpen, isCollapsed, setIsCollapsed, title }) {
+export default function AdminHeader({ sidebarOpen, setSidebarOpen, isCollapsed, setIsCollapsed, title, path }) {
     const { auth, orderBaruCount = 0 } = usePage().props;
     const user = auth.user;
+    const currentUrl = usePage().url;
 
     const [notifOpen, setNotifOpen] = useState(false);
     const [profileOpen, setProfileOpen] = useState(false);
@@ -42,6 +43,68 @@ export default function AdminHeader({ sidebarOpen, setSidebarOpen, isCollapsed, 
         }
         return name.substring(0, 2).toUpperCase();
     };
+
+    // Calculate dynamic 3-level breadcrumbs safely
+    const getBreadcrumbItems = () => {
+        // If explicit 'path' prop is passed by user
+        if (path) {
+            return [
+                { label: 'Admin', href: route('dashboard') },
+                { label: title || 'Dashboard', href: null },
+                { label: path, href: null, isLast: true }
+            ];
+        }
+
+        // Parse from URL path segments dynamically
+        const cleanUrl = currentUrl.split('?')[0];
+        const segments = cleanUrl.split('/').filter(Boolean);
+
+        const segmentMap = {
+            'admin': { label: 'Admin', href: route('dashboard') },
+            'dashboard': { label: 'Dashboard', href: route('dashboard') },
+            'portfolio': { label: 'Portofolio Produk', href: route('admin.portfolio.index') },
+            'machines': { label: 'Mesin Aktif', href: route('admin.machines.index') },
+            'testimonials': { label: 'Testimoni Client', href: route('admin.testimonials.index') },
+            'material-categories': { label: 'Kategori Bahan', href: route('admin.material-categories.index') },
+            'materials': { label: 'Katalog Bahan', href: route('admin.materials.index') },
+            'product-categories': { label: 'Kategori Produk', href: route('admin.product-categories.index') },
+            'products': { label: 'Produk', href: route('admin.products.index') },
+            'orders': { label: 'Order', href: route('admin.orders.index') },
+            'stocks': { label: 'Stok Bahan', href: route('admin.stocks.index') },
+            'profile': { label: 'Profil', href: route('profile.edit') },
+            'create': { label: 'Tambah Baru', href: null },
+            'edit': { label: 'Edit Data', href: null },
+        };
+
+        const items = [{ label: 'Admin', href: route('dashboard') }];
+        const subSegments = segments.filter(s => s !== 'admin');
+
+        if (subSegments.length === 0) {
+            items.push({ label: title || 'Dashboard', href: null, isLast: true });
+        } else {
+            subSegments.forEach((seg, idx) => {
+                const isLast = idx === subSegments.length - 1;
+                const mapped = segmentMap[seg];
+
+                if (mapped) {
+                    items.push({
+                        label: mapped.label,
+                        href: isLast ? null : mapped.href,
+                        isLast
+                    });
+                } else if (!isNaN(seg)) {
+                    items.push({ label: `#${seg}`, href: null, isLast });
+                } else {
+                    const formatted = seg.charAt(0).toUpperCase() + seg.slice(1);
+                    items.push({ label: formatted, href: null, isLast });
+                }
+            });
+        }
+
+        return items;
+    };
+
+    const breadcrumbItems = getBreadcrumbItems();
 
     return (
         <header className="bg-white border-b border-neutral-200/80 px-4 sm:px-6 py-3 sticky top-0 z-40 shadow-xs flex items-center justify-between gap-4">
@@ -78,14 +141,22 @@ export default function AdminHeader({ sidebarOpen, setSidebarOpen, isCollapsed, 
                     </button>
                 )}
 
+                {/* Dynamic 3-Level Breadcrumb */}
                 <div className="hidden sm:flex items-center gap-2 text-xs font-semibold text-neutral-500 truncate">
-                    <Link href={route('dashboard')} className="hover:text-primary-700 transition-colors">
-                        Admin
-                    </Link>
-                    <span>/</span>
-                    <span className="text-neutral-800 font-bold truncate">
-                        {title || 'Dashboard'}
-                    </span>
+                    {breadcrumbItems.map((item, index) => (
+                        <React.Fragment key={index}>
+                            {index > 0 && <span className="text-neutral-400">/</span>}
+                            {item.href && !item.isLast ? (
+                                <Link href={item.href} className="hover:text-primary-700 transition-colors">
+                                    {item.label}
+                                </Link>
+                            ) : (
+                                <span className={item.isLast ? "text-neutral-800 font-bold truncate" : "text-neutral-600 font-medium"}>
+                                    {item.label}
+                                </span>
+                            )}
+                        </React.Fragment>
+                    ))}
                 </div>
             </div>
 
