@@ -39,13 +39,6 @@ class MachineController extends Controller
         return redirect()->route('admin.machines.index')->with('success', 'Mesin berhasil ditambahkan.');
     }
 
-    public function show(Machine $machine)
-    {
-        return inertia('Admin/Machines/Show', [
-            'machine' => $machine
-        ]);
-    }
-
     public function edit(Machine $machine)
     {
         return inertia('Admin/Machines/Edit', [

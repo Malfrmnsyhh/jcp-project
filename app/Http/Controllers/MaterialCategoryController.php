@@ -32,13 +32,6 @@ class MaterialCategoryController extends Controller
         return redirect()->route('admin.material-categories.index')->with('success', 'Kategori bahan berhasil ditambahkan.');
     }
 
-    public function show(MaterialCategory $materialCategory)
-    {
-        return inertia('Admin/MaterialCategories/Show', [
-            'category' => $materialCategory->load('materials')
-        ]);
-    }
-
     public function edit(MaterialCategory $materialCategory)
     {
         return inertia('Admin/MaterialCategories/Edit',[

@@ -1,5 +1,5 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, Link, useForm, usePage } from '@inertiajs/react';
+import { Head, Link, router, useForm, usePage } from '@inertiajs/react';
 import { FaArrowLeft, FaWhatsapp, FaCheckCircle, FaUser, FaStickyNote, FaCalendarAlt, FaShoppingBag, FaSave, FaExclamationCircle } from 'react-icons/fa';
 
 export default function Show({ order }) {
@@ -16,7 +16,7 @@ export default function Show({ order }) {
 
     const handleConfirmOrder = () => {
         if (confirm('Konfirmasi pesanan ini?')) {
-            useForm().post(route('admin.orders.confirm', order.id));
+            router.post(route('admin.orders.confirm', order.id));
         }
     };
 

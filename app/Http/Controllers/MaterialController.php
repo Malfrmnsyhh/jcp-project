@@ -35,13 +35,6 @@ class MaterialController extends Controller
         return redirect()->route('admin.materials.index')->with('success', 'Material berhasil ditambahkan.');
     }
 
-    public function show(Material $material)
-    {
-        return inertia('Admin/Materials/Show', [
-            'material' => $material->load(['category', 'thicknesses', 'finishes'])
-        ]);
-    }
-
     public function edit(Material $material)
     {
         return inertia('Admin/Materials/Edit', [

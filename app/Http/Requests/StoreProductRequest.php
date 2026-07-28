@@ -8,7 +8,7 @@ use Illuminate\Foundation\Http\FormRequest;
 class StoreProductRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * Otorisasi ditangani middleware `admin` pada grup route.
      */
     public function authorize(): bool
     {
@@ -23,7 +23,14 @@ class StoreProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
+            'description' => 'nullable|string',
+            'product_category_id' => 'required|exists:product_categories,id',
+            'stock_status' => 'required|in:tersedia,habis,pre_order',
+            'is_active' => 'required|boolean',
+            'images' => 'nullable|array',
+            'images.*' => 'image|mimes:jpeg,png,jpg,webp|max:4096',
         ];
     }
 }

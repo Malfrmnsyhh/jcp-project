@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
 use App\Models\ProductCategory;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -22,19 +24,10 @@ class ProductController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
-        $data = $request->validate([
-            'name' => 'required|string|max:255',
-            'price' => 'required|numeric|min:0',
-            'description' => 'nullable|string',
-            'product_category_id' => 'required|exists:product_categories,id',
-            'stock_status' => 'required|in:tersedia,habis,pre_order',
-            'is_active' => 'required|boolean',
-            'images' => 'nullable|array',
-            'images.*' => 'image|mimes:jpeg,png,jpg,webp|max:4096'
-        ]);
-        
+        $data = $request->validated();
+
         $data['slug'] = Str::slug($data['name']) . '-' . Str::random(4);
         $product = Product::create($data);
 
@@ -51,11 +44,6 @@ class ProductController extends Controller
         return redirect()->route('admin.products.index')->with('success', 'Produk berhasil ditambahkan.');
     }
 
-    public function show(Product $product)
-    {
-        return inertia('Admin/Products/Show', ['product' => $product->load(['category', 'images'])]);
-    }
-
     public function edit(Product $product)
     {
         return inertia('Admin/Products/Edit', [
@@ -64,20 +52,9 @@ class ProductController extends Controller
         ]);
     }
 
-    public function update(Request $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product)
     {
-        $data = $request->validate([
-            'name' => 'required|string|max:255',
-            'price' => 'required|numeric|min:0',
-            'description' => 'nullable|string',
-            'product_category_id' => 'required|exists:product_categories,id',
-            'stock_status' => 'required|in:tersedia,habis,pre_order',
-            'is_active' => 'required|boolean',
-            'images' => 'nullable|array',
-            'images.*' => 'image|mimes:jpeg,png,jpg,webp|max:4096'
-        ]);
-
-        $product->update($data);
+        $product->update($request->validated());
 
         // Note: For a robust edit, we'd handle deleting old images if requested.
         // For now we just append new ones.
@@ -101,7 +78,7 @@ class ProductController extends Controller
         // Delete images from storage
         foreach($product->images as $image) {
             $path = str_replace('/storage/', '', $image->image_path);
-            \Illuminate\Support\Facades\Storage::disk('public')->delete($path);
+            Storage::disk('public')->delete($path);
         }
         
         $product->delete();

@@ -34,13 +34,6 @@ class ProductCategoryController extends Controller
         return redirect()->route('admin.product-categories.index')->with('success', 'Kategori produk berhasil ditambahkan.');
     }
 
-    public function show(ProductCategory $productCategory)
-    {
-        return inertia('Admin/ProductCategories/Show', [
-            'category' => $productCategory
-        ]);
-    }
-
     public function edit(ProductCategory $productCategory)
     {
         return inertia('Admin/ProductCategories/Edit', [
