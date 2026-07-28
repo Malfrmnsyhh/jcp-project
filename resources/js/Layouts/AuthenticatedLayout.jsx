@@ -9,9 +9,24 @@ export default function AuthenticatedLayout({ header, children }) {
     const { auth, orderBaruCount = 0 } = usePage().props;
     const user = auth.user;
     
-    // Sidebar state: mobile drawer open & desktop collapsed
+    // Sidebar state: mobile drawer open & desktop collapsed (persisted in localStorage)
     const [sidebarOpen, setSidebarOpen] = useState(false);
-    const [isCollapsed, setIsCollapsed] = useState(false);
+    const [isCollapsed, setIsCollapsed] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('admin_sidebar_collapsed') === 'true';
+        }
+        return false;
+    });
+
+    const toggleCollapse = () => {
+        setIsCollapsed(prev => {
+            const next = !prev;
+            if (typeof window !== 'undefined') {
+                localStorage.setItem('admin_sidebar_collapsed', String(next));
+            }
+            return next;
+        });
+    };
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -39,14 +54,12 @@ export default function AuthenticatedLayout({ header, children }) {
     return (
         <div className="min-h-screen bg-neutral-100 flex flex-col md:flex-row relative">
 
-            {/* Sidebar (Desktop Collapsible & Mobile Slideover) */}
             <aside className={`
                 fixed inset-y-0 left-0 z-50 bg-primary-900 text-primary-100 flex flex-col border-r border-primary-800 transition-all duration-300 transform h-screen
                 md:translate-x-0 md:sticky md:top-0 md:h-screen shrink-0
                 ${isCollapsed ? 'md:w-20' : 'md:w-64'}
                 ${sidebarOpen ? 'translate-x-0 w-64' : '-translate-x-full w-64 md:translate-x-0'}
             `}>
-                {/* 1. STICKY TOP: Logo Area & Collapse Toggle */}
                 <div className="shrink-0 z-10 bg-primary-900 p-4 sm:p-5 border-b border-primary-800 flex items-center justify-between">
                     <div className={`flex items-center gap-3 overflow-hidden ${isCollapsed ? 'md:justify-center md:w-full' : ''}`}>
                         <ApplicationLogo className="h-8 w-auto fill-current text-white shrink-0" />
@@ -126,19 +139,16 @@ export default function AuthenticatedLayout({ header, children }) {
                                                 </span>
                                             </div>
 
-                                            {/* Order Badge - Full view */}
                                             {!isCollapsed && item.label === 'Order' && orderBaruCount > 0 && (
                                                 <span className="bg-amber-500 text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full shadow-xs">
                                                     {orderBaruCount}
                                                 </span>
                                             )}
 
-                                            {/* Order Badge - Collapsed view indicator dot */}
                                             {isCollapsed && item.label === 'Order' && orderBaruCount > 0 && (
                                                 <span className="hidden md:block absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-amber-500 rounded-full ring-2 ring-primary-900 animate-pulse" />
                                             )}
 
-                                            {/* Tooltip on Collapsed Mode */}
                                             {isCollapsed && (
                                                 <div className="hidden md:group-hover:block absolute left-full ml-3 px-3 py-1.5 bg-primary-950 border border-primary-800 text-white text-xs font-bold rounded-lg shadow-xl whitespace-nowrap z-50 pointer-events-none">
                                                     {item.label}
@@ -152,7 +162,6 @@ export default function AuthenticatedLayout({ header, children }) {
                     ))}
                 </nav>
 
-                {/* 3. STICKY BOTTOM: User Footer Info */}
                 <div className="shrink-0 z-10 bg-primary-950 p-3 border-t border-primary-800 flex items-center justify-between text-xs overflow-hidden">
                     {!isCollapsed ? (
                         <>
@@ -202,12 +211,11 @@ export default function AuthenticatedLayout({ header, children }) {
 
             {/* Main Content Area */}
             <div className="flex-1 flex flex-col min-w-0">
-                {/* TailAdmin Style Top Header */}
                 <AdminHeader
                     sidebarOpen={sidebarOpen}
                     setSidebarOpen={setSidebarOpen}
                     isCollapsed={isCollapsed}
-                    setIsCollapsed={setIsCollapsed}
+                    setIsCollapsed={toggleCollapse}
                     title={pageTitle}
                 />
 
