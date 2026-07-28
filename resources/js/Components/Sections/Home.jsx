@@ -1,25 +1,9 @@
-import React from 'react';
 import { Link } from '@inertiajs/react';
 import { motion } from 'framer-motion';
+import { staggerContainer, fadeInUp } from '@/utils/motion';
 
-const containerVariants = {
-    hidden: {},
-    visible: {
-        transition: {
-            staggerChildren: 0.2,
-            delayChildren: 0.3,
-        },
-    },
-};
-
-const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.7, ease: 'easeOut' },
-    },
-};
+const containerVariants = staggerContainer(0.2, 0.3);
+const itemVariants = fadeInUp(0.7);
 
 export default function Hero({ title, subtitle }) {
     return (

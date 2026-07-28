@@ -1,4 +1,3 @@
-import React from 'react';
 import { hexToRgba } from '@/utils/color';
 import { motion } from 'framer-motion';
 
@@ -59,11 +58,14 @@ export default function MaterialCard({ material, onClick }) {
                             : 'Standar'}
                     </span>
                 </div>
-                <span
+                <button
+                    type="button"
                     onClick={onClick}
-                    className="text-xs font-bold text-primary-700 hover:text-white hover:bg-primary-600 transition-colors cursor-pointer border border-primary-500 rounded-lg px-3 py-2">
+                    aria-label={`Lihat detail bahan ${material.name}`}
+                    className="text-xs font-bold text-primary-700 hover:text-white hover:bg-primary-600 transition-colors cursor-pointer border border-primary-500 rounded-lg px-3 py-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+                >
                     Lihat Detail
-                </span>
+                </button>
             </div>
         </motion.div>
     );

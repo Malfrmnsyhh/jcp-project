@@ -1,18 +1,39 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiX } from 'react-icons/fi';
 import { FaWhatsapp } from 'react-icons/fa';
+import { whatsappLink } from '@/data/site';
 
 export default function MaterialDetailModal({ material, onClose }) {
-    if (!material) return null;
+    // Tutup dengan Escape; listener hanya aktif saat modal terbuka.
+    useEffect(() => {
+        if (!material) return;
 
-    const waNumber = "6281234567890"; // Ganti dengan nomor asli
-    const waText = encodeURIComponent(`Halo, saya mau tanya soal bahan ${material.name}`);
-    const waLink = `https://wa.me/${waNumber}?text=${waText}`;
+        const onKeyDown = (event) => {
+            if (event.key === 'Escape') onClose();
+        };
 
+        document.addEventListener('keydown', onKeyDown);
+
+        return () => document.removeEventListener('keydown', onKeyDown);
+    }, [material, onClose]);
+
+    const waLink = material
+        ? whatsappLink(`Halo, saya mau tanya soal bahan ${material.name}`)
+        : '#';
+
+    // AnimatePresence harus tetap ter-mount agar animasi keluar sempat berjalan;
+    // karena itu kondisinya ada DI DALAM, bukan early return di atasnya.
     return (
         <AnimatePresence>
-            <div className="fixed inset-0 z-100 flex items-center justify-center p-4 sm:p-6">
+            {material && (
+            <div
+                key="material-modal"
+                role="dialog"
+                aria-modal="true"
+                aria-label={`Detail bahan ${material.name}`}
+                className="fixed inset-0 z-100 flex items-center justify-center p-4 sm:p-6"
+            >
                 {/* Backdrop */}
                 <motion.div
                     initial={{ opacity: 0 }}
@@ -126,6 +147,7 @@ export default function MaterialDetailModal({ material, onClose }) {
                     </div>
                 </motion.div>
             </div>
+            )}
         </AnimatePresence>
     );
 }

@@ -1,21 +1,8 @@
-import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { staggerContainer, fadeInUp, viewportOnce } from '@/utils/motion';
 
-const containerVariants = {
-    hidden: {},
-    visible: {
-        transition: { staggerChildren: 0.1 },
-    },
-};
-
-const cardVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.4, ease: 'easeOut' },
-    },
-};
+const containerVariants = staggerContainer(0.1);
+const cardVariants = fadeInUp(0.4);
 
 export default function Portfolio({ items = [] }) {
     if (!items || items.length === 0) return null;
@@ -42,7 +29,7 @@ export default function Portfolio({ items = [] }) {
                     variants={containerVariants}
                     initial="hidden"
                     whileInView="visible"
-                    viewport={{ once: true, margin: '-50px' }}
+                    viewport={viewportOnce}
                 >
                     <AnimatePresence>
                         {items.map((item) => (

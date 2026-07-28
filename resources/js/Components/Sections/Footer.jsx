@@ -1,7 +1,7 @@
-import React from 'react';
 import ApplicationLogo from '../UI/ApplicationLogo';
 import { FaMapMarkerAlt, FaPhoneAlt } from 'react-icons/fa';
 import { IoIosMail } from "react-icons/io";
+import { site } from '@/data/site';
 
 export default function Footer() {
     return (
@@ -10,7 +10,7 @@ export default function Footer() {
                 <div className="flex flex-col gap-3">
                     <div className="flex items-center gap-3">
                         <ApplicationLogo className='h-10 w-10' />
-                        <span className="text-lg font-bold text-white font-header">JCP Profile</span>
+                        <span className="text-lg font-bold text-white font-header">{site.name}</span>
                     </div>
                     <p className="text-xs text-primary-100 leading-relaxed max-w-xs">
                         Jombang Creative Project (JCP) menyediakan jasa laser cutting presisi & profesional untuk kebutuhan media akrilik, kayu, MDF, trophy, neon box, dan dekorasi kustom Anda.
@@ -36,13 +36,19 @@ export default function Footer() {
                     <h4 className="text-sm font-bold text-white uppercase tracking-wider font-header">Hubungi Kami</h4>
                     <p className='flex items-start gap-4'>
                         <FaMapMarkerAlt className='w-8 h-8' />
-                        Dsn Menganto RT 07 Rw 02 nomor 54, Menganto, Kec. Mojowarno, Kabupaten Jombang, Jawa Timur 61475</p>
+                        {site.address}
+                    </p>
                     <p className='flex items-start gap-4'>
-                        <IoIosMail className='w-4 h-4' /> info@jombangcreativeproject.com
+                        <IoIosMail className='w-4 h-4' />
+                        <a href={`mailto:${site.email}`} className="hover:text-white transition-colors">
+                            {site.email}
+                        </a>
                     </p>
                     <p className="flex items-center gap-4">
                         <FaPhoneAlt className="w-4 h-4" />
-                        +62 812-3456-7890
+                        <a href={`tel:${site.phone.replace(/[^+\d]/g, '')}`} className="hover:text-white transition-colors">
+                            {site.phone}
+                        </a>
                     </p>
                 </div>
 

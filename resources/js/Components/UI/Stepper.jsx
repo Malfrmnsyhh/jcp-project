@@ -1,5 +1,3 @@
-import React from 'react';
-import { motion } from 'framer-motion';
 import { FiCheck } from 'react-icons/fi';
 
 export default function Stepper({ steps, currentStep, onStepClick }) {
@@ -17,12 +15,13 @@ export default function Stepper({ steps, currentStep, onStepClick }) {
                 {steps.map((step, idx) => {
                     const isCompleted = currentStep > idx;
                     const isActive = currentStep === idx;
-                    const isClickable = true; // Based on Order.md: "user boleh bebas klik mundur/maju"
 
                     return (
                         <div key={idx} className="relative z-10 flex flex-col items-center group">
                             <button
-                                onClick={() => isClickable && onStepClick(idx)}
+                                type="button"
+                                aria-current={isActive ? 'step' : undefined}
+                                onClick={() => onStepClick?.(idx)}
                                 className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-bold text-sm sm:text-base transition-all duration-300 border-4 ${
                                     isActive 
                                         ? 'bg-primary-600 text-white border-primary-200 scale-110 shadow-lg' 

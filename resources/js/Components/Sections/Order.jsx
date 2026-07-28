@@ -1,24 +1,11 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { FiMousePointer, FiMessageCircle, FiCreditCard, FiCheckCircle } from 'react-icons/fi';
+import { staggerContainer, fadeInUp } from '@/utils/motion';
 
 const stepIcons = [FiMousePointer, FiMessageCircle, FiCreditCard, FiCheckCircle];
 
-const containerVariants = {
-    hidden: {},
-    visible: {
-        transition: { staggerChildren: 0.2, delayChildren: 0.1 },
-    },
-};
-
-const cardVariants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.5, ease: 'easeOut' },
-    },
-};
+const containerVariants = staggerContainer(0.2, 0.1);
+const cardVariants = fadeInUp(0.5, 40);
 
 export default function HowItWorks({ steps = [] }) {
     if (!steps || steps.length === 0) return null;

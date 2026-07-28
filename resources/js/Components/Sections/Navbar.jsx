@@ -4,23 +4,25 @@ import ApplicationLogo from '@/Components/UI/ApplicationLogo';
 import { FiMenu, FiX } from 'react-icons/fi';
 import { FaShoppingCart } from 'react-icons/fa';
 
-export default function Navbar({ user }) {
+// Data statis — didefinisikan di luar komponen supaya identitasnya stabil
+// antar-render dan aman dipakai di dalam useEffect.
+const navItems = [
+    { label: 'Beranda', href: '#hero', sectionId: 'hero' },
+    { label: 'Bahan', href: '#materials', sectionId: 'materials' },
+    { label: 'Portfolio', href: '#portfolio', sectionId: 'portfolio' },
+    { label: 'Order', href: '#order', sectionId: 'order' },
+    { label: 'Testimoni', href: '#testimoni', sectionId: 'testimoni' },
+    { label: 'Tentang', href: '#about', sectionId: 'about' },
+    { label: 'FAQ', href: '#faq', sectionId: 'faq' },
+];
+
+export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [activeSection, setActiveSection] = useState('');
     const [scrolled, setScrolled] = useState(false);
     const { url } = usePage();
     const isHomePage = url === '/' || url === '' || url.startsWith('/#');
     const showSolidNavbar = scrolled || !isHomePage;
-
-    const navItems = [
-        { label: 'Beranda', href: '#hero', sectionId: 'hero' },
-        { label: 'Bahan', href: '#materials', sectionId: 'materials' },
-        { label: 'Portfolio', href: '#portfolio', sectionId: 'portfolio' },
-        { label: 'Order', href: '#order', sectionId: 'order' },
-        { label: 'Testimoni', href: "#testimoni", sectionId: "testimoni" },
-        { label: 'Tentang', href: '#about', sectionId: 'about' },
-        { label: 'FAQ', href: '#faq', sectionId: 'faq' },
-    ];
 
     // Scroll spy: detect which section is visible
     useEffect(() => {

@@ -1,15 +1,15 @@
 import ApplicationLogo from '@/Components/UI/ApplicationLogo';
-import AdminHeader from '@/Components/UI/AdminHeader';
+import AdminHeader from '@/Components/Layout/AdminHeader';
 import { Link, router, usePage } from '@inertiajs/react';
 import { useState, useEffect } from 'react';
 import { FaSignOutAlt, FaTimes } from 'react-icons/fa';
 import { getMenuGroups } from '@/data/MenuNav';
+import { getInitials } from '@/utils/user';
 
 export default function AuthenticatedLayout({ header, title, path, children }) {
     const { auth, orderBaruCount = 0 } = usePage().props;
     const user = auth.user;
 
-    // Sidebar state: mobile drawer open & desktop collapsed (persisted in localStorage)
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [isCollapsed, setIsCollapsed] = useState(() => {
         if (typeof window !== 'undefined') {
@@ -36,20 +36,9 @@ export default function AuthenticatedLayout({ header, title, path, children }) {
         return () => clearInterval(interval);
     }, []);
 
-    // Ambil susunan menu dari file data/MenuNav.jsx
     const menuGroups = getMenuGroups();
-
-    // Find active menu item label for breadcrumb
     const activeMenuItem = menuGroups.flatMap(g => g.items).find(i => i.active);
     const pageTitle = title || (activeMenuItem ? activeMenuItem.label : 'Dashboard');
-
-    // Helper initials
-    const getInitials = (name) => {
-        if (!name) return 'A';
-        const parts = name.trim().split(' ');
-        if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
-        return name.substring(0, 2).toUpperCase();
-    };
 
     return (
         <div className="min-h-screen bg-neutral-100 flex flex-col md:flex-row relative">
@@ -212,10 +201,9 @@ export default function AuthenticatedLayout({ header, title, path, children }) {
             {/* Main Content Area */}
             <div className="flex-1 flex flex-col min-w-0">
                 <AdminHeader
-                    sidebarOpen={sidebarOpen}
-                    setSidebarOpen={setSidebarOpen}
+                    onToggleSidebar={() => setSidebarOpen((open) => !open)}
+                    onToggleCollapse={toggleCollapse}
                     isCollapsed={isCollapsed}
-                    setIsCollapsed={toggleCollapse}
                     title={pageTitle}
                     path={path}
                 />
