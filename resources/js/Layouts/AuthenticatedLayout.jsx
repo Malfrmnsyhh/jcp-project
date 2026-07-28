@@ -41,16 +41,16 @@ export default function AuthenticatedLayout({ header, children }) {
 
             {/* Sidebar (Desktop Collapsible & Mobile Slideover) */}
             <aside className={`
-                fixed inset-y-0 left-0 z-50 bg-primary-900 text-primary-100 flex flex-col border-r border-primary-800 transition-all duration-300 transform
-                md:translate-x-0 md:relative md:flex shrink-0
+                fixed inset-y-0 left-0 z-50 bg-primary-900 text-primary-100 flex flex-col border-r border-primary-800 transition-all duration-300 transform h-screen
+                md:translate-x-0 md:sticky md:top-0 md:h-screen shrink-0
                 ${isCollapsed ? 'md:w-20' : 'md:w-64'}
                 ${sidebarOpen ? 'translate-x-0 w-64' : '-translate-x-full w-64 md:translate-x-0'}
             `}>
-                {/* Logo Area & Collapse Toggle */}
-                <div className="p-4 sm:p-5 border-b border-primary-800 flex items-center justify-between">
+                {/* 1. STICKY TOP: Logo Area & Collapse Toggle */}
+                <div className="shrink-0 z-10 bg-primary-900 p-4 sm:p-5 border-b border-primary-800 flex items-center justify-between">
                     <div className={`flex items-center gap-3 overflow-hidden ${isCollapsed ? 'md:justify-center md:w-full' : ''}`}>
                         <ApplicationLogo className="h-8 w-auto fill-current text-white shrink-0" />
-                        <span className={`font-header font-bold text-base text-white truncate transition-opacity duration-200 ${isCollapsed ? 'md:hidden' : 'block'}`}>
+                        <span className={`font-header font-bold text-base text-white truncate transition-all duration-200 ${isCollapsed ? 'md:hidden' : 'block'}`}>
                             JCP Admin
                         </span>
                     </div>
@@ -61,8 +61,8 @@ export default function AuthenticatedLayout({ header, children }) {
                     </button>
                 </div>
 
-                {/* Nav Links */}
-                <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-5 hide-scrollbar">
+                {/* 2. SCROLLABLE MIDDLE: Nav Links */}
+                <nav className="flex-1 overflow-y-auto min-h-0 px-3 py-4 space-y-5 hide-scrollbar">
                     {menuGroups.map((group, index) => (
                         <div key={index} className="space-y-1.5">
                             {/* Group Title */}
@@ -108,24 +108,17 @@ export default function AuthenticatedLayout({ header, children }) {
                                             href={item.href}
                                             title={isCollapsed ? item.label : undefined}
                                             className={`
-                                                flex items-center text-xs font-semibold rounded-xl transition-all duration-300 ease-out relative group overflow-hidden
+                                                flex items-center text-xs font-semibold rounded-xl transition-all duration-200 ease-out relative group
                                                 ${isCollapsed ? 'md:justify-center p-2.5' : 'justify-between px-3.5 py-2.5'}
                                                 ${item.active
-                                                    ? 'bg-linear-to-r from-primary-600 via-primary-700 to-primary-800 text-white font-extrabold shadow-md shadow-primary-950/40 ring-1 ring-white/15'
-                                                    : 'text-primary-200 hover:bg-primary-800/70 hover:text-white hover:translate-x-1.5 hover:shadow-xs'}
+                                                    ? 'bg-primary-800 text-white font-bold border-l-4 border-primary-400 shadow-xs'
+                                                    : 'text-primary-200 hover:bg-primary-800/60 hover:text-white hover:translate-x-1'}
                                             `}
                                         >
-                                            {/* Active Glow Pill Indicator */}
-                                            {item.active && (
-                                                <span className="absolute left-0 top-2 bottom-2 w-1 bg-primary-300 rounded-r-full shadow-[0_0_8px_rgba(72,202,228,0.8)]" />
-                                            )}
-
                                             <div className="flex items-center gap-3">
                                                 <Icon
-                                                    className={`w-4 h-4 shrink-0 transition-all duration-300 ${
-                                                        item.active
-                                                            ? 'text-primary-300 scale-110 drop-shadow-[0_0_6px_rgba(72,202,228,0.6)]'
-                                                            : 'group-hover:text-primary-300 group-hover:scale-110'
+                                                    className={`w-4 h-4 shrink-0 transition-transform duration-200 ${
+                                                        item.active ? 'text-primary-300' : 'group-hover:text-primary-300'
                                                     }`}
                                                 />
                                                 <span className={`${isCollapsed ? 'md:hidden' : 'block'} truncate tracking-wide`}>
@@ -147,7 +140,7 @@ export default function AuthenticatedLayout({ header, children }) {
 
                                             {/* Tooltip on Collapsed Mode */}
                                             {isCollapsed && (
-                                                <div className="hidden md:group-hover:block absolute left-full ml-3 px-3 py-1.5 bg-primary-950 text-white text-xs font-bold rounded-lg shadow-xl whitespace-nowrap z-50 pointer-events-none">
+                                                <div className="hidden md:group-hover:block absolute left-full ml-3 px-3 py-1.5 bg-primary-950 border border-primary-800 text-white text-xs font-bold rounded-lg shadow-xl whitespace-nowrap z-50 pointer-events-none">
                                                     {item.label}
                                                 </div>
                                             )}
@@ -159,8 +152,8 @@ export default function AuthenticatedLayout({ header, children }) {
                     ))}
                 </nav>
 
-                {/* User Footer Info */}
-                <div className="p-3 border-t border-primary-800 bg-primary-950 flex items-center justify-between text-xs overflow-hidden">
+                {/* 3. STICKY BOTTOM: User Footer Info */}
+                <div className="shrink-0 z-10 bg-primary-950 p-3 border-t border-primary-800 flex items-center justify-between text-xs overflow-hidden">
                     {!isCollapsed ? (
                         <>
                             <div className="min-w-0 pr-2">
@@ -179,7 +172,10 @@ export default function AuthenticatedLayout({ header, children }) {
                         </>
                     ) : (
                         <div className="w-full flex flex-col items-center gap-2 py-1">
-                            <div className="w-8 h-8 rounded-full bg-primary-800 text-white font-bold text-xs flex items-center justify-center shadow-xs">
+                            <div
+                                className="w-8 h-8 rounded-full bg-primary-800 text-white font-bold text-xs flex items-center justify-center shadow-xs cursor-pointer"
+                                title={`${user?.name} (${user?.email})`}
+                            >
                                 {getInitials(user?.name)}
                             </div>
                             <Link
