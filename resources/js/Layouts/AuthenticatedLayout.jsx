@@ -61,10 +61,10 @@ export default function AuthenticatedLayout({ header, children }) {
                 ${sidebarOpen ? 'translate-x-0 w-64' : '-translate-x-full w-64 md:translate-x-0'}
             `}>
                 <div className="shrink-0 z-10 bg-primary-900 p-4 sm:p-5 border-b border-primary-800 flex items-center justify-between">
-                    <div className={`flex items-center gap-3 overflow-hidden ${isCollapsed ? 'md:justify-center md:w-full' : ''}`}>
+                    <div className={`flex items-center gap-2 overflow-hidden ${isCollapsed ? 'md:justify-center md:w-full' : ''}`}>
                         <ApplicationLogo className="h-8 w-auto fill-current text-white shrink-0" />
                         <span className={`font-header font-bold text-base text-white truncate transition-all duration-200 ${isCollapsed ? 'md:hidden' : 'block'}`}>
-                            JCP Admin
+                            {isCollapsed ? getInitials(user.name) : user.name}
                         </span>
                     </div>
 
@@ -123,13 +123,13 @@ export default function AuthenticatedLayout({ header, children }) {
                                                 flex items-center text-xs font-semibold rounded-xl transition-all duration-200 ease-out relative group
                                                 ${isCollapsed ? 'md:justify-center p-2.5' : 'justify-between px-3.5 py-2.5'}
                                                 ${item.active
-                                                    ? 'bg-primary-800 text-white font-bold border-l-4 border-primary-400 shadow-xs'
-                                                    : 'text-primary-200 hover:bg-primary-800/60 hover:text-white hover:translate-x-1'}
+                                                    ? 'text-white font-bold bg-primary-500/70 '
+                                                    : 'text-primary-100 hover:bg-primary-800/60 hover:text-white hover:translate-x-1'}
                                             `}
                                         >
                                             <div className="flex items-center gap-3">
                                                 <Icon
-                                                    className={`w-4 h-4 shrink-0 transition-transform duration-200 ${item.active ? 'text-primary-300' : 'group-hover:text-primary-300'
+                                                    className={`w-4 h-4 shrink-0 transition-transform duration-200 ${item.active ? 'text-primary-300' : 'group-hover:text-primary-100'
                                                         }`}
                                                 />
                                                 <span className={`${isCollapsed ? 'md:hidden' : 'block'} truncate tracking-wide`}>
