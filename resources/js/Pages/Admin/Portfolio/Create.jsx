@@ -43,7 +43,7 @@ export default function Create() {
                             <Link
                                 href={route('admin.portfolio.index')}
                                 className="text-neutral-600 hover:text-primary-600 hover:-translate-x-1 transition-all duration-300">
-                                <FaArrowLeft className='w-4 h-4' />
+                                <FaArrowLeft className='w-5 h-5' />
                             </Link>
                             <h2 className='text-base font-bold text-neutral-800'>Tambah Portofolio</h2>   
                         </div>
