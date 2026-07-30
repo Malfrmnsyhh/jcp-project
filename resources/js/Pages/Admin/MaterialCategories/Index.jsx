@@ -142,7 +142,6 @@ export default function Index({ categories, flash }) {
                 )}
             </div>
 
-            {/* Modal Konfirmasi Hapus */}
             <AnimatePresence>
                 {itemToDelete && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-900/40 backdrop-blur-sm">
