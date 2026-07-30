@@ -2,7 +2,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaPlus, FaEdit, FaTrash, FaTrashAlt, FaStar } from 'react-icons/fa';
+import { FaPlus, FaEdit, FaTrashAlt, FaStar } from 'react-icons/fa';
 
 export default function Index({ testimonials }) {
     const [itemToDelete, setItemToDelete] = useState(null);
@@ -84,7 +84,7 @@ export default function Index({ testimonials }) {
                                                 className="inline-flex text-rose-600 hover:text-rose-800 transition-colors"
                                                 title="Hapus"
                                             >
-                                                <FaTrash className="w-4 h-4" />
+                                                <FaTrashAlt className="w-4 h-4" />
                                             </button>
                                         </td>
                                     </tr>
@@ -95,7 +95,6 @@ export default function Index({ testimonials }) {
                 </div>
             </div>
 
-            {/* Modal Konfirmasi Hapus */}
             <AnimatePresence>
                 {itemToDelete && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-neutral-900/40 backdrop-blur-sm">

@@ -13,27 +13,20 @@ export default function Edit({ category }) {
     };
 
     return (
-        <AuthenticatedLayout
-            header={
-                <div className="flex items-center gap-4">
-                    <Link
-                        href={route('admin.material-categories.index')}
-                        className="text-neutral-500 hover:text-neutral-700 transition-colors"
-                    >
-                        <FaArrowLeft className="w-5 h-5" />
-                    </Link>
-                    <h2 className="text-xl font-bold leading-tight text-neutral-800">
-                        Edit Kategori: {category.name}
-                    </h2>
-                </div>
-            }
-        >
+        <AuthenticatedLayout>
             <Head title={`Edit Kategori - ${category.name}`} />
 
             <div className="max-w-7xl bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden">
                 <form onSubmit={submit} className="p-6 sm:p-8">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
-                        {/* Kolom Kiri */}
+                        <div className='col-span-full flex items-center gap-4 mb-4'>
+                            <Link 
+                                href={route('admin.material-categories.index')}
+                                className="text-neutral-600 hover:text-primary-600 hover:-translate-x-1 transition-all duration-300">
+                                <FaArrowLeft className='w-5 h-5' />
+                            </Link>
+                            <h2 className='text-base font-bold text-neutral-800'>Edit Kategori</h2>   
+                        </div>
                         <div className="lg:col-span-7 space-y-6">
                             <h3 className="text-sm font-bold text-neutral-800 uppercase tracking-wider border-b pb-2">
                                 Informasi Kategori

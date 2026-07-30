@@ -17,13 +17,7 @@ export default function Index({ categories, flash }) {
     };
 
     return (
-        <AuthenticatedLayout
-            header={
-                <h2 className="text-xl font-bold leading-tight text-neutral-800">
-                    Kategori Bahan
-                </h2>
-            }
-        >
+        <AuthenticatedLayout>
             <Head title="Kategori Bahan" />
 
             {/* Flash Messages */}
