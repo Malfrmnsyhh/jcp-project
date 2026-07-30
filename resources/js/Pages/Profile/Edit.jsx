@@ -9,7 +9,7 @@ export default function Edit({ mustVerifyEmail, status }) {
         <AuthenticatedLayout>
             <Head title="Pengaturan Profil" />
 
-            <div className="max-w-3xl space-y-6">
+            <div className="max-w-full space-y-6">
                 <div className="bg-white rounded-xl border border-neutral-200 p-6 sm:p-8">
                     <UpdateProfileInformationForm
                         mustVerifyEmail={mustVerifyEmail}

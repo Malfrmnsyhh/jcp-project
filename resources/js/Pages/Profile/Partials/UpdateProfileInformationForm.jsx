@@ -1,7 +1,5 @@
-import InputError from '@/Components/UI/InputError';
-import InputLabel from '@/Components/UI/InputLabel';
+import FloatingInput from '@/Components/UI/FloatingInput';
 import PrimaryButton from '@/Components/UI/PrimaryButton';
-import TextInput from '@/Components/UI/TextInput';
 import { Transition } from '@headlessui/react';
 import { Link, useForm, usePage } from '@inertiajs/react';
 
@@ -29,54 +27,43 @@ export default function UpdateProfileInformation({
                 <h2 className="text-lg font-bold text-neutral-900 font-header">
                     Informasi Profil Administrator
                 </h2>
-
                 <p className="mt-1 text-sm text-neutral-600">
                     Perbarui nama lengkap dan alamat email akun administrator Anda.
                 </p>
             </header>
 
-            <form onSubmit={submit} className="mt-6 space-y-6">
-                <div>
-                    <InputLabel htmlFor="name" value="Nama Lengkap" />
+            <form onSubmit={submit} className="mt-8 space-y-7">
+                <FloatingInput
+                    id="name"
+                    label="Nama Lengkap"
+                    value={data.name}
+                    isFocused
+                    autoComplete="name"
+                    error={errors.name}
+                    onChange={(e) => setData('name', e.target.value)}
+                    required
+                />
 
-                    <TextInput
-                        id="name"
-                        className="mt-1.5 block w-full"
-                        value={data.name}
-                        onChange={(e) => setData('name', e.target.value)}
-                        required
-                        isFocused
-                        autoComplete="name"
-                    />
-
-                    <InputError className="mt-2" message={errors.name} />
-                </div>
-
-                <div>
-                    <InputLabel htmlFor="email" value="Alamat Email" />
-
-                    <TextInput
-                        id="email"
-                        type="email"
-                        className="mt-1.5 block w-full"
-                        value={data.email}
-                        onChange={(e) => setData('email', e.target.value)}
-                        required
-                        autoComplete="username"
-                    />
-
-                    <InputError className="mt-2" message={errors.email} />
-                </div>
+                <FloatingInput
+                    id="email"
+                    type="email"
+                    label="Alamat Email"
+                    value={data.email}
+                    autoComplete="username"
+                    error={errors.email}
+                    onChange={(e) => setData('email', e.target.value)}
+                    required
+                />
 
                 {mustVerifyEmail && user.email_verified_at === null && (
                     <div>
-                        <p className="mt-2 text-sm text-neutral-800">
-                            Alamat email Anda belum terverifikasi.
+                        <p className="text-sm text-neutral-800">
+                            Alamat email Anda belum terverifikasi.{' '}
                             <Link
                                 href={route('verification.send')}
                                 method="post"
                                 as="button"
-                                className="rounded-md text-sm text-primary-700 underline hover:text-primary-800 focus:outline-none"
+                                className="text-sm text-primary-700 underline hover:text-primary-800 focus:outline-none"
                             >
                                 Klik di sini untuk mengirim ulang email verifikasi.
                             </Link>
